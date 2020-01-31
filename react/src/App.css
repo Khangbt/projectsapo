@@ -117,4 +117,26 @@
   padding: 0;
   margin-bottom: 8px;
 }
-
+.homeleft{
+  border-right: 1px solid gray;
+}
+.tableorder{
+  margin-top: 10px;
+  height: 200px;
+}
+.listproductsearch{
+  margin-top: 10px;
+}
+form input{
+  margin-top: 5px;
+}
+.dsguest{
+  position: relative;
+}
+.dsguest ul li{
+  border-bottom: 1px solid gray;
+  cursor: pointer
+}
+.dsguest ul li:hover{
+  background-color: gray
+}
