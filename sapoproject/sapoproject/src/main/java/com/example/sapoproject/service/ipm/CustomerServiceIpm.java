@@ -1,9 +1,12 @@
 package com.example.sapoproject.service.ipm;
 
+import com.example.sapoproject.annotation.Test;
 import com.example.sapoproject.entity.CustomerEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public interface CustomerServiceIpm {
@@ -13,4 +16,5 @@ public interface CustomerServiceIpm {
         Optional<CustomerEntity> getIdCustomer(int id);
         void  save(CustomerEntity entity);
         boolean checkId(int id);
+        List<Map<String,Object>> getAll1();
 }

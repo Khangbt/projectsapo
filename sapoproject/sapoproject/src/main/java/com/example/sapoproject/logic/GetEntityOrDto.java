@@ -7,7 +7,12 @@ public class GetEntityOrDto {
         Field[] fieldDto=dtoClass.getDeclaredFields();
         Field[] fieldsEntity=entityClass.getDeclaredFields();
         for (Field field: fieldDto){
-            
+            for (Field fieldEntity :fieldsEntity){
+                if(field.getName().equals(fieldEntity.getName())){
+                    field.setAccessible(true);
+
+                }
+            }
         }
     return null;}
 }

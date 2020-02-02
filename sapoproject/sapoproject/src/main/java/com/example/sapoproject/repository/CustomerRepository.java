@@ -1,12 +1,16 @@
 package com.example.sapoproject.repository;
 
 
+import com.example.sapoproject.annotation.Test;
 import com.example.sapoproject.entity.CustomerEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
+import java.util.Map;
 
 @Repository
 public interface CustomerRepository extends CrudRepository<CustomerEntity,Integer> {
@@ -16,4 +20,6 @@ public interface CustomerRepository extends CrudRepository<CustomerEntity,Intege
     Page<CustomerEntity> getSdt(Pageable pageable,int sdt);
     @Query("select e from  CustomerEntity as e")
     Page<CustomerEntity> getAllCustoomer(Pageable pageable);
+    @Query(value = "select e.idcustomer,e.city,e.name_customer from pos.customer  as e",nativeQuery = true)
+    List<Map<String,Object>> getAll123();
 }
