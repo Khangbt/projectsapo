@@ -10,9 +10,9 @@ class Menu extends Component{
       <div className="sidebar-heading"><b>POS SHOP KHSK</b></div>
       <div className="list-group list-group-flush">
         <Link to="/" className="list-group-item list-group-item-action bg-light">Home</Link>
-        <Link to="/productList" className="list-group-item list-group-item-action bg-light">Quản lý sản phẩm</Link>
-        <Link to="/customerList" className="list-group-item list-group-item-action bg-light">Quản lý khách hàng</Link>
-        <Link to="/orderList" className="list-group-item list-group-item-action bg-light">Quản lý đơn hàng</Link>
+        <Link to="/product" className="list-group-item list-group-item-action bg-light">Quản lý sản phẩm</Link>
+        <Link to="/customer" className="list-group-item list-group-item-action bg-light">Quản lý khách hàng</Link>
+        <Link to="/order" className="list-group-item list-group-item-action bg-light">Quản lý đơn hàng</Link>
       </div>
     </div>
         )

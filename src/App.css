@@ -117,4 +117,17 @@
   padding: 0;
   margin-bottom: 8px;
 }
+.col-md-3{
+  display: flex;
+  border: 2px solid white;
+  border-radius: 44px;
+}
+.col-md-3 i{
+  margin-top: 10px;
+  margin-right: 10px;
+}
+.col-md-3 input{
+  margin-right: -15px;
+  border-radius: inherit;
+}
 

@@ -17,19 +17,19 @@ class AddProduct extends Component {
                             <label>Tên sản phẩm : </label>
                             <input type="text" className="form-control" name="nameProduct" onChange={this.onChange} required/>
                             <label>Mã sản phẩm : </label>
-                            <input type="number" className="form-control" name="productCost" onChange={this.onChange} required />
+                            <input type="number" className="form-control" name="codeProduct" onChange={this.onChange} required />
                             <label>Số lượng tồn : </label>
-                            <input type="number" className="form-control" name="numberProduct" onChange={this.onChange} />
+                            <input type="number" className="form-control" name="inventory" onChange={this.onChange} />
                             <label>Giá bán : </label>
-                            <input type="number" className="form-control" name="pathImageProduct" onChange={this.onChange} />
+                            <input type="number" className="form-control" name="costProduct" onChange={this.onChange} />
                             <label>Mô tả sản phẩm : </label>
                             <textarea row='3' className="form-control" name="descriptionProduct" onChange={this.onChange} />
                         </div>
-                        <Link to ="/productList"><button type="submit" className="btn btn-danger"> Quay lại</button></Link>&nbsp;
+                        <Link to ="/product"><button type="submit" className="btn btn-danger"> Quay lại</button></Link>&nbsp;
                     <button type="submit" className="btn btn-success" >
                             Save</button>
                     </form>
-
+                  
                 </div>
                     </div>
                 </div>
