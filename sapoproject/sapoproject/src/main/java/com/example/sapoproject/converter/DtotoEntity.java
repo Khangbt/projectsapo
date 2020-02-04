@@ -15,6 +15,7 @@ public class DtotoEntity {
                 Object value = field.get(oDto);
                 if (!((value == null) || value.equals(0) || value.equals(""))) {
                     for (Field field1 : fieldEntity){
+
                         if(field1.getName().equals(field.getName())){
                             field1.setAccessible(true);
                             field1.set(oEntity,value);

@@ -14,19 +14,19 @@ public class MaptoDto {
             Field[] fields=o.getClass().getDeclaredFields();
             Set<String> set=map.keySet();
             for (String s: set){
+                String c=removeCharAt(s);
                 for (Field field:fields){
-                    if(s.toLowerCase().equals(field.getName().toLowerCase())){
+                    if(c.toLowerCase().equals(field.getName().toLowerCase())){
                         try {
                             field.setAccessible(true);
                             field.set(o,map.get(s));
                         }catch (Exception e){
-
+                                System.out.println(e.getMessage());
                         }
 
                     }
                 }
             }
-
             return o;
         } catch (ReflectiveOperationException e) {
             return null;
@@ -40,5 +40,12 @@ public class MaptoDto {
             objects.add(getMap(aClass,map));
         }
         return objects;
+    }
+    public  String removeCharAt(String s) {
+        int pos=s.indexOf("_");
+        if (pos==-1){
+            return s;
+        }
+        return s.substring(0, pos) + s.substring(pos + 1);
     }
 }
