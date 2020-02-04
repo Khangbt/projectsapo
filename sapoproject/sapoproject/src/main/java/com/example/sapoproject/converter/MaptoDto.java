@@ -7,31 +7,38 @@ import java.util.Map;
 import java.util.Set;
 
 public class MaptoDto {
-    public Object getMap(Object o, Map<String,Object> map){
-        Field[] fields=o.getClass().getDeclaredFields();
-        Set<String> set=map.keySet();
-        for (String s: set){
-            for (Field field:fields){
-                if(s.toLowerCase().equals(field.getName().toLowerCase())){
-                    try {
-                        field.setAccessible(true);
-                        field.set(o,map.get(s));
-                    }catch (Exception e){
+    public Object getMap(Class o1, Map<String,Object> map) {
+        Object o= null;
+        try {
+            o = o1.getDeclaredConstructor().newInstance();
+            Field[] fields=o.getClass().getDeclaredFields();
+            Set<String> set=map.keySet();
+            for (String s: set){
+                for (Field field:fields){
+                    if(s.toLowerCase().equals(field.getName().toLowerCase())){
+                        try {
+                            field.setAccessible(true);
+                            field.set(o,map.get(s));
+                        }catch (Exception e){
+
+                        }
 
                     }
-
                 }
             }
+
+            return o;
+        } catch (ReflectiveOperationException e) {
+            return null;
         }
 
-        return o;
     }
-    public List<Object> getMapList(List<Map<String,Object>> maps){
+    public List<?> getMapList(List<Map<String,Object>> maps,Class aClass){
         List<Object> objects=new ArrayList<>();
-                for (Map<String,Object> map : maps){
-                    Object o=null;
-                    objects.add(getMap(o,map));
-                }
-    return objects;
+        for (Map<String,Object> map : maps){
+
+            objects.add(getMap(aClass,map));
+        }
+        return objects;
     }
 }

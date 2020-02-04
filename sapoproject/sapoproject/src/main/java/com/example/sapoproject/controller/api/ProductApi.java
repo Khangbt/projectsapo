@@ -2,6 +2,7 @@ package com.example.sapoproject.controller.api;
 
 import com.example.sapoproject.converter.DtotoEntity;
 import com.example.sapoproject.dto.ProductDto;
+import com.example.sapoproject.entity.CustomerEntity;
 import com.example.sapoproject.entity.ProductEntity;
 import com.example.sapoproject.service.ipm.ProductServiceIpm;
 import org.hibernate.annotations.Parameter;
@@ -50,9 +51,15 @@ public class ProductApi {
 
         return new ResponseEntity<>(entity,HttpStatus.OK);
     }
-    @RequestMapping(value = "/product/{id}",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/product/{id}",method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> putProduct(@Valid @RequestBody ProductDto productDto,@PathVariable int id){
-
-        return new ResponseEntity<>(null,HttpStatus.OK);
+        Optional<ProductEntity> customerEntity = productServiceIpm.getId(id);
+        if (!customerEntity.isPresent()) {
+            return new ResponseEntity<>("ko có giá trị", HttpStatus.NOT_FOUND);
+        }
+        ProductEntity entity = customerEntity.get();
+        entity = (ProductEntity) DtotoEntity.getDTO(entity, productDto);
+        productServiceIpm.save(entity);
+        return new ResponseEntity<>(entity, HttpStatus.OK);
     }
 }

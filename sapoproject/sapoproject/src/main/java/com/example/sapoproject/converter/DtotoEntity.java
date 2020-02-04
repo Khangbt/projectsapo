@@ -1,6 +1,9 @@
 package com.example.sapoproject.converter;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DtotoEntity {
     public static Object getDTO(Object oEntity, Object oDto) {
@@ -24,4 +27,19 @@ public class DtotoEntity {
         }
 
     return oEntity;}
+    public static List<?> getList(List<Object> objects,Class aClass){
+        try {
+
+            List<Object> list=new ArrayList<>();
+            for (Object o1:objects){
+                Object o=aClass.getDeclaredConstructor().newInstance();
+                list.add(getDTO(o,o1));
+            }
+            return list;
+        } catch (ReflectiveOperationException e) {
+            e.printStackTrace();
+            return  null;
+        }
+    }
+
 }

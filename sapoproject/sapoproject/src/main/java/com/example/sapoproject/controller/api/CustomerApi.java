@@ -88,8 +88,8 @@ public class CustomerApi {
     public ResponseEntity<?> getIdAA() {
 
         List<Map<String, Object>> tests = customerServiceIpm.getAll1();
-        List<Object> tests1= new MaptoDto().getMapList(tests);
-        return new ResponseEntity<>(tests, HttpStatus.OK);
+        List<Test> tests1= (List<Test>) new MaptoDto().getMapList(tests,Test.class);
+        return new ResponseEntity<>(tests1, HttpStatus.OK);
     }
 
 }
