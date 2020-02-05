@@ -10,4 +10,5 @@ public interface OrderServiceIpm {
     Optional<OrderbyEntity> getId(int id);
     void save(OrderbyEntity entity);
     Iterable<Map<String,Object>> getAllOrder();
+    int getMaxOrder();
 }

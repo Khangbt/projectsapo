@@ -14,5 +14,7 @@ public interface OrderRepository extends CrudRepository<OrderbyEntity,Integer> {
                    "from customer,orderby,payment where customer.idcustomer=orderby.idcustomer and " +
                    "payment.idpayment=orderby.id_payment_methods",nativeQuery = true)
     Iterable<Map<String,Object>> getAll();
+    @Query(value = "select max(idorder) from orderby",nativeQuery = true)
+    int getMaxOrder();
 }
 

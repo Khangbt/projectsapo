@@ -53,7 +53,8 @@ public class DtotoEntity {
         }
 
 
-        return oEntity;}
+        return oEntity;
+    }
     public static List<?> getList(List<?> objects,Class aClass){
         try {
 

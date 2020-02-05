@@ -32,5 +32,10 @@ public class OrderService implements OrderServiceIpm {
         return orderRepository.getAll();
     }
 
+    @Override
+    public int getMaxOrder() {
+        return orderRepository.getMaxOrder();
+    }
+
 
 }

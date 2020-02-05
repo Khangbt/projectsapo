@@ -15,6 +15,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -74,10 +76,20 @@ public class OrderApi {
     public ResponseEntity<?> getOrderSp(@RequestBody SetOrderDto setOrderDto){
         try {
             OrderbyEntity orderbyEntity= (OrderbyEntity) DtotoEntity.getDTOTest(OrderbyEntity.class,setOrderDto);
+            Date date=new Date();
+            orderbyEntity.setDateSale(new Timestamp(date.getTime()));
             List<SalesboardEntity> salesboardEntities= (List<SalesboardEntity>) DtotoEntity.getList(setOrderDto.getSalesboarDtos(),SalesboardEntity.class);
+
+            int isau=orderServiceIpm.getMaxOrder();
+           orderServiceIpm.save(orderbyEntity);
+         int i=orderServiceIpm.getMaxOrder();
+            for (SalesboardEntity salesboardEntity: salesboardEntities){
+                salesboardEntity.setIdorder(i);
+            }
+
+            System.out.println(isau+"---"+i);
             salesboardServiceImp.saveList(salesboardEntities);
-            orderServiceIpm.save(orderbyEntity);
-            return new ResponseEntity<>(setOrderDto,HttpStatus.OK);
+            return new ResponseEntity<>(salesboardEntities,HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity<>("lỗi",HttpStatus.NOT_FOUND);
         }

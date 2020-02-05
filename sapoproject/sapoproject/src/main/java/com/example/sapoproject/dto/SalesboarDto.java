@@ -1,17 +1,11 @@
 package com.example.sapoproject.dto;
 
 public class SalesboarDto {
-    private int idorder;
+
     private int idproduct;
     private Integer amount;
 
-    public int getIdorder() {
-        return idorder;
-    }
 
-    public void setIdorder(int idorder) {
-        this.idorder = idorder;
-    }
 
     public int getIdproduct() {
         return idproduct;
