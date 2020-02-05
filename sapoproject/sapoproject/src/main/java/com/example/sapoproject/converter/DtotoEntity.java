@@ -28,7 +28,33 @@ public class DtotoEntity {
         }
 
     return oEntity;}
-    public static List<?> getList(List<Object> objects,Class aClass){
+
+    public static Object getDTOTest(Class oE, Object oDto) {
+        Object oEntity=null;
+        Field[] fieldDto = oDto.getClass().getDeclaredFields();
+        Field[] fieldEntity = oE.getDeclaredFields();
+        try {
+            oEntity=oE.getDeclaredConstructor().newInstance();
+            for (Field field : fieldDto) {
+                field.setAccessible(true);
+                Object value = field.get(oDto);
+                if (!((value == null) || value.equals(0) || value.equals(""))) {
+                    for (Field field1 : fieldEntity){
+
+                        if(field1.getName().equals(field.getName())){
+                            field1.setAccessible(true);
+                            field1.set(oEntity,value);
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Lôi phần get type");
+        }
+
+
+        return oEntity;}
+    public static List<?> getList(List<?> objects,Class aClass){
         try {
 
             List<Object> list=new ArrayList<>();

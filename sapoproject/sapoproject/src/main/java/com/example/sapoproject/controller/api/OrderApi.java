@@ -1,8 +1,10 @@
 package com.example.sapoproject.controller.api;
 
+import com.example.sapoproject.converter.DtotoEntity;
 import com.example.sapoproject.converter.MaptoDto;
 import com.example.sapoproject.dto.GetOrderDto;
 import com.example.sapoproject.dto.NameDto;
+import com.example.sapoproject.dto.SetOrderDto;
 import com.example.sapoproject.entity.OrderbyEntity;
 import com.example.sapoproject.entity.SalesboardEntity;
 import com.example.sapoproject.service.ipm.OrderServiceIpm;
@@ -25,6 +27,7 @@ public class OrderApi {
     @Autowired
     private SalesboardServiceImp salesboardServiceImp;
     private MaptoDto maptoDto=new MaptoDto();
+//    private DtotoEntity dtotoEntity=new DtotoEntity();
 // tìm theo id order
     @RequestMapping(value = "/order/{id}",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getId(@PathVariable int id){
@@ -66,5 +69,18 @@ public class OrderApi {
         List<Map<String,Object>> entities=salesboardServiceImp.getName(id);
         List<NameDto> dtos= (List<NameDto>) maptoDto.getMapList(entities,NameDto.class);
         return new ResponseEntity<>(dtos, HttpStatus.OK);
+    }
+    @RequestMapping(value = "/setorder" ,method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getOrderSp(@RequestBody SetOrderDto setOrderDto){
+        try {
+            OrderbyEntity orderbyEntity= (OrderbyEntity) DtotoEntity.getDTOTest(OrderbyEntity.class,setOrderDto);
+            List<SalesboardEntity> salesboardEntities= (List<SalesboardEntity>) DtotoEntity.getList(setOrderDto.getSalesboarDtos(),SalesboardEntity.class);
+            salesboardServiceImp.saveList(salesboardEntities);
+            orderServiceIpm.save(orderbyEntity);
+            return new ResponseEntity<>(setOrderDto,HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>("lỗi",HttpStatus.NOT_FOUND);
+        }
+
     }
 }

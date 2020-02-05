@@ -2,10 +2,8 @@ package com.example.sapoproject.controller.api;
 
 import com.example.sapoproject.converter.DtotoEntity;
 import com.example.sapoproject.dto.ProductDto;
-import com.example.sapoproject.entity.CustomerEntity;
 import com.example.sapoproject.entity.ProductEntity;
 import com.example.sapoproject.service.ipm.ProductServiceIpm;
-import org.hibernate.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
