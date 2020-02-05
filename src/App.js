@@ -12,16 +12,25 @@ import DetailCustomer from './pages/CustomerPage/DetailCustomer';
 
 const checkSale = window.location.pathname !== "/sale" ? true : false
 class App extends Component {
-
+  constructor(props){
+    super(props);
+    this.state = {
+      a : true
+    }
+  }
+  toggle = (clickToggle) => {
+    this.setState ({
+      a : clickToggle
+    })
+  }
   render() {
     return (
       <Router>
-
         {checkSale &&
           <div className="d-flex">
-            <Menu />
+           {this.state.a && <Menu/>}
             <div id="page-content-wrapper">
-              <Head/>
+              <Head toggle={this.toggle}/>
               <div className="container-fluid">
                 {this.showContentManager(routes)}
                 <Route exact path="/product/id=:id" component={DetailProduct}/>

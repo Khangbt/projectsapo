@@ -5,12 +5,16 @@ import product from '../../Data/Product'
 
 class ProductList extends Component {
 
+  Detail = (e)=> {
+    console.log("ácdfad",e)
+    return < Link to = {'/product/id='+e}></Link>
+  }
  
   render() {
       console.log("aaaabbb",product)
       let elements = product.map((value, key) => {
-        return <tr>
-          <td>{key}</td>
+        return <tr  onClick={() => this.Detail(value.id)}>
+          <td id={value.id}>{key}</td>
           <td>no image</td>
           <td>{value.nameProduct}</td>
           <td>{value.codeProduct}</td>

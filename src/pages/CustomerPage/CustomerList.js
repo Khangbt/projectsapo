@@ -18,8 +18,6 @@ class CustomerList extends Component {
   }
 
   render() {
-
-
     let elements = customers.filter((customer) => {
       return customer.nameCustomer.toLowerCase().indexOf(this.state.textSearch) !== -1 || customer.phoneNumber.toString().indexOf(this.state.textSearch) !== -1
     }).map((value) => {
@@ -34,8 +32,6 @@ class CustomerList extends Component {
           <td><Link to ={'/customer/edit/id='+value.id}><button className="btn btn-warning">cập nhật</button></Link></td>
       </tr>
     })
-
-
     return (
       <div className="col-md-12 col-sm-12 col-xs-12" style={{ marginBottom: '5px', marginTop: '20px' }}>
         <h3 className="page-title" style={{ marginBottom: '20px' }}>Quản lý khách hàng</h3>
