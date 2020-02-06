@@ -14,7 +14,7 @@ class CustomerList extends Component {
     this.setState({
       textSearch: event.target.value.toLowerCase()
     })
-    console.log(this.state.textSearch)
+    console.log(typeof(this.state.textSearch))
   }
 
   render() {

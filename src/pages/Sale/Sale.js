@@ -75,29 +75,44 @@ class Sale extends Component {
   }
 
   addOrder = (productById) => {
-    this.setState(prevState => ({
-      listOrder: prevState.listOrder.concat({
-        id: productById.id,
-        nameProduct : productById.nameProduct,
-        quantity: 1,
-        costProduct : productById.costProduct
-      })
-    }))
+    var listOrder = this.state.listOrder.filter((order)=> order.id===productById.id)
+    if(listOrder.length === 0){
+      this.setState(prevState => ({
+        listOrder: prevState.listOrder.concat({
+          id: productById.id,
+          nameProduct : productById.nameProduct,
+          quantity: 1,
+          inventory : productById.inventory,
+          costProduct : productById.costProduct
+        })
+      }))
+    }
+    else{
+        for(var i = 0; i < this.state.listOrder.length; i++){
+          if(this.state.listOrder[i].id===productById.id){
+            this.increasequantity(productById,i)
+          }
+        }
+    }
+    
   }
   removeOrder = () => {
     this.setState({
       listOrder: []
     })
   }
-  increasequantity = (id,key) => {
+  increasequantity = (orderById,key) => {
   
-    var order = this.state.listOrder.filter((order)=> order.id === id)[0]
-    console.log("order tạm thời ",order)
+    var order = this.state.listOrder.filter((order)=> order.id === orderById.id)[0]
+    
     var listOrder = this.state.listOrder
-    console.log("số lượng", listOrder[key].quantity)
-    console.log("số lượng order tạm thời", order.quantity)
-    listOrder[key].quantity = order.quantity + 1
-    console.log("số lượng order sau +", listOrder[key].quantity)
+    if(listOrder[key].quantity < orderById.inventory){
+      listOrder[key].quantity = order.quantity + 1
+    }else{
+      alert("không đủ số lượng")
+    }
+    
+   
     this.setState({
       listOrder : listOrder
     })
@@ -117,20 +132,19 @@ class Sale extends Component {
   render() {
     console.log("listorder", this.state.listOrder)
     let listproductsearch = this.state.listproduct.map((value, key) => {
-      return <tr title="add to order" style={{ cursor: 'pointer' }} >
+      return <tr title="add to order" onClick={() => this.addOrder(value, value.id)} style={{ cursor: 'pointer' }} >
         <td>{key}</td>
         <td>{value.nameProduct}</td>
         <td>{value.codeProduct}</td>
         <td>{value.inventory}</td>
         <td>{value.costProduct}</td>
-        <td><button type="submit" className="btn btn-danger" onClick={() => this.addOrder(value, value.id)}>Buy</button></td>
       </tr>
     })
 
     let order = this.state.listOrder.map((value, key) => {
       return <tr>
         <td>{value.nameProduct}</td>
-        <td><button type="submit" className="btn btn-default" onClick={() => this.increasequantity(value.id, key)}>+</button>{value.quantity}
+        <td><button type="submit" className="btn btn-default" onClick={() => this.increasequantity(value, key)}>+</button>{value.quantity}
           <button type="submit" className="btn btn-default" onClick={() => this.decreasequantity(value.id,key)}>-</button></td>
         <td>{value.costProduct}</td>
         <td>{value.costProduct * value.quantity}</td>
@@ -211,7 +225,6 @@ class Sale extends Component {
                   <th>codeProduct</th>
                   <th>inventory</th>
                   <th>price</th>
-                  <th>Add to cart</th>
                 </tr>
               </thead>
               <tbody>
