@@ -1,20 +1,30 @@
 package com.example.sapoproject.dto;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
+
 public class CustomerDto {
-    private int idcustomer;
+
+    private int idCustomer;
+    @NotNull(message = "ko dc nulll")
     private String nameCustomer;
+    @NotNull(message = "không dc null")
     private Integer phoneNumber;
+    @NotNull(message = "không dc null")
     private String city;
+    @NotNull(message = "không dc null")
     private String email;
+    @NotNull(message = "không dc null")
     private String address;
+    @NotNull(message = "không dc null")
     private String district;
 
-    public int getIdcustomer() {
-        return idcustomer;
+    public int getIdCustomer() {
+        return idCustomer;
     }
 
-    public void setIdcustomer(int idcustomer) {
-        this.idcustomer = idcustomer;
+    public void setIdCustomer(int idCustomer) {
+        this.idCustomer = idCustomer;
     }
 
     public String getNameCustomer() {

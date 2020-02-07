@@ -1,6 +1,7 @@
 package com.example.sapoproject.controller.api;
 
 import com.example.sapoproject.annotation.Test;
+import com.example.sapoproject.converter.Convent;
 import com.example.sapoproject.converter.DtotoEntity;
 import com.example.sapoproject.converter.MaptoDto;
 import com.example.sapoproject.dto.CustomerDto;
@@ -17,7 +18,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import javax.validation.constraints.Null;
 import java.util.List;
 import java.util.Map;
@@ -28,7 +28,7 @@ import java.util.Optional;
 public class CustomerApi {
     @Autowired
     private CustomerServiceIpm customerServiceIpm;
-
+    Convent<CustomerDto> convent=new Convent<>();
     @RequestMapping(value = "/customers", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getAll(@RequestParam(required = false, defaultValue = "0") @Null Integer page,
                                     @RequestParam(required = false, defaultValue = "5") @Null Integer size) {
@@ -37,7 +37,8 @@ public class CustomerApi {
         if (list.getSize() == 0) {
             return new ResponseEntity<>("khong co gia tri", HttpStatus.BAD_GATEWAY);
         }
-        return new ResponseEntity<>(list.iterator(), HttpStatus.OK);
+
+        return new ResponseEntity<>(DtotoEntity.getList( list.toList(),CustomerDto.class), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/searchcustomer", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -51,7 +52,7 @@ public class CustomerApi {
             entities = customerServiceIpm.getBySDT(pageable, Integer.valueOf(mailOrSdt));
             System.out.println("đây là số");
         }
-        return new ResponseEntity<>(entities.iterator(), HttpStatus.OK);
+        return new ResponseEntity<>(DtotoEntity.getList(entities.toList(),CustomerDto.class), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/customer/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -60,28 +61,35 @@ public class CustomerApi {
         if (!customerEntity.isPresent()) {
             return new ResponseEntity<>("ko có giá tri", HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(customerEntity.get(), HttpStatus.OK);
+        CustomerEntity entity=customerEntity.get();
+        return new ResponseEntity<>(DtotoEntity.getDTOTest(CustomerDto.class,entity), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/customer/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> putCustomer(@Valid @RequestBody CustomerDto customerDto, @PathVariable int id) {
+    public ResponseEntity<?> putCustomer(@RequestBody Map<String,Object> mapDto, @PathVariable int id) {
         Optional<CustomerEntity> customerEntity = customerServiceIpm.getIdCustomer(id);
         if (!customerEntity.isPresent()) {
             return new ResponseEntity<>("ko có giá trị", HttpStatus.NOT_FOUND);
-
+        }
+        Object o=convent.mapToDto(mapDto,CustomerDto.class);
+        if(!(o instanceof CustomerDto)){
+            return new ResponseEntity<>(o, HttpStatus.OK);
         }
         CustomerEntity entity = customerEntity.get();
-        entity = (CustomerEntity) DtotoEntity.getDTO(entity, customerDto);
-        customerServiceIpm.save(entity);
-        return new ResponseEntity<>(entity, HttpStatus.OK);
+        entity = (CustomerEntity) DtotoEntity.getDTO(entity,  o);
+        CustomerEntity entity1= customerServiceIpm.saveAndGetID(entity);
+        return new ResponseEntity<>(DtotoEntity.getDTOTest(CustomerDto.class,entity1), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/customers", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> postCustomer(@Valid @RequestBody CustomerDto customerDto) {
-        CustomerEntity entity = new CustomerEntity();
-        entity = (CustomerEntity) DtotoEntity.getDTO(entity, customerDto);
-        customerServiceIpm.save(entity);
-        return new ResponseEntity<>(entity, HttpStatus.OK);
+    @RequestMapping(value = "/customer", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> postCustomer(@RequestBody Map<String,Object> customerDto) {
+        Object entity ;
+        entity =  convent.dtoToEntity(CustomerEntity.class,customerDto, CustomerDto.class);
+        if(!(entity instanceof CustomerEntity)){
+             return new ResponseEntity<>(entity, HttpStatus.NOT_FOUND);
+        }
+        CustomerEntity entity1= customerServiceIpm.saveAndGetID((CustomerEntity) entity);
+        return new ResponseEntity<>(DtotoEntity.getDTOTest(CustomerDto.class,entity1), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/test", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)

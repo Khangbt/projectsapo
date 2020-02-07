@@ -5,7 +5,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "customer", schema = "pos")
 public class CustomerEntity {
-    private int idcustomer;
+    private int idCustomer;
     private String nameCustomer;
     private Integer phoneNumber;
     private String city;
@@ -14,13 +14,14 @@ public class CustomerEntity {
     private String district;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "idcustomer", nullable = false)
     public int getIdcustomer() {
-        return idcustomer;
+        return idCustomer;
     }
 
     public void setIdcustomer(int idcustomer) {
-        this.idcustomer = idcustomer;
+        this.idCustomer = idcustomer;
     }
 
     @Basic
@@ -90,7 +91,7 @@ public class CustomerEntity {
 
         CustomerEntity that = (CustomerEntity) o;
 
-        if (idcustomer != that.idcustomer) return false;
+        if (idCustomer != that.idCustomer) return false;
         if (nameCustomer != null ? !nameCustomer.equals(that.nameCustomer) : that.nameCustomer != null) return false;
         if (phoneNumber != null ? !phoneNumber.equals(that.phoneNumber) : that.phoneNumber != null) return false;
         if (city != null ? !city.equals(that.city) : that.city != null) return false;
@@ -103,7 +104,7 @@ public class CustomerEntity {
 
     @Override
     public int hashCode() {
-        int result = idcustomer;
+        int result = idCustomer;
         result = 31 * result + (nameCustomer != null ? nameCustomer.hashCode() : 0);
         result = 31 * result + (phoneNumber != null ? phoneNumber.hashCode() : 0);
         result = 31 * result + (city != null ? city.hashCode() : 0);

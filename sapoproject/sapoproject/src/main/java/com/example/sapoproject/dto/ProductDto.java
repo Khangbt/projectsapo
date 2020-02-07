@@ -4,18 +4,27 @@ import java.sql.Date;
 import java.sql.Timestamp;
 
 public class ProductDto {
-    private int idproduct;
+    private int idProduct;
     private String nameProduct;
     private Integer inventoryNumber;
     private Timestamp dateCreated;
     private Integer price;
+    private String productCode;
 
-    public int getIdproduct() {
-        return idproduct;
+    public String getProductCode() {
+        return productCode;
     }
 
-    public void setIdproduct(int idproduct) {
-        this.idproduct = idproduct;
+    public void setProductCode(String productCode) {
+        this.productCode = productCode;
+    }
+
+    public int getIdProduct() {
+        return idProduct;
+    }
+
+    public void setIdProduct(int idProduct) {
+        this.idProduct = idProduct;
     }
 
     public String getNameProduct() {

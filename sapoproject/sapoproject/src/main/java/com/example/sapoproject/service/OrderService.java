@@ -6,6 +6,8 @@ import com.example.sapoproject.repository.OrderRepository;
 import com.example.sapoproject.repository.SalesboardRepository;
 import com.example.sapoproject.service.ipm.OrderServiceIpm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -18,22 +20,26 @@ public class OrderService implements OrderServiceIpm {
 
 
     @Override
-    public Optional<OrderbyEntity> getId(int id) {
+    public Optional<OrderbyEntity> getId(int id)
+    {
         return orderRepository.getByIdorder(id);
     }
 
     @Override
-    public void save(OrderbyEntity entity) {
-        orderRepository.save(entity);
+    public OrderbyEntity saveGetObject(OrderbyEntity entity)
+    {
+        return orderRepository.saveAndFlush(entity);
     }
 
     @Override
-    public Iterable<Map<String, Object>> getAllOrder() {
-        return orderRepository.getAll();
+    public Page<Map<String, Object>> getAllOrder(Pageable pageable) {
+        return orderRepository.getAll(pageable);
     }
 
+
     @Override
-    public int getMaxOrder() {
+    public int getMaxOrder()
+    {
         return orderRepository.getMaxOrder();
     }
 

@@ -16,7 +16,7 @@ public class DtotoEntity {
                 if (!((value == null) || value.equals(0) || value.equals(""))) {
                     for (Field field1 : fieldEntity){
 
-                        if(field1.getName().equals(field.getName())){
+                        if(field1.getName().toLowerCase().equals(field.getName().toLowerCase())){
                             field1.setAccessible(true);
                             field1.set(oEntity,value);
                         }
@@ -39,9 +39,9 @@ public class DtotoEntity {
                 field.setAccessible(true);
                 Object value = field.get(oDto);
                 if (!((value == null) || value.equals(0) || value.equals(""))) {
-                    for (Field field1 : fieldEntity){
+                        for (Field field1 : fieldEntity){
 
-                        if(field1.getName().equals(field.getName())){
+                        if(field1.getName().toLowerCase().equals(field.getName().toLowerCase())){
                             field1.setAccessible(true);
                             field1.set(oEntity,value);
                         }
@@ -55,16 +55,16 @@ public class DtotoEntity {
 
         return oEntity;
     }
-    public static List<?> getList(List<?> objects,Class aClass){
+    public static Iterable<?> getList(Iterable<?> objects,Class aClass){
         try {
 
             List<Object> list=new ArrayList<>();
             for (Object o1:objects){
-                Object o=aClass.getDeclaredConstructor().newInstance();
-                list.add(getDTO(o,o1));
+           //     Object o=aClass.getDeclaredConstructor().newInstance();
+                list.add(getDTOTest(aClass,o1));
             }
             return list;
-        } catch (ReflectiveOperationException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return  null;
         }

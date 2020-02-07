@@ -5,6 +5,7 @@ import com.example.sapoproject.annotation.Test;
 import com.example.sapoproject.entity.CustomerEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
@@ -13,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-public interface CustomerRepository extends CrudRepository<CustomerEntity,Integer> {
+public interface CustomerRepository extends JpaRepository<CustomerEntity,Integer> {
     @Query("SELECT e from CustomerEntity  as e where e.nameCustomer like %?1%")
     Page<CustomerEntity> getNameCustomer(Pageable pageable,String name);
     @Query(value = "SELECT * from pos.customer   where CONVERT(phone_number, CHAR(11)) like %?1%" ,nativeQuery = true)

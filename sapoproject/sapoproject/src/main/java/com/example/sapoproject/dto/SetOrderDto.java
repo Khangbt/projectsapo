@@ -4,8 +4,8 @@ import java.sql.Timestamp;
 import java.util.List;
 
 public class SetOrderDto {
-    private int idorder;
-    private Integer idcustomer;
+    private int idOrder;
+    private Integer idCustomer;
     private Timestamp dateSale;
     private Integer totalAmount;
     private Integer amountPaid;
@@ -15,36 +15,20 @@ public class SetOrderDto {
     private String lon;
     private List<SalesboarDto> salesboarDtos;
 
-    public List<SalesboarDto> getSalesboarDtos() {
-        return salesboarDtos;
+    public int getIdOrder() {
+        return idOrder;
     }
 
-    public void setSalesboarDtos(List<SalesboarDto> salesboarDtos) {
-        this.salesboarDtos = salesboarDtos;
+    public void setIdOrder(int idOrder) {
+        this.idOrder = idOrder;
     }
 
-    public String getLon() {
-        return lon;
+    public Integer getIdCustomer() {
+        return idCustomer;
     }
 
-    public void setLon(String lon) {
-        this.lon = lon;
-    }
-
-    public int getIdorder() {
-        return idorder;
-    }
-
-    public void setIdorder(int idorder) {
-        this.idorder = idorder;
-    }
-
-    public Integer getIdcustomer() {
-        return idcustomer;
-    }
-
-    public void setIdcustomer(Integer idcustomer) {
-        this.idcustomer = idcustomer;
+    public void setIdCustomer(Integer idCustomer) {
+        this.idCustomer = idCustomer;
     }
 
     public Timestamp getDateSale() {
@@ -87,5 +71,19 @@ public class SetOrderDto {
         this.idPaymentMethods = idPaymentMethods;
     }
 
+    public String getLon() {
+        return lon;
+    }
 
+    public void setLon(String lon) {
+        this.lon = lon;
+    }
+
+    public List<SalesboarDto> getSalesboarDtos() {
+        return salesboarDtos;
+    }
+
+    public void setSalesboarDtos(List<SalesboarDto> salesboarDtos) {
+        this.salesboarDtos = salesboarDtos;
+    }
 }

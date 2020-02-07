@@ -15,6 +15,7 @@ public class OrderbyEntity {
     private Integer idPaymentMethods;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "idorder", nullable = false)
     public int getIdorder() {
         return idorder;

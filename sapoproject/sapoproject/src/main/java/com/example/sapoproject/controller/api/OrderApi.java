@@ -1,25 +1,31 @@
 package com.example.sapoproject.controller.api;
 
+import com.example.sapoproject.converter.Convent;
 import com.example.sapoproject.converter.DtotoEntity;
 import com.example.sapoproject.converter.MaptoDto;
+import com.example.sapoproject.converter.Update;
 import com.example.sapoproject.dto.GetOrderDto;
 import com.example.sapoproject.dto.NameDto;
+import com.example.sapoproject.dto.SalesboarDto;
 import com.example.sapoproject.dto.SetOrderDto;
 import com.example.sapoproject.entity.OrderbyEntity;
+import com.example.sapoproject.entity.ProductEntity;
 import com.example.sapoproject.entity.SalesboardEntity;
+import com.example.sapoproject.logic.LogicPage;
 import com.example.sapoproject.service.ipm.OrderServiceIpm;
+import com.example.sapoproject.service.ipm.ProductServiceIpm;
 import com.example.sapoproject.service.ipm.SalesboardServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.Null;
 import java.sql.Timestamp;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 public class OrderApi {
@@ -28,36 +34,42 @@ public class OrderApi {
 
     @Autowired
     private SalesboardServiceImp salesboardServiceImp;
+    @Autowired
+    private ProductServiceIpm productServiceIpm;
     private MaptoDto maptoDto=new MaptoDto();
+
 //    private DtotoEntity dtotoEntity=new DtotoEntity();
 // tìm theo id order
-    @RequestMapping(value = "/order/{id}",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> getId(@PathVariable int id){
-        Optional<OrderbyEntity> entities=orderServiceIpm.getId(id);
-        if(!entities.isPresent()){
-            return new ResponseEntity<>("không có gía trị", HttpStatus.NOT_FOUND);
-        }
-
-         return new ResponseEntity<>(entities, HttpStatus.OK);
-    }
+//    @RequestMapping(value = "/order/{id}",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+//    public ResponseEntity<?> getId(@PathVariable int id){
+//        Optional<OrderbyEntity> entities=orderServiceIpm.getId(id);
+//        if(!entities.isPresent()){
+//            return new ResponseEntity<>("không có gía trị", HttpStatus.NOT_FOUND);
+//        }
+//
+//         return new ResponseEntity<>(entities, HttpStatus.OK);
+//    }
 //    request ra chuỗi sp
     @RequestMapping(value = "/orders",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> getAll()
-    {   List<Map<String,Object>> entities= (List<Map<String, Object>>) orderServiceIpm.getAllOrder();
-        if(entities.size()==0){
+    public ResponseEntity<?> getAll(@RequestParam(required = false, defaultValue = "0") @Null Integer page,
+                                    @RequestParam(required = false, defaultValue = "0") @Null Integer size)
+    {
+        Pageable pageable= new LogicPage().logic(20, 0, size, page);
+        Page<Map<String,Object>> entities=  orderServiceIpm.getAllOrder(pageable);
+        if(entities.getSize()==0){
             return new ResponseEntity<>("không có gía trị", HttpStatus.NOT_FOUND);
         }
-        List<GetOrderDto> getOrderDtos= (List<GetOrderDto>) maptoDto.getMapList(entities,GetOrderDto.class);
+        List<GetOrderDto> getOrderDtos= (List<GetOrderDto>) maptoDto.getMapList(entities.toList(),GetOrderDto.class);
         return new ResponseEntity<>(getOrderDtos, HttpStatus.OK);
     }
-//     lưu 1 roder mới
-    @RequestMapping(value = "/orders",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> post(@RequestBody OrderbyEntity entity){
-     //   Iterable<SalesboardEntity> entities=orderServiceIpm.getId(id);
-
-        orderServiceIpm.save(entity);
-        return new ResponseEntity<>(entity, HttpStatus.OK);
-    }
+////     lưu 1 roder mới
+//    @RequestMapping(value = "/orders",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+//    public ResponseEntity<?> post(@RequestBody OrderbyEntity entity){
+//     //   Iterable<SalesboardEntity> entities=orderServiceIpm.getId(id);
+//
+//        orderServiceIpm.saveGetObject(entity);
+//        return new ResponseEntity<>(entity, HttpStatus.OK);
+//    }
 //    lưu danh sách đơn hàng khách hàng
     @RequestMapping(value = "/orderslistboarn",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> postList(@RequestBody List<SalesboardEntity> entity){
@@ -70,29 +82,56 @@ public class OrderApi {
     public ResponseEntity<?> getNameId(@PathVariable int id){
         List<Map<String,Object>> entities=salesboardServiceImp.getName(id);
         List<NameDto> dtos= (List<NameDto>) maptoDto.getMapList(entities,NameDto.class);
+        if(dtos.size()==0){
+            return new ResponseEntity<>("không tồn tại id", HttpStatus.NOT_FOUND);
+        }
         return new ResponseEntity<>(dtos, HttpStatus.OK);
     }
     @RequestMapping(value = "/setorder" ,method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> getOrderSp(@RequestBody SetOrderDto setOrderDto){
-        try {
+    public ResponseEntity<?> getOrderSp(@RequestBody Map<String,Object> map){
+//        try {
+            List<Integer> list=new ArrayList<>();
+            Convent<SetOrderDto> convent=new Convent<>();
+            Object setOrder= convent.dtoForm(map,SetOrderDto.class);
+            if(!(setOrder instanceof SetOrderDto)){
+                return new ResponseEntity<>(setOrder,HttpStatus.NOT_FOUND);
+            }
+
+            SetOrderDto setOrderDto= (SetOrderDto) setOrder;
+            List<SalesboarDto> maps=setOrderDto.getSalesboarDtos();
+            List<Map<String,Object>> mapList=new ArrayList<>();
+                for (Object dto:maps){
+                    Map<String,Object> dto1= (Map<String, Object>) dto;
+                    mapList.add(dto1);
+                }
+            System.out.println(mapList);
+            List<SalesboarDto> salesboarDtos= (List<SalesboarDto>) new MaptoDto().getMapList(mapList,SalesboarDto.class);
+            for (SalesboarDto dto:salesboarDtos){
+                list.add(dto.getIdProduct());
+            }
+           System.out.println(list);
+            List<ProductEntity> list1= (List<ProductEntity>) productServiceIpm.getListId(list);
+            System.out.println(list1);
+            List<ProductEntity> productEntities= new Update().updateProduct(list1,salesboarDtos);
+            if(productEntities==null){
+                return new ResponseEntity<>("Lỗi sản phẩm quá số lượng",HttpStatus.NOT_FOUND);
+            }
+
             OrderbyEntity orderbyEntity= (OrderbyEntity) DtotoEntity.getDTOTest(OrderbyEntity.class,setOrderDto);
             Date date=new Date();
             orderbyEntity.setDateSale(new Timestamp(date.getTime()));
-            List<SalesboardEntity> salesboardEntities= (List<SalesboardEntity>) DtotoEntity.getList(setOrderDto.getSalesboarDtos(),SalesboardEntity.class);
-
-            int isau=orderServiceIpm.getMaxOrder();
-           orderServiceIpm.save(orderbyEntity);
-         int i=orderServiceIpm.getMaxOrder();
+            OrderbyEntity orderbyEntity1=orderServiceIpm.saveGetObject(orderbyEntity);
+            List<SalesboardEntity> salesboardEntities= (List<SalesboardEntity>) DtotoEntity.getList(salesboarDtos,SalesboardEntity.class);
             for (SalesboardEntity salesboardEntity: salesboardEntities){
-                salesboardEntity.setIdorder(i);
+                salesboardEntity.setIdorder(orderbyEntity1.getIdorder());
             }
-
-            System.out.println(isau+"---"+i);
             salesboardServiceImp.saveList(salesboardEntities);
-            return new ResponseEntity<>(salesboardEntities,HttpStatus.OK);
-        }catch (Exception e){
-            return new ResponseEntity<>("lỗi",HttpStatus.NOT_FOUND);
+            productServiceIpm.saveList(productEntities);
+            return new ResponseEntity<>(orderbyEntity,HttpStatus.OK);
         }
+//        catch (Exception e){
+//            return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
+//        }
 
-    }
+
 }

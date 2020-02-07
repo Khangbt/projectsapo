@@ -1,7 +1,8 @@
 package com.example.sapoproject.service.ipm;
 
-import com.example.sapoproject.annotation.Test;
+
 import com.example.sapoproject.entity.CustomerEntity;
+import com.example.sapoproject.entity.ProductEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -14,7 +15,8 @@ public interface CustomerServiceIpm {
         Page<CustomerEntity> getBySDT(Pageable pageable,int Sdt);
         Page<CustomerEntity> getByName(Pageable pageable,String name);
         Optional<CustomerEntity> getIdCustomer(int id);
-        void  save(CustomerEntity entity);
+        CustomerEntity  saveAndGetID(CustomerEntity entity);
         boolean checkId(int id);
         List<Map<String,Object>> getAll1();
+
 }

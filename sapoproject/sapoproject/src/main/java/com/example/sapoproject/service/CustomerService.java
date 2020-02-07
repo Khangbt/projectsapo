@@ -38,8 +38,8 @@ public class CustomerService implements CustomerServiceIpm {
     }
 
     @Override
-    public void save(CustomerEntity entity) {
-        customerRepository.save(entity);
+    public CustomerEntity saveAndGetID(CustomerEntity entity) {
+       return customerRepository.saveAndFlush(entity);
     }
 
     @Override
