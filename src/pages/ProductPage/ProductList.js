@@ -5,38 +5,36 @@ import product from '../../Data/Product'
 
 class ProductList extends Component {
 
-  Detail = (e)=> {
-    console.log("ácdfad",e)
-    return < Link to = {'/product/id='+e}></Link>
+  componentDidMount() {
+    document.title = 'Danh sách sản phẩm';
   }
  
   render() {
-      console.log("aaaabbb",product)
+    
       let elements = product.map((value, key) => {
-        return <tr  onClick={() => this.Detail(value.id)}>
+        return <tr >
           <td id={value.id}>{key}</td>
           <td>no image</td>
-          <td>{value.nameProduct}</td>
+          <td><Link to = {'/product/id='+value.id}  title={value.nameProduct} style ={{color : 'black',cursor: 'pointer'}}> {value.nameProduct}</Link></td>
           <td>{value.codeProduct}</td>
           <td>{value.inventory}</td>
           <td>{value.costProduct} đồng</td>
           <td>{value.create_date}</td>
-          <td>< Link to = {'/product/id='+value.id}><button className="btn btn-info">chi tiết</button></Link></td>
-          <td><Link to ={'/product/edit/id='+value.id}><button className="btn btn-warning">cập nhật</button></Link></td>
-          <td><button className="btn btn-danger">xóa</button></td>
         </tr>
       })
     
     
     return (
       <div className="col-md-12 col-sm-12 col-xs-12" style={{ marginBottom: '5px', marginTop: '20px' }}>
-        <h3 className="page-title" style={{ marginBottom: '20px' }}>Quản lý sản phẩm <Link to='/product/add'><button type="button" className="btn btn-success">Tạo mới</button></Link></h3>
+        <div className="d-flex justify-content-between" >
+        <h3 className="page-title">Quản lý sản phẩm <Link to='/product/add'>
+         <button type="button" className="btn btn-primary">Thêm sản phẩm</button></Link> </h3>
+        
+        </div>
+       
 
         <div className="portlet box green-meadow">
-          <div className="portlet-title">
-            <div className="caption">Danh sách sản phẩm</div>
-           
-          </div>
+          <div className="title-product"><h5>Danh sách sản phẩm</h5></div>
           <div className="portlet-body">
             <div className="table-responsive">
               <div id="news-grid" className="grid-view">
@@ -50,9 +48,7 @@ class ProductList extends Component {
                       <th>Số lượng tồn</th>
                       <th>Giá bán</th>
                       <th>Ngày tạo</th>
-                      <th>Chi tiết</th>
-                      <th>Cập nhật</th>
-                      <th>Xóa</th></tr>
+                      </tr>
                   </thead>
                   <tbody>
                     {elements}

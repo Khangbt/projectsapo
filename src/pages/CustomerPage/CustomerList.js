@@ -14,7 +14,11 @@ class CustomerList extends Component {
     this.setState({
       textSearch: event.target.value.toLowerCase()
     })
-    console.log(typeof(this.state.textSearch))
+    console.log(typeof (this.state.textSearch))
+  }
+
+  componentDidMount(){
+    document.title = "Danh sách khách hàng"
   }
 
   render() {
@@ -22,14 +26,12 @@ class CustomerList extends Component {
       return customer.nameCustomer.toLowerCase().indexOf(this.state.textSearch) !== -1 || customer.phoneNumber.toString().indexOf(this.state.textSearch) !== -1
     }).map((value) => {
       return <tr>
-        <td>{value.nameCustomer}</td>
+        <td><Link to ={"/customer/id="+value.id} style ={{color : 'black',cursor: 'pointer'}}>{value.nameCustomer}</Link></td>
         <td>{value.phoneNumber}</td>
         <td>{value.email}</td>
         <td>{value.address}</td>
         <td>{value.province}</td>
         <td>{value.district}</td>
-        <td>< Link to = {'/customer/id='+value.id}><button className="btn btn-info">chi tiết</button></Link></td>
-          <td><Link to ={'/customer/edit/id='+value.id}><button className="btn btn-warning">cập nhật</button></Link></td>
       </tr>
     })
     return (
@@ -37,11 +39,10 @@ class CustomerList extends Component {
         <h3 className="page-title" style={{ marginBottom: '20px' }}>Quản lý khách hàng</h3>
 
         <div className="portlet box green-meadow">
-          <div className="portlet-title">
-            <div className="caption">Danh sách khách hàng</div>
+          <div className="title-product d-flex justify-content-between"><h5>Danh sách khách hàng</h5>
             <div className="col-md-3 col-sm-3 col-xs-3">
               <i className="fas fa-search" aria-hidden="true"></i>
-              <input type="text" className="form-control" name="textSearch" onChange={this.onChange} />
+              <input type="text" className="form-control" placeholder="Tìm kiếm khách hàng..." name="textSearch" onChange={this.onChange} />
             </div>
           </div>
           <div className="portlet-body">
@@ -56,8 +57,6 @@ class CustomerList extends Component {
                       <th>Địa chỉ</th>
                       <th>Tỉnh / Thành phố</th>
                       <th>Quận / huyện</th>
-                      <th>Chi tiết</th>
-                      <th>Cập nhật</th>
                     </tr>
                   </thead>
                   <tbody>

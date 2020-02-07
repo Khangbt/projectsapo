@@ -37,5 +37,41 @@
         "costProduct": 5000000,
         "inventory": 10,
         "create_date": "giá rẻ bất ngờ"
+    },
+    {
+        "id": 6,
+        "nameProduct": "Điện thoại oppo f8",
+        "codeProduct": "aaa",
+        "costProduct": 5000000,
+        "inventory": 10,
+        "create_date": "giá rẻ bất ngờ"
+    },{
+        "id": 7,
+        "nameProduct": "Điện thoại oppo f8",
+        "codeProduct": "aaa",
+        "costProduct": 5000000,
+        "inventory": 10,
+        "create_date": "giá rẻ bất ngờ"
+    },{
+        "id": 8,
+        "nameProduct": "Điện thoại oppo f8",
+        "codeProduct": "aaa",
+        "costProduct": 5000000,
+        "inventory": 10,
+        "create_date": "giá rẻ bất ngờ"
+    },{
+        "id": 9,
+        "nameProduct": "Điện thoại oppo f8",
+        "codeProduct": "aaa",
+        "costProduct": 5000000,
+        "inventory": 10,
+        "create_date": "giá rẻ bất ngờ"
+    },{
+        "id": 10,
+        "nameProduct": "Điện thoại oppo f8",
+        "codeProduct": "aaa",
+        "costProduct": 5000000,
+        "inventory": 10,
+        "create_date": "giá rẻ bất ngờ"
     }
 ]

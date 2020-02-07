@@ -4,9 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Menu from './Menu/Menu';
 import routes from './routes';
 import Sale from './pages/Sale/Sale';
-import Head from './Menu/Head';
 import DetailProduct from './pages/ProductPage/DetailProduct';
-import EditProduct from './pages/ProductPage/EditProduct';
 import DetailCustomer from './pages/CustomerPage/DetailCustomer';
 
 
@@ -29,14 +27,11 @@ class App extends Component {
         {checkSale &&
           <div className="d-flex">
            {this.state.a && <Menu/>}
-            <div id="page-content-wrapper">
-              <Head toggle={this.toggle}/>
+            <div id="page-content-wrapper">         
               <div className="container-fluid">
                 {this.showContentManager(routes)}
                 <Route exact path="/product/id=:id" component={DetailProduct}/>
-                <Route path="/product/edit/id=:id" component={EditProduct}/>
-                <Route exact path="/customer/id=:id" component={DetailCustomer}/>
-                
+                <Route exact path="/customer/id=:id" component={DetailCustomer}/>           
               </div>
             </div>
           </div>

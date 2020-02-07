@@ -2,15 +2,17 @@ import React, { Component } from 'react';
 
 
 class OrderList extends Component{
+
+  componentDidMount(){
+    document.title = "Danh sách đơn hàng"
+  }
   render(){
     return(
       <div className="col-md-12 col-sm-12 col-xs-12" style={{ marginBottom: '5px', marginTop: '20px' }}>
         <h3 className="page-title" style={{ marginBottom: '20px' }}>Quản lý đơn hàng</h3>
 
         <div className="portlet box green-meadow">
-          <div className="portlet-title">
-            <div className="caption">Danh sách đơn hàng</div>
-          </div>
+        <div className="title-product "><h5>Danh sách đơn hàng</h5></div>
           <div className="portlet-body">
             <div className="table-responsive">
               <div id="news-grid" className="grid-view">

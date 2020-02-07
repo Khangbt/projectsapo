@@ -82,6 +82,7 @@
   #page-content-wrapper {
     min-width: 0;
     width: 100%;
+    background-color: #f4f6f8;
   }
 
   #wrapper.toggled #sidebar-wrapper {
@@ -90,16 +91,23 @@
 }
 
 .portlet.box.green-meadow {
-  border: 1px solid #2ae0bb;
+  margin-top : 33px;
+  background-color: white;
+  border: 1px solid white;
   border-top: 0;
+  box-shadow: 0 0 0 1px rgba(63,63,68,.05), 0 1px 3px 0 rgba(63,63,68,.15);
 }
 .portlet.green-meadow {
-  background-color: #1bbc9b;
+  background-color: white;
 }
 
 .portlet-body {
   background-color: #fff;
   padding: 10px;
+}
+.bg-light {
+  background-color: #263a53 !important;
+  color: #eee;
 }
 .portlet-title {
   margin-bottom: 0px;
@@ -117,19 +125,40 @@
   padding: 0;
   margin-bottom: 8px;
 }
-.col-md-3{
-  display: flex;
-  border: 2px solid white;
-  border-radius: 44px;
+.col-sm-3{
+    display: flex;
+    
+    position: relative;
+  
 }
-.col-md-3 i{
-  margin-top: 10px;
-  margin-right: 10px;
+.col-sm-3 i{
+    position: absolute;
+    top: 50%;
+    margin-left: 17px;
+    margin-top: -6px;  
+    color: #4f5b66;
+  
 }
-.col-md-3 input{
-  margin-right: -15px;
-  border-radius: inherit;
+.col-sm-3 input{
+  width: 500px;
+  height: 50px;
+  background: none;
+  outline: none;
+ 
+  font-size: 10pt;
+  float: left;
+  color: #63717f;
+  padding-left: 45px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
 }
+.form-control:focus {
+  border-color: #cccc;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
 .homeleft{
   border-right: 1px solid gray;
 }
@@ -152,5 +181,17 @@ form input{
 }
 .dsguest ul li:hover{
   background-color: gray
+}
+.menubar i{
+  margin-right: 8px;
+}
+.title-product {
+  background-color: white !important;
+  margin-left: 13px;
+  padding-top : 15px;
+}
+
+.page-title {
+  margin-top : 12px
 }
 

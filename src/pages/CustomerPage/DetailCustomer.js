@@ -11,6 +11,9 @@ class DetailCustomer extends Component {
             
         }
     }
+    componentDidMount(){
+        document.title = "Cập nhật khách hàng"
+    }
     
     
     render() {    
@@ -18,9 +21,7 @@ class DetailCustomer extends Component {
             <div className="col-md-12 col-sm-12 col-xs-12" style={{ marginBottom: '5px', marginTop: '20px' }}>
                 <h3 className="page-title" style={{ marginBottom: '20px' }}>Chi tiết khách hàng</h3>
                 <div className="portlet box green-meadow">
-                    <div className="portlet-title">
-                        <div className="caption">Chi tiết khách hàng </div>
-                    </div>
+                <div className="title-product"><h5>Cập nhật khách hàng</h5></div>
                     <div className="portlet-body">
                         <div className="col-xs-6">
                     <form onSubmit={this.onHandleSubmit}>
@@ -39,6 +40,7 @@ class DetailCustomer extends Component {
                             <input type="text" className="form-control" name="costProduct" defaultValue={this.state.customerEdit.costProduct} onChange={this.onChange} />
                         </div>
                         <Link to ="/customer"><button type="submit" className="btn btn-danger"> Quay lại</button></Link>&nbsp;
+                        <button type="submit" className="btn btn-primary">Lưu</button>
                     </form>
 
                 </div>
