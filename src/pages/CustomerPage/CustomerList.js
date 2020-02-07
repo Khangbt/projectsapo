@@ -1,14 +1,48 @@
 import React, { Component } from 'react';
-import customers from '../../Data/Customer'
 import '../../App.css'
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import Pagination from "react-js-pagination";
+
 class CustomerList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      textSearch: ''
+      textSearch: '',
+      listCus: [],
+      activePage:1,
+      totalPages: null,
+      itemsCountPerPage:null,
+      totalItemsCount:null
     }
+    this.handlePageChange = this.handlePageChange.bind(this);
+    this.fetchURL = this.fetchURL.bind(this);
   }
+  fetchURL(page) {
+
+    axios.get(`http://localhost:8291/customers?page=${page-1}&size=1`)
+      .then( response => {
+          const totalPages = response.data.totalPages;
+          const itemsCountPerPage = response.data.size;
+          const totalItemsCount = response.data.totalElements;
+
+          this.setState({totalPages: totalPages})
+          this.setState({totalItemsCount: totalItemsCount})
+          this.setState({itemsCountPerPage: itemsCountPerPage})
+
+          const results = response.data.content;
+          this.setState({listCus: results});
+        }
+      )
+    }
+
+
+handlePageChange(pageNumber) {
+    console.log(`active page is ${pageNumber}`);
+    this.setState({activePage: pageNumber})
+    this.fetchURL(pageNumber)
+
+    }
 
   onChange = (event) => {
     this.setState({
@@ -19,10 +53,11 @@ class CustomerList extends Component {
 
   componentDidMount(){
     document.title = "Danh sách khách hàng"
+    this.fetchURL(this.state.activePage)
   }
 
   render() {
-    let elements = customers.filter((customer) => {
+    let elements = this.state.listCus.filter((customer) => {
       return customer.nameCustomer.toLowerCase().indexOf(this.state.textSearch) !== -1 || customer.phoneNumber.toString().indexOf(this.state.textSearch) !== -1
     }).map((value) => {
       return <tr>
@@ -30,7 +65,7 @@ class CustomerList extends Component {
         <td>{value.phoneNumber}</td>
         <td>{value.email}</td>
         <td>{value.address}</td>
-        <td>{value.province}</td>
+        <td>{value.city}</td>
         <td>{value.district}</td>
       </tr>
     })
@@ -66,6 +101,17 @@ class CustomerList extends Component {
               </div>
             </div>
           </div>
+           <div className="d-flex justify-content-left">
+            <Pagination
+             hideDisabled
+             activePage={this.state.activePage}
+             itemsCountPerPage={this.state.itemsCountPerPage}
+             totalItemsCount={this.state.totalItemsCount}
+             pageRangeDisplayed={5}
+             linkClass='btn btn-light'
+             onChange={this.handlePageChange}
+             />
+         </div>
         </div>
       </div>
     )
