@@ -71,12 +71,12 @@ public class OrderApi {
 //        return new ResponseEntity<>(entity, HttpStatus.OK);
 //    }
 //    lưu danh sách đơn hàng khách hàng
-    @RequestMapping(value = "/orderslistboarn",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> postList(@RequestBody List<SalesboardEntity> entity){
-        //   Iterable<SalesboardEntity> entities=orderServiceIpm.getId(id);
-        salesboardServiceImp.saveList(entity);
-        return new ResponseEntity<>(entity, HttpStatus.OK);
-    }
+//    @RequestMapping(value = "/orderslistboarn",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+//    public ResponseEntity<?> postList(@RequestBody List<SalesboardEntity> entity){
+//        //   Iterable<SalesboardEntity> entities=orderServiceIpm.getId(id);
+//        salesboardServiceImp.saveList(entity);
+//        return new ResponseEntity<>(entity, HttpStatus.OK);
+//    }
 //    tên sp và số lượng khách hàng mua
     @RequestMapping(value = "/ordername/{id}",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getNameId(@PathVariable int id){
