@@ -127,4 +127,5 @@ public class Convent<T> {
                 Map.class.isAssignableFrom(rawPropertyType) ||
                 rawPropertyType.isArray()||rawPropertyType.getName().startsWith("[L");
     }
+
 }

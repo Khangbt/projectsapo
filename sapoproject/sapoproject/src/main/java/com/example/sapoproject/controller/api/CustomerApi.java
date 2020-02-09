@@ -11,6 +11,7 @@ import com.example.sapoproject.logic.LogicType;
 import com.example.sapoproject.service.ipm.CustomerServiceIpm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -37,8 +38,8 @@ public class CustomerApi {
         if (list.getSize() == 0) {
             return new ResponseEntity<>("khong co gia tri", HttpStatus.BAD_GATEWAY);
         }
-
-        return new ResponseEntity<>(DtotoEntity.getList( list.toList(),CustomerDto.class), HttpStatus.OK);
+        Page<CustomerDto> dtos= (Page<CustomerDto>) DtotoEntity.getDto(list,CustomerDto.class);
+        return new ResponseEntity<>(dtos, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/searchcustomer", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -77,6 +78,7 @@ public class CustomerApi {
         }
         CustomerEntity entity = customerEntity.get();
         entity = (CustomerEntity) DtotoEntity.getDTO(entity,  o);
+        entity.setIdcustomer(id);
         CustomerEntity entity1= customerServiceIpm.saveAndGetID(entity);
         return new ResponseEntity<>(DtotoEntity.getDTOTest(CustomerDto.class,entity1), HttpStatus.OK);
     }

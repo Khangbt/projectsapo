@@ -2,6 +2,7 @@ package com.example.sapoproject.controller.api;
 
 import com.example.sapoproject.converter.Convent;
 import com.example.sapoproject.converter.DtotoEntity;
+import com.example.sapoproject.dto.CustomerDto;
 import com.example.sapoproject.dto.ProductDto;
 import com.example.sapoproject.entity.ProductEntity;
 import com.example.sapoproject.logic.LogicPage;
@@ -43,7 +44,8 @@ public class ProductApi {
         if (entities.getSize() == 0) {
             return new ResponseEntity<>("khong co gia tri", HttpStatus.BAD_GATEWAY);
         }
-        return new ResponseEntity<>(DtotoEntity.getList(entities.toList(), ProductDto.class), HttpStatus.OK);
+        Page<ProductEntity> dtos= (Page<ProductEntity>) DtotoEntity.getDto(entities,CustomerDto.class);
+        return new ResponseEntity<>(dtos, HttpStatus.OK);
     }
     @RequestMapping(value = "/product/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getId(@PathVariable int id) {
@@ -83,7 +85,10 @@ public class ProductApi {
         ProductEntity entity = customerEntity.get();
 
         entity = (ProductEntity) DtotoEntity.getDTO(entity,o);
+        entity.setIdproduct(id);
+        System.err.println(entity.toString());
        ProductEntity entity1= productServiceIpm.saveGetId(entity);
+
         return new ResponseEntity<>(DtotoEntity.getDTOTest(ProductDto.class,entity1), HttpStatus.OK);
     }
 

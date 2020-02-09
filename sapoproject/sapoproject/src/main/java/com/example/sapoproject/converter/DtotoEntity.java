@@ -1,9 +1,12 @@
 package com.example.sapoproject.converter;
 
+import org.springframework.data.domain.Page;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 public class DtotoEntity {
     public static Object getDTO(Object oEntity, Object oDto) {
@@ -69,5 +72,12 @@ public class DtotoEntity {
             return  null;
         }
     }
-
+    public static Page<?> getDto(Page<?> entity, Class dto){
+        Page<Object> page=entity.map(new Function<Object, Object>() {
+            @Override
+            public Object apply(Object o) {
+                    return getDTOTest(dto,o);
+            }
+        });
+    return page;}
 }

@@ -100,4 +100,16 @@ public class ProductEntity {
     public void setProductCode(String productCode) {
         this.productCode = productCode;
     }
+
+    @Override
+    public String toString() {
+        return "ProductEntity{" +
+                "idproduct=" + idproduct +
+                ", nameProduct='" + nameProduct + '\'' +
+                ", inventoryNumber=" + inventoryNumber +
+                ", dateCreated=" + dateCreated +
+                ", price=" + price +
+                ", productCode='" + productCode + '\'' +
+                '}';
+    }
 }

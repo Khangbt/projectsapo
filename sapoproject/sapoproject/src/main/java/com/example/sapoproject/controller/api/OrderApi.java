@@ -59,8 +59,9 @@ public class OrderApi {
         if(entities.getSize()==0){
             return new ResponseEntity<>("không có gía trị", HttpStatus.NOT_FOUND);
         }
-        List<GetOrderDto> getOrderDtos= (List<GetOrderDto>) maptoDto.getMapList(entities.toList(),GetOrderDto.class);
-        return new ResponseEntity<>(getOrderDtos, HttpStatus.OK);
+       // List<GetOrderDto> getOrderDtos= (List<GetOrderDto>) maptoDto.getMapList(entities.toList(),GetOrderDto.class);
+        Page<GetOrderDto> dtos= (Page<GetOrderDto>) maptoDto.getDto(entities,GetOrderDto.class);
+        return new ResponseEntity<>(dtos, HttpStatus.OK);
     }
 ////     lưu 1 roder mới
 //    @RequestMapping(value = "/orders",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
