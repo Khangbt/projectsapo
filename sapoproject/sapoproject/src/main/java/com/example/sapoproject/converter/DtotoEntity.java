@@ -13,7 +13,7 @@ public class DtotoEntity {
             for (Field field : fieldDto) {
                 field.setAccessible(true);
                 Object value = field.get(oDto);
-                if (!((value == null) || value.equals(0) || value.equals(""))) {
+                if (!((value == null))) {
                     for (Field field1 : fieldEntity){
 
                         if(field1.getName().toLowerCase().equals(field.getName().toLowerCase())){
@@ -38,7 +38,7 @@ public class DtotoEntity {
             for (Field field : fieldDto) {
                 field.setAccessible(true);
                 Object value = field.get(oDto);
-                if (!((value == null) || value.equals(0) || value.equals(""))) {
+                if (!((value == null) )) {
                         for (Field field1 : fieldEntity){
 
                         if(field1.getName().toLowerCase().equals(field.getName().toLowerCase())){

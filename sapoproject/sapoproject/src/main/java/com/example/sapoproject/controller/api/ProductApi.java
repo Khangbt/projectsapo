@@ -4,13 +4,17 @@ import com.example.sapoproject.converter.Convent;
 import com.example.sapoproject.converter.DtotoEntity;
 import com.example.sapoproject.dto.ProductDto;
 import com.example.sapoproject.entity.ProductEntity;
+import com.example.sapoproject.logic.LogicPage;
 import com.example.sapoproject.service.ipm.ProductServiceIpm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.Null;
 import java.sql.Timestamp;
 import java.util.*;
 
@@ -31,7 +35,16 @@ public class ProductApi {
 
         return new ResponseEntity<>(DtotoEntity.getList(entities, ProductDto.class), HttpStatus.OK);
     }
-
+    @RequestMapping(value = "/products", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getAllProduct(@RequestParam(required = false, defaultValue = "0") @Null Integer page,
+                                           @RequestParam(required = false, defaultValue = "5") @Null Integer size) {
+        Pageable pageable = new LogicPage().logic(20, 0, size, page);
+        Page<ProductEntity> entities=  productServiceIpm.getAllLi(pageable);
+        if (entities.getSize() == 0) {
+            return new ResponseEntity<>("khong co gia tri", HttpStatus.BAD_GATEWAY);
+        }
+        return new ResponseEntity<>(DtotoEntity.getList(entities.toList(), ProductDto.class), HttpStatus.OK);
+    }
     @RequestMapping(value = "/product/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getId(@PathVariable int id) {
         Optional<ProductEntity> entity = productServiceIpm.getId(id);

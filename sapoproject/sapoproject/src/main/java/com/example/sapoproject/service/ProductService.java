@@ -4,6 +4,8 @@ import com.example.sapoproject.entity.ProductEntity;
 import com.example.sapoproject.repository.ProductRepository;
 import com.example.sapoproject.service.ipm.ProductServiceIpm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -38,4 +40,11 @@ public class ProductService implements ProductServiceIpm {
     public Iterable<ProductEntity> saveList(Iterable<ProductEntity> entities) {
         return productRepository.saveAll(entities);
     }
+
+    @Override
+    public Page<ProductEntity> getAllLi(Pageable pageable) {
+        return productRepository.getAllList(pageable);
+    }
+
+
 }
