@@ -10,9 +10,9 @@ public class CustomerDto {
     private int idCustomer;
     @NotNull(message = "ko dc nulll")
     private String nameCustomer;
-    @Sdt
+
     @NotNull(message = "trường này không đươc null")
-    private String phoneNumber;
+    private Integer phoneNumber;
     @NotNull(message = "không dc null")
     private String city;
     @NotNull(message = "không dc null")
@@ -38,11 +38,11 @@ public class CustomerDto {
         this.nameCustomer = nameCustomer;
     }
 
-    public String getPhoneNumber() {
+    public Integer getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
+    public void setPhoneNumber(Integer phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 

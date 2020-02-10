@@ -4,11 +4,11 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "customer", schema = "pos")
+@Table(name = "customer", schema = "pos", catalog = "")
 public class CustomerEntity {
     private int idcustomer;
     private String nameCustomer;
-    private String phoneNumber;
+    private Integer phoneNumber;
     private String city;
     private String email;
     private String address;
@@ -16,7 +16,6 @@ public class CustomerEntity {
 
     @Id
     @Column(name = "idcustomer", nullable = false)
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
     public int getIdcustomer() {
         return idcustomer;
     }
@@ -36,12 +35,12 @@ public class CustomerEntity {
     }
 
     @Basic
-    @Column(name = "phone_number", nullable = true, length = 15)
-    public String getPhoneNumber() {
+    @Column(name = "phone_number", nullable = true)
+    public Integer getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
+    public void setPhoneNumber(Integer phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 

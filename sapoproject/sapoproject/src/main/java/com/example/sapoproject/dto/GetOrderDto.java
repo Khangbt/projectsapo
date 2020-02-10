@@ -12,7 +12,7 @@ public class GetOrderDto {
     private BigDecimal amountPaid;
     private BigDecimal unpaidAmount;
     private String namePayment;
-    private String phoneNumber;
+    private Integer phoneNumber;
     private String nameCustomer;
 
     public int getIdOrder() {
@@ -71,11 +71,11 @@ public class GetOrderDto {
         this.namePayment = namePayment;
     }
 
-    public String getPhoneNumber() {
+    public Integer getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
+    public void setPhoneNumber(Integer phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 

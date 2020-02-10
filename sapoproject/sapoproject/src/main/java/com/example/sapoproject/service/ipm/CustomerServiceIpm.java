@@ -17,6 +17,6 @@ public interface CustomerServiceIpm {
         CustomerEntity  saveAndGetID(CustomerEntity entity);
         boolean checkId(int id);
         List<Map<String,Object>> getAll1();
-        boolean checkSdt(String sdt);
+        boolean checkSdt(Integer sdt);
 
 }

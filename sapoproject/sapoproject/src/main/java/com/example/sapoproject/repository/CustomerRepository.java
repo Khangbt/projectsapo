@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @Repository
 public interface CustomerRepository extends JpaRepository<CustomerEntity,Integer> {
@@ -23,5 +22,5 @@ public interface CustomerRepository extends JpaRepository<CustomerEntity,Integer
     @Query(value = "select e.idcustomer,e.city,e.name_customer from pos.customer  as e",nativeQuery = true)
     List<Map<String,Object>> getAll123();
     @Query(value = "select count(customer.idcustomer) from customer where customer.phone_number =?1",nativeQuery = true)
-    Integer getPhoneNumber(String sdt);
+    Integer getPhoneNumber(Integer sdt);
 }

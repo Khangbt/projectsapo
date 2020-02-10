@@ -56,8 +56,8 @@ public class CustomerService implements CustomerServiceIpm {
     }
 
     @Override
-    public boolean checkSdt(String sdt) {
-        return (!(customerRepository.getPhoneNumber(String.valueOf(sdt))==0));
+    public boolean checkSdt(Integer sdt) {
+        return (!(customerRepository.getPhoneNumber(sdt)==0));
     }
 
 }
