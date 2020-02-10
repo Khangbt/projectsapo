@@ -14,6 +14,7 @@ class Sale extends Component {
       guest: null,
       showModalAddGuest: false,
       showModalOrder: false,
+      showMessage : false,
       citys: "",
       listGuest: [],
       currentGuest: null,
@@ -56,6 +57,12 @@ class Sale extends Component {
   showModalOrder = () => {
     this.setState({
       showModalOrder: !this.state.showModalOrder
+    })
+  }
+
+  showMessage = () => {
+    this.setState({
+      showMessage : !this.state.showMessage
     })
   }
 
@@ -108,7 +115,7 @@ class Sale extends Component {
     if(listOrder[key].quantity < orderById.inventory){
       listOrder[key].quantity = order.quantity + 1
     }else{
-      alert("không đủ số lượng")
+      this.showMessage()
     }
     
    
@@ -279,7 +286,18 @@ class Sale extends Component {
             </div>
           </div>
         </div>
-
+        
+        <Modal  show={this.state.showMessage}>
+          <Modal.Header>
+            <Modal.Title>Thông báo</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>Số lượng không đủ</Modal.Body>
+          <Modal.Footer>
+          <Button variant="secondary" onClick={this.showMessage}>
+              Close
+            </Button>
+          </Modal.Footer>
+        </Modal>
         <Modal show={this.state.showModalAddGuest}>
           <Modal.Header>
             <Modal.Title> Thêm khách hàng mới </Modal.Title>
@@ -302,7 +320,7 @@ class Sale extends Component {
           </Modal.Footer>
         </Modal>
 
-        <Modal show={this.state.showModalOrder}>
+        <Modal show={this.state.showModalOrder  && this.state.checkClickCustomer && this.state.listOrder.length > 0}>
           <Modal.Header>
             <Modal.Title> Thanh toán </Modal.Title>
           </Modal.Header>
@@ -326,6 +344,34 @@ class Sale extends Component {
               Close
             </Button>
             <Button variant="primary">Save</Button>
+          </Modal.Footer>
+        </Modal>
+
+        <Modal show = {this.state.showModalOrder && this.state.listOrder.length === 0}>
+        <Modal.Header>
+            <Modal.Title> Thông báo </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            Thêm sản phẩm vào đơn hàng
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={this.showModalOrder}>
+              Close
+            </Button>
+          </Modal.Footer>
+        </Modal>
+        
+        <Modal show = {this.state.showModalOrder && !this.state.checkClickCustomer}>
+        <Modal.Header>
+            <Modal.Title> Thông báo </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            Thêm khách hàng vào đơn hàng
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={this.showModalOrder}>
+              Close
+            </Button>
           </Modal.Footer>
         </Modal>
       </div>

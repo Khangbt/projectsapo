@@ -198,12 +198,12 @@ form input{
   margin-left: 10px;
 }
 .pagination li{
-  border: 1px solid gray;
+  border: 1px solid white;
   border-radius: 4px;
   margin-left: 1px;
 }
 .undefined{
-  background-color: #0000ff8c !important;
+  background-color: #007bff !important;
   color: white !important;
 }
 
@@ -323,3 +323,14 @@ button:visited {
         background-color: #333; }
 
 /*# sourceMappingURL=style.css.map */
+
+.showEntity{
+  padding: 10px;
+}
+.showEntity span{
+  margin: 0px 4px;
+}
+
+.form-group span {
+  color: red;
+}
