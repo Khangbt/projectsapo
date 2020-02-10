@@ -16,6 +16,10 @@ public class SizeList  implements ConstraintValidator<SizeL, List<?>> {
 
     @Override
     public boolean isValid(List<?> objects, ConstraintValidatorContext constraintValidatorContext) {
+        if(objects==null){
+            System.err.println("là nlll");
+            return true;
+        }
         if(objects.size()<=dem)
         {
         return false;

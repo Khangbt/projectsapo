@@ -15,7 +15,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Documented
 public @interface Sdt {
     String message() default "số điện thoại chứ kí tự ";
-
+    int sodem() default 9;
     Class<?>[] groups() default {};
 
     Class<? extends Payload>[] payload() default {};

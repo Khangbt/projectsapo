@@ -6,19 +6,16 @@ import com.example.sapoproject.logic.LogicType;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-public class SdtValide implements ConstraintValidator<Sdt,String> {
+public class SdtValide implements ConstraintValidator<Sdt,Integer> {
     @Override
-    public boolean isValid(String integers, ConstraintValidatorContext constraintValidatorContext) {
+    public boolean isValid(Integer integers, ConstraintValidatorContext constraintValidatorContext) {
         if(integers==null){
             System.err.println("là nlll");
             return true;
         }
-        System.out.println();
-        if(new LogicType().checkType(integers)){
-            System.err.println("là só");
-            return false;
+        if((integers<1000000000)&&(integers>10000000)){
+            return true;
         }
-        System.err.println("là chữ");
-        return true;
+        return false;
     }
 }

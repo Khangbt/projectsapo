@@ -44,7 +44,7 @@ public class ProductApi {
         if (entities.getSize() == 0) {
             return new ResponseEntity<>("khong co gia tri", HttpStatus.BAD_GATEWAY);
         }
-        Page<ProductEntity> dtos= (Page<ProductEntity>) DtotoEntity.getDto(entities,CustomerDto.class);
+        Page<ProductDto> dtos= (Page<ProductDto>) DtotoEntity.getDto(entities,ProductDto.class);
         return new ResponseEntity<>(dtos, HttpStatus.OK);
     }
     @RequestMapping(value = "/product/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)

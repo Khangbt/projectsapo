@@ -10,7 +10,7 @@ public class CustomerDto {
     private int idCustomer;
     @NotNull(message = "ko dc nulll")
     private String nameCustomer;
-
+    @Sdt(message = "số điện thoaijt quá dài")
     @NotNull(message = "trường này không đươc null")
     private Integer phoneNumber;
     @NotNull(message = "không dc null")
