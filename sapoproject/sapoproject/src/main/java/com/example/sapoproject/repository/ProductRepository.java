@@ -18,5 +18,7 @@ public interface ProductRepository extends JpaRepository<ProductEntity,Integer> 
     Iterable<ProductEntity> getListId(List<Integer> list);
     @Query(value = "select * from product" ,nativeQuery = true)
     Page<ProductEntity> getAllList(Pageable pageable);
+    @Query(value = "select count(product.idproduct) from product where product.product_code=?1",nativeQuery = true)
+    Integer checkProductCode(String productCode);
 
 }

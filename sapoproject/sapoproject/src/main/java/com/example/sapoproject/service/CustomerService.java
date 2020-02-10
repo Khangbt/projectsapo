@@ -1,6 +1,5 @@
 package com.example.sapoproject.service;
 
-import com.example.sapoproject.annotation.Test;
 import com.example.sapoproject.entity.CustomerEntity;
 import com.example.sapoproject.repository.CustomerRepository;
 import com.example.sapoproject.service.ipm.CustomerServiceIpm;
@@ -54,6 +53,11 @@ public class CustomerService implements CustomerServiceIpm {
     @Override
     public List<Map<String,Object>> getAll1() {
         return customerRepository.getAll123();
+    }
+
+    @Override
+    public boolean checkSdt(String sdt) {
+        return (!(customerRepository.getPhoneNumber(String.valueOf(sdt))==0));
     }
 
 }

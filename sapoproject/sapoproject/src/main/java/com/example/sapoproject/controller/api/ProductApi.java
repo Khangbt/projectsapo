@@ -66,7 +66,9 @@ public class ProductApi {
         ProductEntity entity1 = (ProductEntity) entity;
         Date date = new Date();
         entity1.setDateCreated(new Timestamp(date.getTime()));
-
+        if(productServiceIpm.checkMasp(entity1.getProductCode())){
+            return new ResponseEntity<>("mã sản phẩm đã tồn tai", HttpStatus.NOT_FOUND);
+        }
         ProductEntity get = productServiceIpm.saveGetId(entity1);
 
         return new ResponseEntity<>(DtotoEntity.getDTOTest(ProductDto.class,get), HttpStatus.OK);
@@ -78,16 +80,22 @@ public class ProductApi {
         if (!customerEntity.isPresent()) {
             return new ResponseEntity<>("ko có giá trị", HttpStatus.NOT_FOUND);
         }
-        Object o=convent.mapToDto(productDto,ProductDto.class);
+        Object o=convent.dtoForm(productDto,ProductDto.class);
         if(!(o instanceof  ProductDto)){
             return new ResponseEntity<>(o, HttpStatus.NOT_FOUND);
         }
         ProductEntity entity = customerEntity.get();
-
+        System.err.println(((ProductDto) o).getProductCode()+"------"+entity.getProductCode());
+        System.err.println(!(((ProductDto) o).getProductCode().equals(entity.getProductCode())));
+        if(!(((ProductDto) o).getProductCode().equals(entity.getProductCode()))){
+            System.err.println("vào đây");
+            if(productServiceIpm.checkMasp(((ProductDto) o).getProductCode())){
+                return new ResponseEntity<>("mã sản phẩm đã tồn tai", HttpStatus.NOT_FOUND);
+            }
+        }
         entity = (ProductEntity) DtotoEntity.getDTO(entity,o);
         entity.setIdproduct(id);
-        System.err.println(entity.toString());
-       ProductEntity entity1= productServiceIpm.saveGetId(entity);
+        ProductEntity entity1= productServiceIpm.saveGetId(entity);
 
         return new ResponseEntity<>(DtotoEntity.getDTOTest(ProductDto.class,entity1), HttpStatus.OK);
     }

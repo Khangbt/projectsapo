@@ -1,8 +1,18 @@
 package com.example.sapoproject.dto;
 
     public class NameDto  {
-        String nameProduct;
-        Integer amount;
+
+        private String nameProduct;
+        private Integer amount;
+        private String productcode;
+
+        public String getProductcode() {
+            return productcode;
+        }
+
+        public void setProductcode(String productcode) {
+            this.productcode = productcode;
+        }
 
         public String getNameProduct() {
             return nameProduct;

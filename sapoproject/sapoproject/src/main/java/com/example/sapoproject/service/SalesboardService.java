@@ -20,6 +20,7 @@ public class SalesboardService implements SalesboardServiceImp {
     @Override
     public Iterable<SalesboardEntity> getId(int id) {
         return null;
+
     }
 
     @Override

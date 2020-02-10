@@ -1,5 +1,7 @@
 package com.example.sapoproject.dto;
 
+import com.example.sapoproject.annotation.valite.Sdt;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 
@@ -8,8 +10,9 @@ public class CustomerDto {
     private int idCustomer;
     @NotNull(message = "ko dc nulll")
     private String nameCustomer;
-    @NotNull(message = "không dc null")
-    private Integer phoneNumber;
+    @Sdt
+    @NotNull(message = "trường này không đươc null")
+    private String phoneNumber;
     @NotNull(message = "không dc null")
     private String city;
     @NotNull(message = "không dc null")
@@ -35,11 +38,11 @@ public class CustomerDto {
         this.nameCustomer = nameCustomer;
     }
 
-    public Integer getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(Integer phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 

@@ -46,5 +46,11 @@ public class ProductService implements ProductServiceIpm {
         return productRepository.getAllList(pageable);
     }
 
+    @Override
+    public boolean checkMasp(String sdt) {
+        return (!(productRepository.checkProductCode(String.valueOf(sdt))==0));
+
+    }
+
 
 }

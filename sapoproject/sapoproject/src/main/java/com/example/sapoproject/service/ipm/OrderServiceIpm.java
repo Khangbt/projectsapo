@@ -13,4 +13,5 @@ public interface OrderServiceIpm {
     OrderbyEntity saveGetObject(OrderbyEntity entity);
     Page<Map<String,Object>> getAllOrder(Pageable pageable);
     int getMaxOrder();
+    Page<Map<String,Object>> getNameCustomer(Pageable pageable,String name);
 }

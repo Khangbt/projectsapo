@@ -1,9 +1,11 @@
 package com.example.sapoproject.dto;
 
+import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
 public class ProductDto {
     private int idProduct;
+    @NotNull(message = "")
     private String nameProduct;
     private Integer inventoryNumber;
     private Timestamp dateCreated;

@@ -50,6 +50,8 @@ public class OrderApi {
 //         return new ResponseEntity<>(entities, HttpStatus.OK);
 //    }
 //    request ra chuỗi sp
+    //lấy full danh sách orders
+
     @RequestMapping(value = "/orders",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getAll(@RequestParam(required = false, defaultValue = "0") @Null Integer page,
                                     @RequestParam(required = false, defaultValue = "0") @Null Integer size)
@@ -60,6 +62,21 @@ public class OrderApi {
             return new ResponseEntity<>("không có gía trị", HttpStatus.NOT_FOUND);
         }
        // List<GetOrderDto> getOrderDtos= (List<GetOrderDto>) maptoDto.getMapList(entities.toList(),GetOrderDto.class);
+        Page<GetOrderDto> dtos= (Page<GetOrderDto>) maptoDto.getDto(entities,GetOrderDto.class);
+        return new ResponseEntity<>(dtos, HttpStatus.OK);
+    }
+    //lấy danh sách theo tên khách hàng
+    @RequestMapping(value = "/order",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getByNameProduct(@RequestParam String name,
+                                              @RequestParam(required = false, defaultValue = "0") @Null Integer page,
+                                              @RequestParam(required = false, defaultValue = "0") @Null Integer size)
+    {
+        Pageable pageable= new LogicPage().logic(20, 0, size, page);
+        Page<Map<String,Object>> entities=  orderServiceIpm.getNameCustomer(pageable,name);
+        if(entities.getSize()==0){
+            return new ResponseEntity<>("không có gía trị", HttpStatus.NOT_FOUND);
+        }
+        // List<GetOrderDto> getOrderDtos= (List<GetOrderDto>) maptoDto.getMapList(entities.toList(),GetOrderDto.class);
         Page<GetOrderDto> dtos= (Page<GetOrderDto>) maptoDto.getDto(entities,GetOrderDto.class);
         return new ResponseEntity<>(dtos, HttpStatus.OK);
     }
@@ -88,6 +105,7 @@ public class OrderApi {
         }
         return new ResponseEntity<>(dtos, HttpStatus.OK);
     }
+    //thêm 1 đơn hàng
     @RequestMapping(value = "/setorder" ,method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getOrderSp(@RequestBody Map<String,Object> map){
 //        try {

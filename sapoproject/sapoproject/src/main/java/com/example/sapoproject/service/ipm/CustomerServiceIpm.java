@@ -2,7 +2,6 @@ package com.example.sapoproject.service.ipm;
 
 
 import com.example.sapoproject.entity.CustomerEntity;
-import com.example.sapoproject.entity.ProductEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -18,5 +17,6 @@ public interface CustomerServiceIpm {
         CustomerEntity  saveAndGetID(CustomerEntity entity);
         boolean checkId(int id);
         List<Map<String,Object>> getAll1();
+        boolean checkSdt(String sdt);
 
 }

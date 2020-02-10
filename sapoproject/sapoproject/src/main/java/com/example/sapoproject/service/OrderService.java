@@ -43,5 +43,10 @@ public class OrderService implements OrderServiceIpm {
         return orderRepository.getMaxOrder();
     }
 
+    @Override
+    public Page<Map<String, Object>> getNameCustomer(Pageable pageable, String name) {
+        return orderRepository.getByCutomerName(pageable,name);
+    }
+
 
 }

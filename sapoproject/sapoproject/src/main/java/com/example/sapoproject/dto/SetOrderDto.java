@@ -1,27 +1,25 @@
 package com.example.sapoproject.dto;
 
-import java.sql.Timestamp;
+import com.example.sapoproject.annotation.valite.SizeL;
+
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 public class SetOrderDto {
-    private int idOrder;
+    @NotNull(message = "không có khách hàng")
     private Integer idCustomer;
-    private Timestamp dateSale;
+    @NotNull(message = "thiếu tổng số tiền thiếu")
     private Integer totalAmount;
+    @NotNull(message = "số tiền khách trả thiếu")
     private Integer amountPaid;
+    @NotNull(message = "số tiền trả lại thiếu")
     private Integer unpaidAmount;
+    @NotNull(message = "thiếu phương thức thanh toán")
     private Integer idPaymentMethods;
-
-    private String lon;
+    @SizeL(size = 20)
+    @NotNull(message = "không dc thiếu")
     private List<SalesboarDto> salesboarDtos;
 
-    public int getIdOrder() {
-        return idOrder;
-    }
-
-    public void setIdOrder(int idOrder) {
-        this.idOrder = idOrder;
-    }
 
     public Integer getIdCustomer() {
         return idCustomer;
@@ -29,14 +27,6 @@ public class SetOrderDto {
 
     public void setIdCustomer(Integer idCustomer) {
         this.idCustomer = idCustomer;
-    }
-
-    public Timestamp getDateSale() {
-        return dateSale;
-    }
-
-    public void setDateSale(Timestamp dateSale) {
-        this.dateSale = dateSale;
     }
 
     public Integer getTotalAmount() {
@@ -69,14 +59,6 @@ public class SetOrderDto {
 
     public void setIdPaymentMethods(Integer idPaymentMethods) {
         this.idPaymentMethods = idPaymentMethods;
-    }
-
-    public String getLon() {
-        return lon;
-    }
-
-    public void setLon(String lon) {
-        this.lon = lon;
     }
 
     public List<SalesboarDto> getSalesboarDtos() {

@@ -11,7 +11,6 @@ import com.example.sapoproject.logic.LogicType;
 import com.example.sapoproject.service.ipm.CustomerServiceIpm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -30,6 +29,7 @@ public class CustomerApi {
     @Autowired
     private CustomerServiceIpm customerServiceIpm;
     Convent<CustomerDto> convent=new Convent<>();
+    //lấy full danh sách orders
     @RequestMapping(value = "/customers", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getAll(@RequestParam(required = false, defaultValue = "0") @Null Integer page,
                                     @RequestParam(required = false, defaultValue = "5") @Null Integer size) {
@@ -72,13 +72,23 @@ public class CustomerApi {
         if (!customerEntity.isPresent()) {
             return new ResponseEntity<>("ko có giá trị", HttpStatus.NOT_FOUND);
         }
-        Object o=convent.mapToDto(mapDto,CustomerDto.class);
+        Object o=convent.dtoForm(mapDto,CustomerDto.class);
         if(!(o instanceof CustomerDto)){
             return new ResponseEntity<>(o, HttpStatus.OK);
         }
+
         CustomerEntity entity = customerEntity.get();
-        entity = (CustomerEntity) DtotoEntity.getDTO(entity,  o);
+        System.err.println(((CustomerDto) o).getPhoneNumber()+"----------"+entity.getPhoneNumber());
+        if(!(((CustomerDto) o).getPhoneNumber().equals(entity.getPhoneNumber()))){
+            System.err.println("vào đây");
+            if(customerServiceIpm.checkSdt(((CustomerDto) o).getPhoneNumber())){
+                return new ResponseEntity<>("số điênn thoai đa tồn tại", HttpStatus.NOT_FOUND);
+            }
+        }
+        entity = (CustomerEntity) DtotoEntity.getDTO(entity,o);
         entity.setIdcustomer(id);
+
+        System.err.println(entity);
         CustomerEntity entity1= customerServiceIpm.saveAndGetID(entity);
         return new ResponseEntity<>(DtotoEntity.getDTOTest(CustomerDto.class,entity1), HttpStatus.OK);
     }
@@ -89,6 +99,9 @@ public class CustomerApi {
         entity =  convent.dtoToEntity(CustomerEntity.class,customerDto, CustomerDto.class);
         if(!(entity instanceof CustomerEntity)){
              return new ResponseEntity<>(entity, HttpStatus.NOT_FOUND);
+        }
+        if (customerServiceIpm.checkSdt(((CustomerEntity) entity).getPhoneNumber())){
+            return new ResponseEntity<>("Số điện thoại đã tồn tai", HttpStatus.NOT_FOUND);
         }
         CustomerEntity entity1= customerServiceIpm.saveAndGetID((CustomerEntity) entity);
         return new ResponseEntity<>(DtotoEntity.getDTOTest(CustomerDto.class,entity1), HttpStatus.OK);
