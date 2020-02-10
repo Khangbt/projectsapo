@@ -43,8 +43,10 @@ public class CustomerApi {
     }
 
     @RequestMapping(value = "/searchcustomer", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> getSerch(@RequestParam String mailOrSdt) {
-        Pageable pageable = PageRequest.of(0, 5);
+    public ResponseEntity<?> getSerch(@RequestParam String mailOrSdt,
+                                      @RequestParam(required = false, defaultValue = "0") @Null Integer page,
+                                      @RequestParam(required = false, defaultValue = "5") @Null Integer size) {
+        Pageable pageable =  new LogicPage().logic(20, 0, size, page);
         Page<CustomerEntity> entities;
         if (new LogicType().checkType(mailOrSdt)) {
             entities = customerServiceIpm.getByName(pageable, mailOrSdt);
@@ -52,6 +54,9 @@ public class CustomerApi {
         } else {
             entities = customerServiceIpm.getBySDT(pageable, Integer.valueOf(mailOrSdt));
             System.out.println("đây là số");
+        }
+        if(entities.getSize()==0){
+            return new ResponseEntity<>("không có giá trị",HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(DtotoEntity.getList(entities.toList(),CustomerDto.class), HttpStatus.OK);
     }
