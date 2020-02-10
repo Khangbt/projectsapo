@@ -69,6 +69,9 @@ public class ProductApi {
         if(productServiceIpm.checkMasp(entity1.getProductCode())){
             return new ResponseEntity<>("mã sản phẩm đã tồn tai", HttpStatus.NOT_FOUND);
         }
+        if(productServiceIpm.checkNameSp(entity1.getNameProduct())){
+            return new ResponseEntity<>("tên sp đã tồn tại", HttpStatus.NOT_FOUND);
+        }
         ProductEntity get = productServiceIpm.saveGetId(entity1);
 
         return new ResponseEntity<>(DtotoEntity.getDTOTest(ProductDto.class,get), HttpStatus.OK);
@@ -91,6 +94,13 @@ public class ProductApi {
             System.err.println("vào đây");
             if(productServiceIpm.checkMasp(((ProductDto) o).getProductCode())){
                 return new ResponseEntity<>("mã sản phẩm đã tồn tai", HttpStatus.NOT_FOUND);
+            }
+
+        }
+        if(!(((ProductDto) o).getNameProduct().equals(entity.getNameProduct()))){
+            System.err.println("vào đây 123123");
+            if(productServiceIpm.checkNameSp(((ProductDto) o).getNameProduct())){
+                return new ResponseEntity<>("tên sp đã tồn tại", HttpStatus.NOT_FOUND);
             }
         }
         entity = (ProductEntity) DtotoEntity.getDTO(entity,o);

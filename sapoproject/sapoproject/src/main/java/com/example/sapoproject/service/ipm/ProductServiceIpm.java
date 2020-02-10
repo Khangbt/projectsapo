@@ -15,4 +15,5 @@ public interface  ProductServiceIpm {
     Iterable<ProductEntity> saveList(Iterable<ProductEntity> entities);
     Page<ProductEntity> getAllLi(Pageable pageable);
     boolean checkMasp(String sdt);
+    boolean checkNameSp(String name);
 }

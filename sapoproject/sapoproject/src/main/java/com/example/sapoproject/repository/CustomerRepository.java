@@ -23,4 +23,6 @@ public interface CustomerRepository extends JpaRepository<CustomerEntity,Integer
     List<Map<String,Object>> getAll123();
     @Query(value = "select count(customer.idcustomer) from customer where customer.phone_number =?1",nativeQuery = true)
     Integer getPhoneNumber(Integer sdt);
+
+
 }

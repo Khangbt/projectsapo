@@ -52,5 +52,10 @@ public class ProductService implements ProductServiceIpm {
 
     }
 
+    @Override
+    public boolean checkNameSp(String name) {
+        return (!(productRepository.chechProductName(String.valueOf(name))==0)) ;
+    }
+
 
 }
