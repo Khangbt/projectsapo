@@ -11,7 +11,7 @@ import com.example.sapoproject.logic.LogicType;
 import com.example.sapoproject.service.ipm.CustomerServiceIpm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -58,7 +58,8 @@ public class CustomerApi {
         if(entities.getSize()==0){
             return new ResponseEntity<>("không có giá trị",HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(DtotoEntity.getList(entities.toList(),CustomerDto.class), HttpStatus.OK);
+        Page<CustomerDto> dtos= (Page<CustomerDto>) DtotoEntity.getDto(entities,CustomerDto.class);
+        return new ResponseEntity<>(dtos, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/customer/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
