@@ -13,13 +13,13 @@ public class CustomerDto {
     @Sdt(message = "số điện thoaijt quá dài")
     @NotNull(message = "trường này không đươc null")
     private Integer phoneNumber;
-    @NotNull(message = "không dc null")
+
     private String city;
-    @NotNull(message = "không dc null")
+
     private String email;
-    @NotNull(message = "không dc null")
+
     private String address;
-    @NotNull(message = "không dc null")
+
     private String district;
 
     public int getIdCustomer() {

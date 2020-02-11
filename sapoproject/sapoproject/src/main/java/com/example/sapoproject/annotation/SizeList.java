@@ -22,8 +22,8 @@ public class SizeList  implements ConstraintValidator<SizeL, List<?>> {
         }
         if(objects.size()<=dem)
         {
-        return false;
-        }
         return true;
+        }
+        return false;
     }
 }

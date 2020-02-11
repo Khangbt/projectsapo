@@ -2,7 +2,6 @@ package com.example.sapoproject.controller.api;
 
 import com.example.sapoproject.converter.Convent;
 import com.example.sapoproject.converter.DtotoEntity;
-import com.example.sapoproject.dto.CustomerDto;
 import com.example.sapoproject.dto.ProductDto;
 import com.example.sapoproject.entity.ProductEntity;
 import com.example.sapoproject.logic.LogicPage;
