@@ -1,10 +1,14 @@
 package com.example.sapoproject.converter;
 
+import com.example.sapoproject.logic.LogicType;
+
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import java.lang.reflect.Field;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.*;
 
 public class Convent<T> {
@@ -24,7 +28,12 @@ public class Convent<T> {
 //                        System.out.println(field.getName());
                     }else if ((map.get(key) instanceof List) && (isCollection(field.getType()))) {
 //                                    System.out.println("đây la mang");
-                    } else {
+                    }else if(!(new LogicType().checkType((map.get(key)).toString()))  &&
+                            ((field.getType().isAssignableFrom(Long.class))||(field.getType().isAssignableFrom(int.class)))){
+                                System.out.println("đây la long");
+                                System.out.println(field.getName());
+                    }
+                    else {
                         list.put( key,"Lỗi kiểu dữ liệu của trường này");
                         //  System.out.println("lỗi kiểu dữ liệu ở trường" + key);
                     }
@@ -39,7 +48,7 @@ public class Convent<T> {
     public Object mapToDto( Map<String, Object> map,Class o1) {
         Object list= checkType(map,o1);
         if(list.getClass().isAssignableFrom(HashMap.class)){
-            System.out.println("vao day");
+            System.out.println("vao day11");
             return list;
         }
         Object o = null;
@@ -52,7 +61,12 @@ public class Convent<T> {
                     if (s.toLowerCase().equals(field.getName().toLowerCase())) {
                         try {
                             field.setAccessible(true);
-                            field.set(o, map.get(s));
+                            if((field.getType().isAssignableFrom(Long.class))){
+                                field.set(o,Long.valueOf( map.get(s).toString()));
+                                System.out.println(map.get(s));
+                                System.out.println(field.getName());
+                            }
+                            field.set(o,map.get(s));
                         } catch (Exception e) {
 
                         }

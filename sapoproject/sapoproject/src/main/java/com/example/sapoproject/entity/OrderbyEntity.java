@@ -9,9 +9,9 @@ public class OrderbyEntity {
     private int idorder;
     private Integer idcustomer;
     private Timestamp dateSale;
-    private Integer totalAmount;
-    private Integer amountPaid;
-    private Integer unpaidAmount;
+    private Long totalAmount;
+    private Long amountPaid;
+    private Long unpaidAmount;
     private Integer idPaymentMethods;
 
     @Id
@@ -47,31 +47,31 @@ public class OrderbyEntity {
 
     @Basic
     @Column(name = "total_amount", nullable = true, precision = 0)
-    public Integer getTotalAmount() {
+    public Long getTotalAmount() {
         return totalAmount;
     }
 
-    public void setTotalAmount(Integer totalAmount) {
+    public void setTotalAmount(Long totalAmount) {
         this.totalAmount = totalAmount;
     }
 
     @Basic
     @Column(name = "amount_paid", nullable = true, precision = 0)
-    public Integer getAmountPaid() {
+    public Long getAmountPaid() {
         return amountPaid;
     }
 
-    public void setAmountPaid(Integer amountPaid) {
+    public void setAmountPaid(Long amountPaid) {
         this.amountPaid = amountPaid;
     }
 
     @Basic
     @Column(name = "unpaid_amount", nullable = true, precision = 0)
-    public Integer getUnpaidAmount() {
+    public Long getUnpaidAmount() {
         return unpaidAmount;
     }
 
-    public void setUnpaidAmount(Integer unpaidAmount) {
+    public void setUnpaidAmount(Long unpaidAmount) {
         this.unpaidAmount = unpaidAmount;
     }
 

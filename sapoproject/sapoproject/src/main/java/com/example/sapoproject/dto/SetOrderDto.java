@@ -9,14 +9,14 @@ public class SetOrderDto {
     @NotNull(message = "không có khách hàng")
     private Integer idCustomer;
     @NotNull(message = "thiếu tổng số tiền thiếu")
-    private Integer totalAmount;
+    private Long totalAmount;
     @NotNull(message = "số tiền khách trả thiếu")
-    private Integer amountPaid;
+    private Long amountPaid;
     @NotNull(message = "số tiền trả lại thiếu")
-    private Integer unpaidAmount;
+    private Long unpaidAmount;
     @NotNull(message = "thiếu phương thức thanh toán")
     private Integer idPaymentMethods;
-    @SizeL(size = 20)
+//    @SizeL(size = 20)
     @NotNull(message = "không dc thiếu")
     private List<SalesboarDto> salesboarDtos;
 
@@ -29,27 +29,27 @@ public class SetOrderDto {
         this.idCustomer = idCustomer;
     }
 
-    public Integer getTotalAmount() {
+    public Long getTotalAmount() {
         return totalAmount;
     }
 
-    public void setTotalAmount(Integer totalAmount) {
+    public void setTotalAmount(Long totalAmount) {
         this.totalAmount = totalAmount;
     }
 
-    public Integer getAmountPaid() {
+    public Long getAmountPaid() {
         return amountPaid;
     }
 
-    public void setAmountPaid(Integer amountPaid) {
+    public void setAmountPaid(Long amountPaid) {
         this.amountPaid = amountPaid;
     }
 
-    public Integer getUnpaidAmount() {
+    public Long getUnpaidAmount() {
         return unpaidAmount;
     }
 
-    public void setUnpaidAmount(Integer unpaidAmount) {
+    public void setUnpaidAmount(Long unpaidAmount) {
         this.unpaidAmount = unpaidAmount;
     }
 

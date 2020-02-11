@@ -123,14 +123,11 @@ public class OrderApi {
                     Map<String,Object> dto1= (Map<String, Object>) dto;
                     mapList.add(dto1);
                 }
-            System.out.println(mapList);
             List<SalesboarDto> salesboarDtos= (List<SalesboarDto>) new MaptoDto().getMapList(mapList,SalesboarDto.class);
-            for (SalesboarDto dto:salesboarDtos){
+            for (SalesboarDto dto:salesboarDtos) {
                 list.add(dto.getIdProduct());
             }
-           System.out.println(list);
             List<ProductEntity> list1= (List<ProductEntity>) productServiceIpm.getListId(list);
-            System.out.println(list1);
             List<ProductEntity> productEntities= new Update().updateProduct(list1,salesboarDtos);
             if(productEntities==null){
                 return new ResponseEntity<>("Lỗi sản phẩm quá số lượng",HttpStatus.NOT_FOUND);
