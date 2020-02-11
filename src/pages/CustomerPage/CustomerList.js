@@ -12,7 +12,7 @@ class CustomerList extends Component {
       listCus: [],
       activePage:1,
       totalPages: null,
-      itemsCountPerPage:1,
+      itemsCountPerPage:10,
       totalItemsCount:null,
       a:true
     }
@@ -42,6 +42,7 @@ class CustomerList extends Component {
     fetchURLSearch(textSearch) {
     axios.get(`http://localhost:8291/searchcustomer?mailOrSdt=${textSearch}&page=0&size=${this.state.totalItemsCount}`)
       .then( response => {
+        console.log("có ko", response)
           const results = response.data.content;
           this.setState({listCus: results});
           this.setState({totalPages: 0})
@@ -106,7 +107,7 @@ class CustomerList extends Component {
 
     let elements = this.state.listCus.map((value) => {
       return <tr>
-        <td><Link to ={"/customer/id="+value.idcustomer} style ={{cursor: 'pointer'}}>{value.nameCustomer}</Link></td>
+        <td><Link to ={"/customer/id="+value.idCustomer} style ={{cursor: 'pointer'}}>{value.nameCustomer}</Link></td>
         <td>0{value.phoneNumber}</td>
         <td>{value.email}</td>
         <td>{value.address}</td>

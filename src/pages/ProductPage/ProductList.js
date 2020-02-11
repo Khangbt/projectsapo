@@ -21,7 +21,7 @@ class ProductList extends Component {
   }
 
   fetchURL(page) {
-    axios.get(`http://localhost:8291/products?page=${page - 1}&size=5`)
+    axios.get(`http://localhost:8291/products?page=${page - 1}&size=10`)
       .then(response => {
         const totalPages = response.data.totalPages;
         const itemsCountPerPage = response.data.size;
@@ -52,7 +52,7 @@ class ProductList extends Component {
     let elements = this.state.listProducts.map((value, key) => {
       const date = new Date(value.dateCreated).toLocaleString();
       return <tr>
-        <td><Link to={'/product/id=' + value.idproduct} title={value.nameProduct} style={{ cursor: 'pointer' }}> {value.nameProduct}</Link></td>
+        <td><Link to={'/product/id=' + value.idProduct} title={value.nameProduct} style={{ cursor: 'pointer' }}> {value.nameProduct}</Link></td>
         <td>{value.productCode}</td>
         <td>{value.inventoryNumber === null ? 0 : value.inventoryNumber}</td>
         <td>{value.price === null ? 0 : value.price.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')} VNĐ</td>

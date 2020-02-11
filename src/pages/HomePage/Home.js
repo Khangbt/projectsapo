@@ -1,36 +1,151 @@
 import React, { Component } from 'react';
-import product from '../../Data/Product';
 import { Modal } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
-import Guest from '../../Data/Customer'
+import axios from 'axios';
+import Payment from '../../Data/PaymentMethod.json'
+import AddCustomer from './AddCustomer';
+import Swal from 'sweetalert2';
 
 
 class Sale extends Component {
   constructor() {
     super();
-    this.state = {
+    this._initState = {
       listproduct: [],
       listOrder: [],
       guest: null,
       showModalAddGuest: false,
       showModalOrder: false,
-      showMessage : false,
+      showMessage: false,
       citys: "",
       listGuest: [],
       currentGuest: null,
-      pays: ["a", "b", "c"],
-      checkClickCustomer: false
+      pays: Payment,
+      checkClickCustomer: false,
+      textSearchGuest: "",
+      totalItemsCount: 100,
+      unPay: 0,
+      pay: 0,
+      totalPay: 0,
+      paymentID: 1,
     }
+    this.state = this._initState
 
   }
 
+  fetchURLSearchGuest(textSearch) {
+    axios.get(`http://localhost:8291/searchcustomer?mailOrSdt=${textSearch}&page=0&size=${this.state.totalItemsCount}`)
+      .then(response => {
+        const results = response.data.content;
+        this.setState({ listGuest: results });
+      }
+      ).catch(error => console.log(error));
+  }
+
+
+  fetchURLSearchProduct(textSearch) {
+    axios.get(`http://localhost:8291/sreachproduct?name=${textSearch}`)
+      .then(response => {
+        const results = response.data;
+        this.setState({ listproduct: results });
+      }
+      ).catch(error => console.log(error));
+  }
+
+
+  thanhToan = (event) => {
+    if (this.state.pay < this.state.totalPay || this.state.pay === 0) {
+      this.setState({
+        showMess: true
+      })
+    } else {
+      console.log(typeof (this.state.pay))
+      var order = {
+        "idCustomer": this.state.currentGuest.idCustomer,
+        "totalAmount": this.state.totalPay,
+        "amountPaid": parseInt(this.state.pay),
+        "unpaidAmount": this.state.unPay,
+        "idPaymentMethods": parseInt(this.state.paymentID),
+        "salesboarDtos": this.state.listOrder
+      }
+      console.log(order)
+      axios({
+        method: 'post',
+        url: 'http://localhost:8291/setorder',
+        data: order
+      })
+        .then(res => {
+          Swal.mixin({
+            toast: true,
+            position: 'top',
+            showConfirmButton: false,
+            timer: 1500,
+          })
+            .fire({
+              icon: 'success',
+              title: 'Thanh toán thành công'
+            })
+          this.setState(this._initState)
+        })
+        .catch(function (error) {
+          Swal.mixin({
+            toast: true,
+            position: 'top',
+            showConfirmButton: false,
+            timer: 1500,
+          })
+            .fire({
+              icon: 'error',
+              title: 'Thanh toán không thành công'
+            })
+
+        });
+
+    }
+  }
+
+
+  changePay = (event) => {
+    if (event.target.value < this.state.totalPay)
+      this.setState({
+        showMess: true
+      })
+    else {
+      this.setState({
+        pay: event.target.value,
+        unPay: Math.abs(this.state.totalPay - event.target.value),
+        showMess: false
+      })
+    }
+    console.log(typeof (this.state.pay))
+    if (event.target.value === "")
+      this.setState({
+        unPay: 0
+      })
+  }
+
+  totalPayOrder() {
+    var total = 0
+    for (var i = 0; i < this.state.listOrder.length; i++) {
+      total = total + this.state.listOrder[i].amount * this.state.listOrder[i].costProduct
+      console.log(total)
+      console.log(this.state.listOrder[i])
+    }
+    this.setState({
+      totalPay: total
+    })
+  }
+
+  changePaymentMethod = (event) => {
+    this.setState({
+      paymentID: event.target.value
+    })
+  }
 
   searchByName = (event) => {
     let valname = event.target.value
     if (valname !== "")
-      this.setState({
-        listproduct: product
-      })
+      this.fetchURLSearchProduct(valname)
     else this.setState({
       listproduct: []
     })
@@ -39,10 +154,9 @@ class Sale extends Component {
 
   searchGuest = (event) => {
     let val = event.target.value
+    console.log("val", val)
     if (val !== "")
-      this.setState({
-        listGuest: Guest
-      })
+      this.fetchURLSearchGuest(val)
     else this.setState({
       listGuest: []
     })
@@ -54,7 +168,14 @@ class Sale extends Component {
     })
   }
 
+  showMessThanhToan = () => {
+    this.setState({
+      messThanhToan: false
+    })
+  }
+
   showModalOrder = () => {
+    this.totalPayOrder()
     this.setState({
       showModalOrder: !this.state.showModalOrder
     })
@@ -62,7 +183,7 @@ class Sale extends Component {
 
   showMessage = () => {
     this.setState({
-      showMessage : !this.state.showMessage
+      showMessage: false
     })
   }
 
@@ -81,80 +202,105 @@ class Sale extends Component {
   }
 
   addOrder = (productById) => {
-    var listOrder = this.state.listOrder.filter((order)=> order.id===productById.id)
-    if(listOrder.length === 0){
+    var listOrder = this.state.listOrder.filter((order) => order.idProduct === productById.idProduct)
+    console.log(listOrder)
+    if (productById.inventoryNumber === 0) {
+      this.setState({
+        showMessage: true
+      })
+    }
+    else if (listOrder.length === 0) {
       this.setState(prevState => ({
         listOrder: prevState.listOrder.concat({
-          id: productById.id,
-          nameProduct : productById.nameProduct,
-          quantity: 1,
-          inventory : productById.inventory,
-          costProduct : productById.costProduct
+          idProduct: productById.idProduct,
+          nameProduct: productById.nameProduct,
+          amount: 1,
+          inventoryNumber: productById.inventoryNumber,
+          costProduct: productById.price
         })
       }))
     }
-    else{
-        for(var i = 0; i < this.state.listOrder.length; i++){
-          if(this.state.listOrder[i].id===productById.id){
-            this.increasequantity(productById,i)
-          }
+    else {
+      for (var i = 0; i < this.state.listOrder.length; i++) {
+        if (this.state.listOrder[i].idProduct === productById.idProduct) {
+          this.increasequantity(productById, i)
         }
+      }
     }
-    
+
   }
   removeOrder = () => {
     this.setState({
       listOrder: []
     })
   }
-  increasequantity = (orderById,key) => {
-  
-    var order = this.state.listOrder.filter((order)=> order.id === orderById.id)[0]
-    
+  increasequantity = (orderById, key) => {
+
+    var order = this.state.listOrder.filter((order) => order.idProduct === orderById.idProduct)[0]
+    console.log(order)
     var listOrder = this.state.listOrder
-    if(listOrder[key].quantity < orderById.inventory){
-      listOrder[key].quantity = order.quantity + 1
-    }else{
-      this.showMessage()
+    if (listOrder[key].amount < orderById.inventoryNumber) {
+      listOrder[key].amount = order.amount + 1
+    } else {
+      this.setState({
+        showMessage: true
+      })
     }
-    
-   
+
+
     this.setState({
-      listOrder : listOrder
+      listOrder: listOrder
     })
   }
-  decreasequantity = (id,key) => {
-    var order = this.state.listOrder.filter((order)=> order.id === id)[0]
+  decreasequantity = (id, key) => {
+    var order = this.state.listOrder.filter((order) => order.idProduct === id)[0]
     var listOrder = this.state.listOrder
-    listOrder[key].quantity = order.quantity - 1
+    listOrder[key].amount = order.amount - 1
     this.setState({
-      listOrder : listOrder
+      listOrder: listOrder
     })
-    var list = this.state.listOrder.filter((order) => order.quantity > 0)
+    var list = this.state.listOrder.filter((order) => order.amount > 0)
     this.setState({
-      listOrder : list
+      listOrder: list
     })
   }
+  deleteProductOrder = (id, key) => {
+    var listOrder = this.state.listOrder
+    listOrder[key].amount = 0
+    this.setState({
+      listOrder: listOrder
+    })
+    var list = this.state.listOrder.filter((order) => order.amount > 0)
+    this.setState({
+      listOrder: list
+    })
+  }
+
   render() {
+
+
     console.log("listorder", this.state.listOrder)
     let listproductsearch = this.state.listproduct.map((value, key) => {
       return <tr title="add to order" onClick={() => this.addOrder(value, value.id)} style={{ cursor: 'pointer' }} >
-        {/* <td>{key}</td> */}
         <td width="30%">{value.nameProduct}</td>
-        <td>{value.codeProduct}</td>
-        <td>{value.inventory}</td>
-        <td>{value.costProduct}</td>
+        <td>{value.productCode}</td>
+        <td>{value.inventoryNumber === null ? 0 : value.inventoryNumber}</td>
+        <td>{value.price === null ? 0 : value.price.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}</td>
+
       </tr>
     })
 
     let order = this.state.listOrder.map((value, key) => {
+      let costPrice = value.costProduct * value.amount
       return <tr>
         <td>{value.nameProduct}</td>
-        <td><button type="submit" className="btn btn-default" onClick={() => this.increasequantity(value, key)}>+</button>{value.quantity}
-          <button type="submit" className="btn btn-default" onClick={() => this.decreasequantity(value.id,key)}>-</button></td>
-        <td>{value.costProduct}</td>
-        <td>{value.costProduct * value.quantity}</td>
-
+        <td><button type="submit" className="btn btn-default" onClick={() => this.increasequantity(value, key)}>+</button>{value.amount}
+          <button type="submit" className="btn btn-default" onClick={() => this.decreasequantity(value.idProduct, key)}>-</button></td>
+        <td>{value.costProduct === null ? 0 : value.costProduct.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}</td>
+        <td>{costPrice === null ? 0 : costPrice.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}</td>
+        <td style={{ "color": "red", cursor: 'pointer' }} onClick={() => this.deleteProductOrder(value.idProduct, key)}>
+          <i className="fas fa-trash-alt" ></i>
+        </td>
 
       </tr>
     })
@@ -163,12 +309,12 @@ class Sale extends Component {
       return (
         <li className="list-group-item" onClick={() => this.choseGuest(value)}>{value.nameCustomer} ({value.phoneNumber})</li>
       )
-		})
-		
+    })
+
 
     let listPay = this.state.pays.map((pay) => {
       return (
-        <option>{pay}</option>
+        <option value={pay.id}>{pay.name}</option>
       )
     })
     return (
@@ -201,26 +347,18 @@ class Sale extends Component {
 
             {this.state.checkClickCustomer && (
               <div
-                style={{ borderStyle: "groove" }}
-                className="d-flex justify-content-between"
+                className="d-flex justify-content-between chooseGuest"
               >
                 <div>
                   <div>
-                    <b>
-                      {" "}
-                      Tên khách hàng : {this.state.currentGuest.nameCustomer}
-                    </b>
-                  </div>
-                  <div>
-                    <b>
-                      {" "}
-                      Số điện thoại : {this.state.currentGuest.phoneNumber}
-                    </b>
+
+                    <i className="fas fa-user"></i> <span> Tên khách hàng : {this.state.currentGuest.nameCustomer}  {this.state.currentGuest.phoneNumber}</span>
+
                   </div>
                 </div>
                 <div>
                   <button
-                    className="btn btn-danger"
+                    className="btn btn-danger btndeleteguest"
                     onClick={this.removeCustomer}
                   >
                     X
@@ -235,16 +373,16 @@ class Sale extends Component {
               >
                 <thead>
                   <tr>
-                    <th>Product</th>
-                    <th>Quantity</th>
-                    <th>Price</th>
-                    <th>Total</th>
+                    <th>Tên sản phẩm</th>
+                    <th>Số lượng</th>
+                    <th>Giá</th>
+                    <th>Tổng</th>
                   </tr>
                 </thead>
                 <tbody>{order}</tbody>
               </table>
               {/* custom thanh srcollbar */}
-              <div class="force-overflow"></div>
+              <div className="force-overflow"></div>
             </div>
 
             <div className="row text-center group-btn">
@@ -273,8 +411,8 @@ class Sale extends Component {
               >
                 <thead>
                   <tr>
-                    <th width="30%">Tên SP </th>
-                    <th>Mã SP</th>
+                    <th width="30%">Tên sản phẩm </th>
+                    <th>Mã sản phẩm</th>
                     <th>Số lượng</th>
                     <th>Giá</th>
                   </tr>
@@ -282,73 +420,55 @@ class Sale extends Component {
                 <tbody>{listproductsearch}</tbody>
               </table>
               {/* custom thanh srcollbar */}
-              <div class="force-overflow"></div>
+              <div className="force-overflow"></div>
             </div>
           </div>
         </div>
-        
-        <Modal  show={this.state.showMessage}>
+
+        <Modal show={this.state.showMessage}>
           <Modal.Header>
             <Modal.Title>Thông báo</Modal.Title>
           </Modal.Header>
           <Modal.Body>Số lượng không đủ</Modal.Body>
           <Modal.Footer>
-          <Button variant="secondary" onClick={this.showMessage}>
+            <Button variant="secondary" onClick={this.showMessage}>
               Close
             </Button>
-          </Modal.Footer>
-        </Modal>
-        <Modal show={this.state.showModalAddGuest}>
-          <Modal.Header>
-            <Modal.Title> Thêm khách hàng mới </Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <form>
-              <input className="form-control" placeholder="input name" r />
-              <input className="form-control" placeholder="input sdt" />
-              <input className="form-control" placeholder="input email" />
-              <input className="form-control" placeholder="địa chỉ" />
-              <input className="form-control" placeholder="tỉnh/thành phố" />
-              <input className="form-control" placeholder="quận" />
-            </form>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={this.showModal}>
-              Close
-            </Button>
-            <Button variant="primary"> Lưu lại </Button>
           </Modal.Footer>
         </Modal>
 
-        <Modal show={this.state.showModalOrder  && this.state.checkClickCustomer && this.state.listOrder.length > 0}>
+
+        <AddCustomer showModalAddGuest={this.state.showModalAddGuest} showModal={this.showModal} />
+
+        <Modal show={this.state.showModalOrder && this.state.checkClickCustomer && this.state.listOrder.length > 0}>
           <Modal.Header>
             <Modal.Title> Thanh toán </Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <form>
-              Tổng hóa đơn: 10000
+              Tổng hóa đơn: {this.state.totalPay.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}
               <br />
               <br />
-              Tiền khách trả:
-              <input className="form-control" placeholder="" />
+              Tiền khách trả:{this.state.showMess && <i style={{ "color": "red" }}>thanh toán thiếu tiền</i>}
+              <input className="form-control" placeholder="" type="number" onChange={this.changePay} />
               <br />
               Tiền khách thừa:
-              <input className="form-control" placeholder="" disabled />
+              <input className="form-control" placeholder="" disabled value={this.state.unPay} type="number" />
               <br />
               phương thức thanh toán:
-              <select className="form-control">{listPay}</select>
+              <select value={this.state.paymentID} onChange={this.changePaymentMethod} className="form-control">{listPay}</select>
             </form>
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={this.showModalOrder}>
               Close
             </Button>
-            <Button variant="primary">Save</Button>
+            <Button variant="primary" onClick={this.thanhToan}>Thanh toán</Button>
           </Modal.Footer>
         </Modal>
 
-        <Modal show = {this.state.showModalOrder && this.state.listOrder.length === 0}>
-        <Modal.Header>
+        <Modal show={this.state.showModalOrder && this.state.listOrder.length === 0}>
+          <Modal.Header>
             <Modal.Title> Thông báo </Modal.Title>
           </Modal.Header>
           <Modal.Body>
@@ -360,9 +480,9 @@ class Sale extends Component {
             </Button>
           </Modal.Footer>
         </Modal>
-        
-        <Modal show = {this.state.showModalOrder && !this.state.checkClickCustomer}>
-        <Modal.Header>
+
+        <Modal show={this.state.showModalOrder && !this.state.checkClickCustomer}>
+          <Modal.Header>
             <Modal.Title> Thông báo </Modal.Title>
           </Modal.Header>
           <Modal.Body>
@@ -374,6 +494,7 @@ class Sale extends Component {
             </Button>
           </Modal.Footer>
         </Modal>
+
       </div>
     );
   }

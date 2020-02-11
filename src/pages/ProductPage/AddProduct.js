@@ -9,6 +9,7 @@ class AddProduct extends Component {
             check: false,
             checkName: false,
             checkForm: false,
+            checkCode : false,
             nameProduct: "",
             productCode: "",
             inventoryNumber: 0,
@@ -33,13 +34,13 @@ class AddProduct extends Component {
         } else {
             this.setState({
                 [name]: value,
-                checkName: false
+                checkName: false,
+                checkCode : false
             })
         }
     }
     onHandleSubmit = (event) => {
         event.preventDefault();
-        this.fetchNameExist(this.state.nameProduct)
         if (!this.state.checkName && this.state.nameProduct !== '' && this.state.productCode !== '') {
             axios({
                 method: 'POST',
@@ -62,31 +63,26 @@ class AddProduct extends Component {
                         check: true
                     })
                 }
+            }).catch(err => {
+                if(err.response.data === 'tên sp đã tồn tại'){
+                    this.setState({checkName : true})
+                }
+                if(err.response.data === 'mã sản phẩm đã tồn tai'){
+                    this.setState({checkCode : true})
+                }
             })
         } else {
             this.setState({ checkForm: true })
         }
     }
-    fetchNameExist = (nameProduct) => {
-        console.log("abc", nameProduct)
-        axios.get(`http://localhost:8291/sreachproduct?name=${nameProduct}`)
-            .then(res => {
-                console.log(res.status)
-                if (res.status === 200) {
-                    this.setState({ checkName: true })
-                } else {
-                    this.setState({ checkName: false })
-                }
-            }
-            )
-    }
+
 
     componentDidMount() {
         document.title = 'Thêm mới sản phẩm';
     }
 
     render() {
-        var { check, checkForm, checkName, nameProduct, productCode } = this.state
+        var { check, checkForm, checkName, nameProduct, productCode, checkCode } = this.state
         console.log("data", this.state)
         console.log("giá", this.state.price)
         console.log("số lượng", this.state.inventoryNumber)
@@ -117,6 +113,7 @@ class AddProduct extends Component {
                                         {productCode === '' && checkForm && <span>* mã sản phẩm không được để trống</span>}
                                         {productCode.length > 44 && <span>* mã sản phẩm tối đa 45 ký tự</span>}
                                         {!/^[a-zA-Z0-9]+$/.test(productCode) && productCode !== ''  && <span>* mã sản phẩm chỉ được chứa chữ và số</span>}
+                                        {checkCode && <span>* mã sản phẩm đã tồn tại</span>}
                                     </div>
                                     <label>Số lượng tồn : </label>
                                     <input type="number" className="form-control" name="inventoryNumber" onChange={this.onChange} />

@@ -30,20 +30,7 @@ class DetailProduct extends Component {
             })
     }
 
-    fetchNameExist = (nameProduct) => {
-        console.log("abc",nameProduct)
-        axios.get(`http://localhost:8291/sreachproduct?name=${nameProduct}`)
-          .then( res => {
-              console.log(res.status)
-              if(res.status === 200)
-              {
-                this.setState({checkName: true})
-              }else{
-                  this.setState({checkName: false})
-              }
-             }
-          )
-        }
+    
 
     onChange = (event) => {
         const value = event.target.value;
@@ -73,7 +60,6 @@ class DetailProduct extends Component {
         event.preventDefault();
         console.log("data", this.state)
         console.log("checkName ở đây", this.state.checkName)
-        this.fetchNameExist(this.state.nameProduct)
         if(!this.state.checkName && this.state.nameProduct!==''){
             axios({
                 method: 'PUT',
@@ -97,6 +83,8 @@ class DetailProduct extends Component {
                         check: true
                     })
                 }
+            }).catch(err =>{
+                this.setState({checkName : true})
             })
         }
         
