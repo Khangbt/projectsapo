@@ -115,6 +115,19 @@ public class OrderApi {
         }
         return new ResponseEntity<>(dtos, HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/ordernames/{id}",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getNameIdPage(@PathVariable int id,
+                                           @RequestParam(required = false, defaultValue = "0") @Null Integer page,
+                                           @RequestParam(required = false, defaultValue = "5") @Null Integer size){
+        Pageable pageable = new LogicPage().logic(20, 0, size, page);
+        Page<Map<String,Object>> entities=salesboardServiceImp.getNamePage(id,pageable);
+        if(entities.getSize()==0){
+            return new ResponseEntity<>("không tồn tại id", HttpStatus.NOT_FOUND);
+        }
+        Page<NameDto> dtos= (Page<NameDto>) maptoDto.getDto(entities,NameDto.class);
+        return new ResponseEntity<>(dtos, HttpStatus.OK);
+    }
     //thêm 1 đơn hàng
     @RequestMapping(value = "/setorder" ,method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getOrderSp(@RequestBody Map<String,Object> map){
