@@ -27,11 +27,10 @@ class AddCustomer extends Component {
     onChange = (event) => {
         const value = event.target.value;
         const name = event.target.name;
-       
-        this.setState({
-             [name] : value,
-             checkPhone : false,
-            })
+        this.setState({ 
+            checkPhone : false,
+            [name] : value
+             })
     }
 
     customerAdd = () => {
@@ -41,7 +40,7 @@ class AddCustomer extends Component {
             Axios({
                 method: 'POST',
                 url: `http://localhost:8291/customer`,
-                data: {
+                data:  {
                     nameCustomer: this.state.nameCustomer,
                     phoneNumber: parseInt(this.state.phoneNumber),
                     city: this.state.city,
@@ -108,7 +107,8 @@ class AddCustomer extends Component {
         })
 
         console.log("huyện", district)
-       
+
+        console.log("sdt", typeof (phoneNumber))
         return (
             <Modal show={this.props.showModalAddGuest}>
                 <Modal.Header>
@@ -139,7 +139,7 @@ class AddCustomer extends Component {
                                 <label>Email : </label>
                                 <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">địa chỉ email phải bắt đầu bằng 1 ký tự, địa chỉ email
                                         là tập hợp của các ký tự a-z 0-9, có thể có các ký tự như dấu chấm, dấu gạch dưới,
-                                        độ dài của email là từ 1 đến 32 + tên miền của email. VD : example@gmail.com
+                                        độ dài của email là từ 5 đến 32 + tên miền của email. VD : example@gmail.com
                                         </Tooltip>}>
                                     <input type="text" className="form-control" name="email"  onChange={this.onChange} />   
                                 </OverlayTrigger>

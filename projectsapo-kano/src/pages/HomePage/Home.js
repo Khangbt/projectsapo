@@ -15,8 +15,7 @@ class Sale extends Component {
       listOrder: [],
       guest: null,
       showModalAddGuest: false,
-      showModalOrder: false,
-      showMessage: false,
+      showModalOrder: false,  
       citys: "",
       listGuest: [],
       currentGuest: null,
@@ -175,17 +174,41 @@ class Sale extends Component {
   }
 
   showModalOrder = () => {
-    this.totalPayOrder()
-    this.setState({
-      showModalOrder: !this.state.showModalOrder
-    })
+
+    if(this.state.listOrder.length===0){
+       Swal.mixin({
+            toast: true,
+            position: 'top',
+            showConfirmButton: false,
+            timer: 1500,
+          })
+            .fire({
+              icon: 'error',
+              title: 'Thêm sản phẩm vào đơn hàng'
+            })
+
+    }
+    else if(!this.state.checkClickCustomer){
+      Swal.mixin({
+            toast: true,
+            position: 'top',
+            showConfirmButton: false,
+            timer: 1500,
+          })
+            .fire({
+              icon: 'error',
+              title: 'Thêm khách hàng vào đơn'
+            })
+    }
+    else{
+      this.totalPayOrder()
+      this.setState({
+        showModalOrder: !this.state.showModalOrder
+      })
+    }
   }
 
-  showMessage = () => {
-    this.setState({
-      showMessage: false
-    })
-  }
+
 
   choseGuest(value) {
     this.setState({
@@ -204,10 +227,18 @@ class Sale extends Component {
   addOrder = (productById) => {
     var listOrder = this.state.listOrder.filter((order) => order.idProduct === productById.idProduct)
     console.log(listOrder)
-    if (productById.inventoryNumber === 0 || productById.inventoryNumber === null) {
-      this.setState({
-        showMessage: true
-      })
+    console.log(productById.inventoryNumber)
+    if (productById.inventoryNumber === 0||productById.inventoryNumber===null) {
+       Swal.mixin({
+            toast: true,
+            position: 'top',
+            showConfirmButton: false,
+            timer: 1500,
+          })
+            .fire({
+              icon: 'error',
+              title: 'không đủ số lượng'
+            })
     }
     else if (listOrder.length === 0) {
       this.setState(prevState => ({
@@ -242,9 +273,16 @@ class Sale extends Component {
     if (listOrder[key].amount < orderById.inventoryNumber) {
       listOrder[key].amount = order.amount + 1
     } else {
-      this.setState({
-        showMessage: true
-      })
+      Swal.mixin({
+            toast: true,
+            position: 'top',
+            showConfirmButton: false,
+            timer: 1500,
+          })
+            .fire({
+              icon: 'error',
+              title: 'không đủ số lượng'
+            })
     }
 
 
@@ -326,13 +364,13 @@ class Sale extends Component {
                 <input
                   className="search-customer"
                   type="text"
-                  placeholder="Search by name or phone"
+                  placeholder="Tìm kiếm khách hàng"
                   aria-label="Search"
                   onKeyUp={this.searchGuest}
                 />
                 <div className="input-group-prepend add-customer">
                   <button className="" onClick={this.showModal}>
-                    <span> ADD </span>
+                    <i class="fa fa-user-plus"></i>
                   </button>
                 </div>
               </div>
@@ -350,11 +388,7 @@ class Sale extends Component {
                 className="d-flex justify-content-between chooseGuest"
               >
                 <div>
-                  <div>
-
-                    <i className="fas fa-user"></i> <span> Tên khách hàng : {this.state.currentGuest.nameCustomer}  {this.state.currentGuest.phoneNumber}</span>
-
-                  </div>
+                  <i className="fas fa-user"></i> <span><b>{this.state.currentGuest.nameCustomer} </b>:0{this.state.currentGuest.phoneNumber}</span>
                 </div>
                 <div>
                   <button
@@ -375,8 +409,8 @@ class Sale extends Component {
                   <tr>
                     <th>Tên sản phẩm</th>
                     <th>Số lượng</th>
-                    <th>Giá</th>
-                    <th>Tổng</th>
+                    <th>Giá(VND)</th>
+                    <th>Tổng(VND)</th>
                   </tr>
                 </thead>
                 <tbody>{order}</tbody>
@@ -385,7 +419,7 @@ class Sale extends Component {
               <div className="force-overflow"></div>
             </div>
 
-            <div className="row text-center group-btn">
+            <div className="row text-center group-btn btnThanhToan">
               <button className="button-cancel" onClick={this.removeOrder}>
                 Cancel
               </button>
@@ -400,7 +434,7 @@ class Sale extends Component {
             <input
               className="search-product"
               type="text"
-              placeholder="Search product by name"
+              placeholder="Tìm kiếm sản phẩm"
               aria-label="Search"
               onKeyUp={this.searchByName}
             />
@@ -414,7 +448,7 @@ class Sale extends Component {
                     <th width="30%">Tên sản phẩm </th>
                     <th>Mã sản phẩm</th>
                     <th>Số lượng</th>
-                    <th>Giá</th>
+                    <th>Giá(VND)</th>
                   </tr>
                 </thead>
                 <tbody>{listproductsearch}</tbody>
@@ -425,28 +459,16 @@ class Sale extends Component {
           </div>
         </div>
 
-        <Modal show={this.state.showMessage}>
-          <Modal.Header>
-            <Modal.Title>Thông báo</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>Số lượng không đủ</Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={this.showMessage}>
-              Close
-            </Button>
-          </Modal.Footer>
-        </Modal>
-
 
         <AddCustomer showModalAddGuest={this.state.showModalAddGuest} showModal={this.showModal} />
 
-        <Modal show={this.state.showModalOrder && this.state.checkClickCustomer && this.state.listOrder.length > 0}>
+        <Modal show={this.state.showModalOrder}>
           <Modal.Header>
             <Modal.Title> Thanh toán </Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <form>
-              Tổng hóa đơn: {this.state.totalPay.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}
+              Tổng hóa đơn: {this.state.totalPay.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')} VND
               <br />
               <br />
               Tiền khách trả:{this.state.showMess && <i style={{ "color": "red" }}>thanh toán thiếu tiền</i>}
@@ -466,35 +488,6 @@ class Sale extends Component {
             <Button variant="primary" onClick={this.thanhToan}>Thanh toán</Button>
           </Modal.Footer>
         </Modal>
-
-        <Modal show={this.state.showModalOrder && this.state.listOrder.length === 0}>
-          <Modal.Header>
-            <Modal.Title> Thông báo </Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            Thêm sản phẩm vào đơn hàng
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={this.showModalOrder}>
-              Close
-            </Button>
-          </Modal.Footer>
-        </Modal>
-
-        <Modal show={this.state.showModalOrder && !this.state.checkClickCustomer}>
-          <Modal.Header>
-            <Modal.Title> Thông báo </Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            Thêm khách hàng vào đơn hàng
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={this.showModalOrder}>
-              Close
-            </Button>
-          </Modal.Footer>
-        </Modal>
-
       </div>
     );
   }

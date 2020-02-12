@@ -1,0 +1,14 @@
+[
+    {
+        "id" : 1,
+        "name" : "tiền mặt"
+    },
+    {
+        "id" : 2,
+        "name" : "Chuyển khoản"
+    },
+    {
+        "id" : 1,
+        "name" : "Quẹt thẻ"
+    }
+]

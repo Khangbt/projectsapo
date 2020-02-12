@@ -38,7 +38,6 @@ class DetailCustomer extends Component {
 
     onHandleSubmit = (event) => {
         event.preventDefault();
-        console.log("distric", this.state.district)
         if (this.state.nameCustomer !== '' && /((09|03|07|08|05)+([0-9]{8})\b)/g.test(this.state.phoneNumber) && /[A-Z0-9._%+-]{1,32}@[A-Z0-9-]+.+.[A-Z]{2,4}/igm.test(this.state.email)) {
             axios({
                 method: 'PUT',
@@ -97,48 +96,63 @@ class DetailCustomer extends Component {
     }
 
     handleChange = (event) => {
-        this.setState({
-            selectProvince: event.target.value,
-            city: event.target.options[event.target.selectedIndex].text
-        });
+        const cityName = event.target.options[event.target.selectedIndex].text;
+        if (cityName !== "Chọn tỉnh thành phố") {
+            this.setState({
+                selectProvince: event.target.value,
+                city: cityName,
+                district: ""
+            });
+        } else {
+            this.setState({
+                selectProvince: event.target.value,
+                city: "",
+                district: ""
+            })
+        }
         console.log(`Option selected:`, event.target.options[event.target.selectedIndex].text);
     };
 
     handleChangeDistrict = (event) => {
-        this.setState({ district: event.target.options[event.target.selectedIndex].text });
+        const districtName = event.target.options[event.target.selectedIndex].text;
+        if (districtName !== "Chọn quận huyện") {
+            this.setState({ district: districtName });
+        } else {
+            this.setState({ district: "" });
+        }
 
     };
 
 
 
     render() {
+        let selectProvince = 0
+        let selectDistrict = ""
+        let province = ""
+
         var { nameCustomer, phoneNumber, check, checkPhone, city, email, address, district } = this.state
-        let selectProvince = ""
-        let selectDistrict = 0
-        if (city !== null) {
+        if (city != null) {
             selectProvince = options.filter(item => city.includes(item.label)).map((value) => {
                 return value.provinceId
+
             })
         }
         if (district !== null) {
-             selectDistrict = District.filter(item => district.includes(item.label)).map((value) => {
+            selectDistrict = District.filter(item => district.includes(item.label)).map((value) => {
                 return value.districtId
             })
         }
 
-        let province = options.map((value, key) => {
+        province = options.map((value, key) => {
             return <option key={key} value={value.provinceId}>{value.type} {value.label}</option>
         })
-        console.log("city", selectDistrict)
-        let districtList = District.filter(item => item.provinceId === selectProvince[0]).map((value, key) => {
+        console.log("city", selectProvince)
+        let districtList = District.filter(item => item.provinceId === (selectProvince[0])).map((value, key) => {
             return <option key={key} value={value.districtId}>{value.districtType} {value.label}</option>
         })
         if (check) {
             return <Redirect to="/customer" />
         }
-
-        console.log("check sdt", /((09|03|07|08|05)+([0-9]{8})\b)/g.test(this.state.phoneNumber))
-        console.log("sdt", typeof (phoneNumber))
         return (
             <div className="col-md-8 offset-md-2" style={{ marginBottom: '5px', marginTop: '20px' }}>
                 <h3 className="page-title" style={{ marginBottom: '20px' }}>Chi tiết khách hàng</h3>
@@ -150,7 +164,7 @@ class DetailCustomer extends Component {
                                 <div className="form-group">
                                     <div>
                                         <label>Tên khách hàng : </label>
-                                        <input type="text" className="form-control" name="nameCustomer" defaultValue={nameCustomer} onChange={this.onChange} maxLength="45" requi />
+                                        <input type="text" className="form-control" name="nameCustomer" defaultValue={nameCustomer} onChange={this.onChange} maxLength="45" />
                                         {nameCustomer === '' && <span>* tên khách hàng không được để trống</span>}
                                         {nameCustomer.length > 44 && <span>* tên khách hàng tối đa 45 ký tự</span>}
                                     </div>
