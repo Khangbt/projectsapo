@@ -48,5 +48,10 @@ public class OrderService implements OrderServiceIpm {
         return orderRepository.getByCutomerName(pageable,name);
     }
 
+    @Override
+    public Optional<Map<String, Object>> getIdorder(int id) {
+        return orderRepository.getIdOrder(id);
+    }
+
 
 }

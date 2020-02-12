@@ -14,4 +14,5 @@ public interface OrderServiceIpm {
     Page<Map<String,Object>> getAllOrder(Pageable pageable);
     int getMaxOrder();
     Page<Map<String,Object>> getNameCustomer(Pageable pageable,String name);
+    Optional<Map<String,Object>> getIdorder(int id);
 }

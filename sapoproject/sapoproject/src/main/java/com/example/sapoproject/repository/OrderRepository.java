@@ -23,5 +23,9 @@ public interface OrderRepository extends JpaRepository<OrderbyEntity,Integer> {
             "from customer,orderby,payment where customer.idcustomer=orderby.idcustomer and " +
             "payment.idpayment=orderby.id_payment_methods and customer.name_customer like %?1%",nativeQuery = true)
     Page<Map<String,Object>> getByCutomerName(Pageable pageable,String name);
+    @Query(value = "SELECT orderby.*,payment.name_payment,customer.phone_number,customer.name_customer " +
+            "from customer,orderby,payment where customer.idcustomer=orderby.idcustomer and " +
+            "payment.idpayment=orderby.id_payment_methods and orderby.idorder=?1",nativeQuery = true)
+    Optional<Map<String,Object>> getIdOrder(int id);
 }
 

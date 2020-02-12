@@ -80,6 +80,16 @@ public class OrderApi {
         Page<GetOrderDto> dtos= (Page<GetOrderDto>) maptoDto.getDto(entities,GetOrderDto.class);
         return new ResponseEntity<>(dtos, HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/order/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getIdOrder(@PathVariable int id) {
+        Optional<Map<String,Object>> entity = orderServiceIpm.getIdorder(id);
+        if (entity.get().size()==0) {
+            return new ResponseEntity<>("không có giá tri", HttpStatus.OK);
+        }
+        Map<String,Object> entity1=entity.get();
+        return new ResponseEntity<>(maptoDto.getMap(GetOrderDto.class,entity1), HttpStatus.OK);
+    }
 ////     lưu 1 roder mới
 //    @RequestMapping(value = "/orders",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 //    public ResponseEntity<?> post(@RequestBody OrderbyEntity entity){
