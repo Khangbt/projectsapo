@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import '../App.css';
+import logo from '../image/logo.png'
 
 
 class Menu extends Component{
   render(){
         return(
             <div className="bg-light border-right" id="sidebar-wrapper">
-      <div className="sidebar-heading"><b>POS SHOP KHSK</b></div>
-      <div className="list-group list-group-flush">
-        <Link to="/" className="list-group-item list-group-item-action bg-light">Home</Link>
-        <Link to="/productList" className="list-group-item list-group-item-action bg-light">Quản lý sản phẩm</Link>
-        <Link to="/customerList" className="list-group-item list-group-item-action bg-light">Quản lý khách hàng</Link>
-        <Link to="/orderList" className="list-group-item list-group-item-action bg-light">Quản lý đơn hàng</Link>
+      <div className="sidebar-heading"><img alt="" src={logo} width="200"/></div>
+      <div className="list-group list-group-flush menubar">
+        <Link to="/" className="list-group-item list-group-item-action bg-light"><i className="fas fa-home"></i><span>Bán hàng</span></Link>
+        <Link to="/product" className="list-group-item list-group-item-action bg-light"><i className="fas fa-box-open"></i><span>Quản lý sản phẩm</span></Link>
+        <Link to="/customer" className="list-group-item list-group-item-action bg-light"><i className="fas fa-user"></i><span>Quản lý khách hàng</span></Link>
+        <Link to="/order" className="list-group-item list-group-item-action bg-light"><i className="fas fa-clipboard"></i><span>Quản lý đơn hàng</span></Link>
       </div>
     </div>
         )

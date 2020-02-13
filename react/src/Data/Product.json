@@ -9,14 +9,14 @@
     },
     {
         "id": 2,
-        "nameProduct": "Điện thoại iphone 6",
+        "nameProduct": "Điện thoại xiaomi mi 8",
         "codeProduct": "aaa",
         "costProduct": 5000000,
         "inventory": 10,
         "create_date": "giá rẻ bất ngờ"
     },{
         "id": 3,
-        "nameProduct": "Điện thoại iphone 6",
+        "nameProduct": "Điện thoại note 8",
         "codeProduct": "aaa",
         "costProduct": 5000000,
         "inventory": 10,
@@ -24,7 +24,7 @@
     },
     {
         "id": 4,
-        "nameProduct": "Điện thoại iphone 6",
+        "nameProduct": "Điện thoại oppo f8",
         "codeProduct": "aaa",
         "costProduct": 5000000,
         "inventory": 10,
@@ -32,7 +32,43 @@
     },
     {
         "id": 5,
-        "nameProduct": "Điện thoại iphone 6",
+        "nameProduct": "Điện thoại iphone 8",
+        "codeProduct": "aaa",
+        "costProduct": 5000000,
+        "inventory": 10,
+        "create_date": "giá rẻ bất ngờ"
+    },
+    {
+        "id": 6,
+        "nameProduct": "Điện thoại oppo f8",
+        "codeProduct": "aaa",
+        "costProduct": 5000000,
+        "inventory": 10,
+        "create_date": "giá rẻ bất ngờ"
+    },{
+        "id": 7,
+        "nameProduct": "Điện thoại oppo f8",
+        "codeProduct": "aaa",
+        "costProduct": 5000000,
+        "inventory": 10,
+        "create_date": "giá rẻ bất ngờ"
+    },{
+        "id": 8,
+        "nameProduct": "Điện thoại oppo f8",
+        "codeProduct": "aaa",
+        "costProduct": 5000000,
+        "inventory": 10,
+        "create_date": "giá rẻ bất ngờ"
+    },{
+        "id": 9,
+        "nameProduct": "Điện thoại oppo f8",
+        "codeProduct": "aaa",
+        "costProduct": 5000000,
+        "inventory": 10,
+        "create_date": "giá rẻ bất ngờ"
+    },{
+        "id": 10,
+        "nameProduct": "Điện thoại oppo f8",
         "codeProduct": "aaa",
         "costProduct": 5000000,
         "inventory": 10,

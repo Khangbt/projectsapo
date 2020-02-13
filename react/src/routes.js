@@ -5,6 +5,9 @@ import CustomerList from './pages/CustomerPage/CustomerList';
 import OrderList from './pages/OrderPage/OrderList';
 import Sale from './pages/Sale/Sale';
 import AddProduct from './pages/ProductPage/AddProduct';
+// import DetailCustomer from './pages/CustomerPage/DetailCustomer';
+// import DetailProduct from './pages/ProductPage/DetailProduct';
+
 
 const routes = [
     {
@@ -13,23 +16,33 @@ const routes = [
         main: () => <HomePage/>
     },
     {
-        path: '/productList',
-        exact: false,
+        path: '/product',
+        exact: true,
         main: () => <ProductList />
     },
     {
         path: '/product/add',
-        exact: false,
+        exact: true,
         main: () => <AddProduct />
     },
+    // {
+    //     path: '/customer/:id',
+    //     exact: true,
+    //     main: () => <DetailCustomer />
+    // },
+    // {
+    //     path: '/product/:id',
+    //     exact: false,
+    //     main: () => <DetailProduct />
+    // },
     {
-        path: '/customerList',
-        exact: false,
+        path: '/customer',
+        exact: true,
         main: () => <CustomerList />
     },
     {
-        path: '/orderList',
-        exact: false,
+        path: '/order',
+        exact: true,
         main: () => <OrderList />
     },
     {

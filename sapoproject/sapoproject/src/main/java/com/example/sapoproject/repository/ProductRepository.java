@@ -12,7 +12,7 @@ import java.util.List;
 
 @Repository
 public interface ProductRepository extends JpaRepository<ProductEntity,Integer> {
-    @Query(value = "select * from  product where name_product like %?1% limit 0,5",nativeQuery = true)
+    @Query(value = "select * from  product where name_product like %?1% limit 0,20",nativeQuery = true)
     public Iterable<ProductEntity> getNameProduct(String name);
     @Query(value = "select  * from product where product.idproduct IN (?1)",nativeQuery = true)
     Iterable<ProductEntity> getListId(List<Integer> list);

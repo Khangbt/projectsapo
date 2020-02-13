@@ -28,6 +28,8 @@ import java.sql.Timestamp;
 import java.util.*;
 
 @RestController
+@CrossOrigin({"*"})
+
 public class OrderApi {
     @Autowired
     private OrderServiceIpm orderServiceIpm;

@@ -1,0 +1,317 @@
+[
+    {
+        "provinceId": "89",
+        "label": "An Giang",
+        "loại": "Tỉnh"
+    },
+    {
+        "provinceId": "77",
+        "label": "Bà Rịa - Vũng Tàu",
+        "loại": "Tỉnh"
+    },
+    {
+        "provinceId": "95",
+        "label": "Bạc Liêu",
+        "loại": "Tỉnh"
+    },
+    {
+        "provinceId": "24",
+        "label": "Bắc Giang",
+        "loại": "Tỉnh"
+    },
+    {
+        "provinceId": "06",
+        "label": "Bắc Kạn",
+        "loại": "Tỉnh"
+    },
+    {
+        "provinceId": "27",
+        "label": "Bắc Ninh",
+        "loại": "Tỉnh"
+    },
+    {
+        "provinceId": "83",
+        "label": "Bến Tre",
+        "loại": "Tỉnh"
+    },
+    {
+        "provinceId": "74",
+        "label": "Bình Dương",
+        "loại": "Tỉnh"
+    },
+    {
+        "provinceId": "52",
+        "label": "Bình Định",
+        "loại": "Tỉnh"
+    },
+    {
+        "provinceId": "70",
+        "label": "Bình Phước",
+        "loại": "Tỉnh"
+    },
+    {
+        "provinceId": "60",
+        "label": "Bình Thuận",
+        "loại": "Tỉnh"
+    },
+    {
+        "provinceId": "96",
+        "label": "Cà Mau",
+        "loại": "Tỉnh"
+    },
+    {
+        "provinceId": "04",
+        "label": "Cao Bằng",
+        "loại": "Tỉnh"
+    },
+    {
+        "provinceId": "92",
+        "label": "Cần Thơ",
+        "loại": "Thành Phố"
+    },
+    {
+        "provinceId": "48",
+        "label": "Đà Nẵng",
+        "loại": "Thành Phố"
+    },
+    {
+        "provinceId": "66",
+        "label": "Đắk Lắk",
+        "loại": "Tỉnh"
+    },
+    {
+        "provinceId": "67",
+        "label": "Đắk Nông",
+        "loại": "Tỉnh"
+    },
+    {
+        "provinceId": "11",
+        "label": "Điện Biên",
+        "loại": "Tỉnh"
+    },
+    {
+        "provinceId": "75",
+        "label": "Đồng Nai",
+        "loại": "Tỉnh"
+    },
+    {
+        "provinceId": "87",
+        "label": "Đồng Tháp",
+        "loại": "Tỉnh"
+    },
+    {
+        "provinceId": "64",
+        "label": "Gia Lai",
+        "loại": "Tỉnh"
+    },
+    {
+        "provinceId": "02",
+        "label": "Hà Giang",
+        "loại": "Tỉnh"
+    },
+    {
+        "provinceId": "35",
+        "label": "Hà Nam",
+        "loại": "Tỉnh"
+    },
+    {
+        "provinceId": "01",
+        "label": "Hà Nội",
+        "loại": "Thành Phố"
+    },
+    {
+        "provinceId": "42",
+        "label": "Hà Tĩnh",
+        "loại": "Tỉnh"
+    },
+    {
+        "provinceId": "30",
+        "label": "Hải Dương",
+        "loại": "Tỉnh"
+    },
+    {
+        "provinceId": "31",
+        "label": "Hải Phòng",
+        "loại": "Thành Phố"
+    },
+    {
+        "provinceId": "93",
+        "label": "Hậu Giang",
+        "loại": "Tỉnh"
+    },
+    {
+        "provinceId": "17",
+        "label": "Hòa Bình",
+        "loại": "Tỉnh"
+    },
+    {
+        "provinceId": "79",
+        "label": "Hồ Chí Minh",
+        "loại": "Thành Phố"
+    },
+    {
+        "provinceId": "33",
+        "label": "Hưng Yên",
+        "loại": "Tỉnh"
+    },
+    {
+        "provinceId": "91",
+        "label": "Kiên Giang",
+        "loại": "Tỉnh"
+    },
+    {
+        "provinceId": "62",
+        "label": "Kon Tum",
+        "loại": "Tỉnh"
+    },
+    {
+        "provinceId": "56",
+        "label": "Khánh Hòa",
+        "loại": "Tỉnh"
+    },
+    {
+        "provinceId": "12",
+        "label": "Lai Châu",
+        "loại": "Tỉnh"
+    },
+    {
+        "provinceId": "20",
+        "label": "Lạng Sơn",
+        "loại": "Tỉnh"
+    },
+    {
+        "provinceId": "10",
+        "label": "Lào Cai",
+        "loại": "Tỉnh"
+    },
+    {
+        "provinceId": "68",
+        "label": "Lâm Đồng",
+        "loại": "Tỉnh"
+    },
+    {
+        "provinceId": "80",
+        "label": "Long An",
+        "loại": "Tỉnh"
+    },
+    {
+        "provinceId": "36",
+        "label": "Nam Định",
+        "loại": "Tỉnh"
+    },
+    {
+        "provinceId": "37",
+        "label": "Ninh Bình",
+        "loại": "Tỉnh"
+    },
+    {
+        "provinceId": "58",
+        "label": "Ninh Thuận",
+        "loại": "Tỉnh"
+    },
+    {
+        "provinceId": "40",
+        "label": "Nghệ An",
+        "loại": "Tỉnh"
+    },
+    {
+        "provinceId": "25",
+        "label": "Phú Thọ",
+        "loại": "Tỉnh"
+    },
+    {
+        "provinceId": "54",
+        "label": "Phú Yên",
+        "loại": "Tỉnh"
+    },
+    {
+        "provinceId": "44",
+        "label": "Quảng Bình",
+        "loại": "Tỉnh"
+    },
+    {
+        "provinceId": "49",
+        "label": "Quảng Nam",
+        "loại": "Tỉnh"
+    },
+    {
+        "provinceId": "22",
+        "label": "Quảng Ninh",
+        "loại": "Tỉnh"
+    },
+    {
+        "provinceId": "51",
+        "label": "Quảng Ngãi",
+        "loại": "Tỉnh"
+    },
+    {
+        "provinceId": "45",
+        "label": "Quảng Trị",
+        "loại": "Tỉnh"
+    },
+    {
+        "provinceId": "94",
+        "label": "Sóc Trăng",
+        "loại": "Tỉnh"
+    },
+    {
+        "provinceId": "14",
+        "label": "Sơn La",
+        "loại": "Tỉnh"
+    },
+    {
+        "provinceId": "72",
+        "label": "Tây Ninh",
+        "loại": "Tỉnh"
+    },
+    {
+        "provinceId": "82",
+        "label": "Tiền Giang",
+        "loại": "Tỉnh"
+    },
+    {
+        "provinceId": "08",
+        "label": "Tuyên Quang",
+        "loại": "Tỉnh"
+    },
+    {
+        "provinceId": "34",
+        "label": "Thái Bình",
+        "loại": "Tỉnh"
+    },
+    {
+        "provinceId": "19",
+        "label": "Thái Nguyên",
+        "loại": "Tỉnh"
+    },
+    {
+        "provinceId": "38",
+        "label": "Thanh Hóa",
+        "loại": "Tỉnh"
+    },
+    {
+        "provinceId": "46",
+        "label": "Thừa Thiên Huế",
+        "loại": "Tỉnh"
+    },
+    {
+        "provinceId": "84",
+        "label": "Trà Vinh",
+        "loại": "Tỉnh"
+    },
+    {
+        "provinceId": "86",
+        "label": "Vĩnh Long",
+        "loại": "Tỉnh"
+    },
+    {
+        "provinceId": "26",
+        "label": "Vĩnh Phúc",
+        "loại": "Tỉnh"
+    },
+    {
+        "provinceId": "15",
+        "label": "Yên Bái",
+        "loại": "Tỉnh"
+    }
+]

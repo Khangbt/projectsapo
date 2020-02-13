@@ -3,29 +3,43 @@ import './App.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Menu from './Menu/Menu';
 import routes from './routes';
-import Sale from './pages/Sale/Sale';
-import Head from './Menu/Head';
+import DetailProduct from './pages/ProductPage/DetailProduct';
+import DetailCustomer from './pages/CustomerPage/DetailCustomer';
+import OrderDetail from './pages/OrderPage/OrderDetail';
 
-const checkSale = window.location.pathname !== "/sale" ? true : false
+
+
 class App extends Component {
-
+  constructor(props){
+    super(props);
+    this.state = {
+      a : true
+    }
+  }
+  toggle = (clickToggle) => {
+    this.setState ({
+      a : clickToggle
+    })
+  }
   render() {
     return (
       <Router>
-
-        {checkSale &&
+        
           <div className="d-flex">
-            <Menu />
-            <div id="page-content-wrapper">
-              <Head/>
+           {this.state.a && <Menu/>}
+            <div id="page-content-wrapper">         
               <div className="container-fluid">
                 {this.showContentManager(routes)}
+                <Route exact path="/product/id=:id" component={DetailProduct}/>
+                <Route exact path="/customer/id=:id" component={DetailCustomer}/>    
+                <Route exact path="/order/id=:id" component={OrderDetail}/>    
+
               </div>
             </div>
           </div>
 
-        }
-        <Route path="/sale" component={Sale} />
+        
+       
       </Router>
     )
   }

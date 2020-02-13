@@ -1,0 +1,46 @@
+[
+    {
+        "id": 1,
+        "nameCustomer": "Bùi Thế Khang",
+        "phoneNumber": 987654123,
+        "email": "nguyen@gmail.com",
+        "address": "266 Đội Cấn",
+        "province": "Hà Nội",
+        "district" : "quận Ba Đình"
+    },
+    {
+        "id": 2,
+        "nameCustomer": "Lê Văn Hưng",
+        "phoneNumber": 856412543,
+        "email": "nguyen@gmail.com",
+        "address": "266 Đội Cấn",
+        "province": "Hà Nội",
+        "district" : "quận Ba Đình"
+    },{
+        "id": 3,
+        "nameCustomer": "Hà Phi Sơn",
+        "phoneNumber": 7542589,
+        "email": "nguyen@gmail.com",
+        "address": "266 Đội Cấn",
+        "province": "Hà Nội",
+        "district" : "quận Ba Đình"
+    },
+    {
+        "id": 4,
+        "nameCustomer": "Nguyễn Văn Khánh",
+        "phoneNumber": 123,
+        "email": "nguyen@gmail.com",
+        "address": "266 Đội Cấn",
+        "province": "Hà Nội",
+        "district" : "quận Ba Đình"
+    },
+    {
+        "id": 5,
+        "nameCustomer": "Nguyễn Văn Khánh",
+        "phoneNumber": 1234,
+        "email": "nguyen@gmail.com",
+        "address": "266 Đội Cấn",
+        "province": "Hà Nội",
+        "district" : "quận Cầu Giấy"
+    }
+]

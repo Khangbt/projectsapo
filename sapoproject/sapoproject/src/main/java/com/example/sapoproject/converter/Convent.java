@@ -28,10 +28,12 @@ public class Convent<T> {
 //                        System.out.println(field.getName());
                     }else if ((map.get(key) instanceof List) && (isCollection(field.getType()))) {
 //                                    System.out.println("đây la mang");
-                    }else if(!(new LogicType().checkType((map.get(key)).toString()))  &&
+                    }else if(map.get(key)!=null){
+                         if(!(new LogicType().checkType((map.get(key)).toString()))  &&
                             ((field.getType().isAssignableFrom(Long.class))||(field.getType().isAssignableFrom(int.class)))){
                                 System.out.println("đây la long");
                                 System.out.println(field.getName());
+                    }
                     }
                     else {
                         list.put( key,"Lỗi kiểu dữ liệu của trường này");
