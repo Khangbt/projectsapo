@@ -3,6 +3,7 @@ package com.example.sapoproject.converter;
 import org.springframework.data.domain.Page;
 
 import java.lang.reflect.Field;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -22,7 +23,16 @@ public class MaptoDto {
                     if(c.toLowerCase().equals(field.getName().toLowerCase())){
                         try {
                             field.setAccessible(true);
+                            if((field.getType().isAssignableFrom(Long.class))){
+                                field.set(o,Long.valueOf( map.get(s).toString()));
+                                System.out.println(map.get(s));
+                                System.out.println(field.getName());
+                            }
+                            if((field.getType().isAssignableFrom(BigDecimal.class))){
+                                field.set(o,BigDecimal.valueOf(Long.valueOf( map.get(s).toString())));
+                            }
                             field.set(o,map.get(s));
+
                         }catch (Exception e){
                                 System.out.println(e.getMessage());
                         }

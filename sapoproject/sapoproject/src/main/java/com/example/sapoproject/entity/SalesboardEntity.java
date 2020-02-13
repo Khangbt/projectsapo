@@ -1,6 +1,7 @@
 package com.example.sapoproject.entity;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "salesboard", schema = "pos")
@@ -9,6 +10,8 @@ public class SalesboardEntity {
     private int idorder;
     private int idproduct;
     private Integer amount;
+    private String nameProduct;
+    private BigDecimal price;
 
     @Id
     @Column(name = "idorder", nullable = false)
@@ -38,6 +41,24 @@ public class SalesboardEntity {
 
     public void setAmount(Integer amount) {
         this.amount = amount;
+    }
+    @Basic
+    @Column(name = "name_product", nullable = true)
+    public String getNameProduct() {
+        return nameProduct;
+    }
+
+    public void setNameProduct(String nameProduct) {
+        this.nameProduct = nameProduct;
+    }
+    @Basic
+    @Column(name = "price", nullable = true)
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
     @Override

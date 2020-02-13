@@ -7,13 +7,13 @@ public class NameDto {
     private String nameProduct;
     private Integer amount;
     private String productcode;
-    private BigDecimal price;
+    private Long price;
 
-    public BigDecimal getPrice() {
+    public Long getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(Long price) {
         this.price = price;
     }
 

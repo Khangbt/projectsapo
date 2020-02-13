@@ -102,7 +102,9 @@ public class ProductApi {
                 return new ResponseEntity<>("tên sp đã tồn tại", HttpStatus.NOT_FOUND);
             }
         }
+
         entity = (ProductEntity) DtotoEntity.getDTO(entity,o);
+        System.out.println(entity.toString());
         entity.setIdproduct(id);
         ProductEntity entity1= productServiceIpm.saveGetId(entity);
 

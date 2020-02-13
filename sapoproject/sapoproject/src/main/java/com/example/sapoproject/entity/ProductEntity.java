@@ -1,6 +1,7 @@
 package com.example.sapoproject.entity;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 @Entity
@@ -10,7 +11,7 @@ public class ProductEntity {
     private String nameProduct;
     private Integer inventoryNumber;
     private Timestamp dateCreated;
-    private Integer price;
+    private Long price;
     private String productCode;
 
     @Id
@@ -56,11 +57,11 @@ public class ProductEntity {
 
     @Basic
     @Column(name = "price", nullable = true, precision = 0)
-    public Integer getPrice() {
+    public Long getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(Long price) {
         this.price = price;
     }
 

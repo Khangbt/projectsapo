@@ -126,7 +126,7 @@ class Sale extends Component {
   totalPayOrder() {
     var total = 0
     for (var i = 0; i < this.state.listOrder.length; i++) {
-      total = total + this.state.listOrder[i].amount * this.state.listOrder[i].costProduct
+      total = total + this.state.listOrder[i].amount * this.state.listOrder[i].price
       console.log(total)
       console.log(this.state.listOrder[i])
     }
@@ -247,7 +247,7 @@ class Sale extends Component {
           nameProduct: productById.nameProduct,
           amount: 1,
           inventoryNumber: productById.inventoryNumber,
-          costProduct: productById.price
+          price: productById.price
         })
       }))
     }
@@ -329,12 +329,12 @@ class Sale extends Component {
     })
 
     let order = this.state.listOrder.map((value, key) => {
-      let costPrice = value.costProduct * value.amount
+      let costPrice = value.price * value.amount
       return <tr>
         <td>{value.nameProduct}</td>
         <td><button type="submit" className="btn btn-default" onClick={() => this.increasequantity(value, key)}>+</button>{value.amount}
           <button type="submit" className="btn btn-default" onClick={() => this.decreasequantity(value.idProduct, key)}>-</button></td>
-        <td>{value.costProduct === null ? 0 : value.costProduct.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}</td>
+        <td>{value.price === null ? 0 : value.price.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}</td>
         <td>{costPrice === null ? 0 : costPrice.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}</td>
         <td style={{ "color": "red", cursor: 'pointer' }} onClick={() => this.deleteProductOrder(value.idProduct, key)}>
           <i className="fas fa-trash-alt" ></i>

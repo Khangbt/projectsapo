@@ -30,7 +30,7 @@ public class Convent<T> {
 //                                    System.out.println("đây la mang");
                     }else if(map.get(key)!=null){
                          if(!(new LogicType().checkType((map.get(key)).toString()))  &&
-                            ((field.getType().isAssignableFrom(Long.class))||(field.getType().isAssignableFrom(int.class)))){
+                            ((field.getType().isAssignableFrom(Long.class))||(field.getType().isAssignableFrom(int.class))||((field.getType().isAssignableFrom(BigDecimal.class))))){
                                 System.out.println("đây la long");
                                 System.out.println(field.getName());
                     }
@@ -67,6 +67,9 @@ public class Convent<T> {
                                 field.set(o,Long.valueOf( map.get(s).toString()));
                                 System.out.println(map.get(s));
                                 System.out.println(field.getName());
+                            }
+                            if((field.getType().isAssignableFrom(BigDecimal.class))){
+                                field.set(o,BigDecimal.valueOf(Long.valueOf( map.get(s).toString())));
                             }
                             field.set(o,map.get(s));
                         } catch (Exception e) {

@@ -1,6 +1,7 @@
 package com.example.sapoproject.dto;
 
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 public class ProductDto {
@@ -9,7 +10,7 @@ public class ProductDto {
     private String nameProduct;
     private Integer inventoryNumber;
     private Timestamp dateCreated;
-    private Integer price;
+    private Long price;
     private String productCode;
 
     public String getProductCode() {
@@ -52,11 +53,11 @@ public class ProductDto {
         this.dateCreated = dateCreated;
     }
 
-    public Integer getPrice() {
+    public Long getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(Long price) {
         this.price = price;
     }
 }

@@ -29,6 +29,7 @@ class OrderDetail extends Component {
             return response.json();
           })
           .then(result => {
+             
             this.setState({
               productOrder: result
             });
@@ -36,20 +37,9 @@ class OrderDetail extends Component {
     }
     render() {   
         const { infoOrder, productOrder } = this.state;
-        console.log(infoOrder);
-        
-        // const elminfoCustomer = infoOrder.map((itemInfoOrder, key) => {
-        //     return (
-        //       <tr key={key}>
-        //         <td> {itemInfoOrder.nameCustomer} </td>
-        //         <td> {itemInfoOrder.phoneNumber} </td>
-        //         <td> {itemInfoOrder.totalAmount} </td>
-        //         <td> {itemInfoOrder.totalAmount} </td>
-        //       </tr>
-        //     );
-        // });
 
         const elmProductOrder = productOrder.map((itemproduct, key) => {
+            console.log("bbsb", itemproduct)
             return (
               <tr key={key}>
                 <td> {itemproduct.productcode} </td>
