@@ -16,4 +16,6 @@ public interface  ProductServiceIpm {
     Page<ProductEntity> getAllLi(Pageable pageable);
     boolean checkMasp(String sdt);
     boolean checkNameSp(String name);
+
+    int updateInventoryProduct(int inventory, int id, int version);
 }

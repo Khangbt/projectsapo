@@ -5,6 +5,7 @@ import axios from 'axios';
 import Payment from '../../Data/PaymentMethod.json'
 import AddCustomer from './AddCustomer';
 import Swal from 'sweetalert2';
+import NumberFormat from 'react-number-format';
 
 
 class Sale extends Component {
@@ -104,20 +105,21 @@ class Sale extends Component {
   }
 
 
-  changePay = (event) => {
-    if (event.target.value < this.state.totalPay)
+  changePay = () => {
+    console.log("giá ", typeof(this.state.pay))
+    if (this.state.pay < this.state.totalPay)
       this.setState({
         showMess: true
       })
     else {
+      console.log("unPay",Math.abs(this.state.totalPay - this.state.pay) )
       this.setState({
-        pay: event.target.value,
-        unPay: Math.abs(this.state.totalPay - event.target.value),
+        unPay: Math.abs(this.state.totalPay - this.state.pay),
         showMess: false
       })
     }
-    console.log(typeof (this.state.pay))
-    if (event.target.value === "")
+    console.log("aaa giá",this.state.pay)
+    if (this.state.pay === "")
       this.setState({
         unPay: 0
       })
@@ -314,6 +316,11 @@ class Sale extends Component {
     })
   }
 
+  maxLengthCheck = (event) => {
+    if (event.target.value.length > event.target.maxLength)
+        event.target.value = event.target.value.slice(0, event.target.maxLength)
+}
+
   render() {
 
 
@@ -472,10 +479,13 @@ class Sale extends Component {
               <br />
               <br />
               Tiền khách trả:{this.state.showMess && <i style={{ "color": "red" }}>thanh toán thiếu tiền</i>}
-              <input className="form-control" placeholder="" type="number" onChange={this.changePay} />
+              {/* <input className="form-control" placeholder="" type="number" onChange={this.changePay} /> */}
+              <NumberFormat className ="form-control"  maxLength="17" onInput={this.maxLengthCheck} onKeyUp={this.changePay} thousandSeparator={true} onValueChange={(values) => {const { value} = values;
+                                                       this.setState({pay: value})
+                                                                                    }} />
               <br />
               Tiền khách thừa:
-              <input className="form-control" placeholder="" disabled value={this.state.unPay} type="number" />
+              <NumberFormat className ="form-control"  thousandSeparator={true} disabled value={this.state.unPay} />
               <br />
               phương thức thanh toán:
               <select value={this.state.paymentID} onChange={this.changePaymentMethod} className="form-control">{listPay}</select>

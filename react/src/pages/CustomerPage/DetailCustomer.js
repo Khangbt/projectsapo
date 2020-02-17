@@ -163,13 +163,13 @@ class DetailCustomer extends Component {
                             <form onSubmit={this.onHandleSubmit}>
                                 <div className="form-group">
                                     <div>
-                                        <label>Tên khách hàng : </label>
+                                        <label>Tên khách hàng :  <span className = "require-field" > * </span> </label>
                                         <input type="text" className="form-control" name="nameCustomer" defaultValue={nameCustomer} onChange={this.onChange} maxLength="45" />
                                         {nameCustomer === '' && <span>* tên khách hàng không được để trống</span>}
                                         {nameCustomer.length > 44 && <span>* tên khách hàng tối đa 45 ký tự</span>}
                                     </div>
                                     <div >
-                                        <label>Số điện thoại : </label>
+                                        <label>Số điện thoại :  <span className = "require-field" > * </span> </label>
                                         <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">Số điện thoại bao gồm 10 chữ số bắt đầu
                                         Viettel: 09, 03 MobiFone: 09, 07 VinaPhone: 09, 08 Vietnamobile và Gmobile: 09, 05
                                         </Tooltip>}>
@@ -181,7 +181,7 @@ class DetailCustomer extends Component {
                                         {/((09|03|07|08|05)+([0-9]{8})\b)/g.test(this.state.phoneNumber) === false && <span>* Số điện thoại của bạn không đúng định dạng!</span>}
                                     </div>
                                     <div>
-                                        <label>Email : </label>
+                                        <label>Email :  <span className = "require-field" > * </span></label>
                                         <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">địa chỉ email phải bắt đầu bằng 1 ký tự, địa chỉ email
                                         là tập hợp của các ký tự a-z 0-9, có thể có các ký tự như dấu chấm, dấu gạch dưới,
                                         độ dài của email là từ 1 đến 32 + tên miền của email. VD : example@gmail.com

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import NumberFormat from "react-number-format";
 import Pagination from "react-js-pagination";
+import moment from "moment";
 
 class OrderList extends Component {
   constructor(props) {
@@ -44,11 +45,11 @@ class OrderList extends Component {
 
   onChange = event => {
     this.setState({
-      textSearch: event.target.value.toLowerCase()
+      textSearch: event.target.value.toLowerCase(),
+      acb: event.target.value
     });
     
   };
-
   componentDidMount() {
     document.title = "Danh sách đơn hàng";
     this.fetchURL(this.state.activePage);
@@ -65,15 +66,14 @@ class OrderList extends Component {
     })
     .map((value, key) => {
       return <tr key = {key}>
-        <td>{value.idOrder}</td>
         <td ><Link to ={"/order/id="+value.idOrder} style ={{color : 'black',cursor: 'pointer'}}>{value.nameCustomer}</Link></td>
         <td> <NumberFormat value = {value.phoneNumber} displayType={'text'} format=" 0## ### ####" /></td>
         <td> <NumberFormat value={value.totalAmount} displayType={'text'} thousandSeparator={true} /> VNĐ</td>
         <td> <NumberFormat value={value.amountPaid} displayType={'text'} thousandSeparator={true} /> VNĐ</td>
         <td> <NumberFormat value={value.unpaidAmount} displayType={'text'} thousandSeparator={true} /> VNĐ</td>
+        <td>{moment(value.dateSale).format("MMMM Do YYYY, h:mm:ss a")}</td>
       </tr>
     })
-
     return (
       <div
         className="col-md-12 col-sm-12 col-xs-12"
@@ -99,12 +99,12 @@ class OrderList extends Component {
                 <table className="table table-bordered table-hover">
                   <thead>
                     <tr>
-                      <th>Mã đơn hàng</th>
                       <th>Tên khách hàng</th>
                       <th>SĐT khách hàng</th>
                       <th>Tổng tiền hàng</th>
                       <th>Tiền khách đã trả</th>
                       <th>Tiền thừa trả khách</th>
+                      <th>Thời gian tạo đơn</th>
                     </tr>
                   </thead>
                   <tbody>{elementListOrder}</tbody>

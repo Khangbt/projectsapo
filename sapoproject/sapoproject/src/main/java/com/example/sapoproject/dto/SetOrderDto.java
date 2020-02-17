@@ -16,7 +16,7 @@ public class SetOrderDto {
     private Long unpaidAmount;
     @NotNull(message = "thiếu phương thức thanh toán")
     private Integer idPaymentMethods;
-//    @SizeL(size = 20)
+// @SizeL(size = 20)
     @NotNull(message = "không dc thiếu")
     private List<SalesboarDto> salesboarDtos;
 
