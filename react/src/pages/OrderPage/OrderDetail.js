@@ -39,7 +39,6 @@ class OrderDetail extends Component {
         const { infoOrder, productOrder } = this.state;
 
         const elmProductOrder = productOrder.map((itemproduct, key) => {
-            console.log("bbsb", itemproduct)
             return (
               <tr key={key}>
                 <td> {itemproduct.productcode} </td>
@@ -56,12 +55,12 @@ class OrderDetail extends Component {
                     {moment(infoOrder.dateSale).format('MMMM Do YYYY, h:mm:ss a')}
                 </p>
                 <div className="row">
-                    <div className="col-md-6 page-info" >
+                    <div className="col-md-7 page-info" >
                         <div className = "portlet box green-meadow"> 
                             <h4>
                                 Thông tin sản phẩm
                             </h4>
-                            <table class="table">
+                            <table className="table">
                                 <thead>
                                     <tr>
                                         <th scope="col"> Mã sản phẩm </th>
@@ -72,30 +71,33 @@ class OrderDetail extends Component {
                                 </thead>
                                 <tbody>
                                     {elmProductOrder}
+                                    <tr>
+                                        <td colSpan="3" style = {{fontWeight: 'bold'}}> Tổng đơn hàng </td>
+                                        <td colSpan="1"  > 
+                                            <NumberFormat value={infoOrder.totalAmount} displayType={'text'} thousandSeparator={true} /> đ  
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
                         
                     </div>
-                    <div className="col-md-6" >
+                    <div className="col-md-5" >
                         <div className = "portlet box green-meadow">
                             <h4>
                                 Thông tin khách hàng
                             </h4>
-                            <table class="table">
+                            <table className="table">
                                 <thead>
                                     <tr>
                                         <th scope="col"> Tên khách hàng </th>
                                         <th scope="col"> Số điện thoại </th>
-                                        <th scope="col"> Tổng hóa đơn </th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 <tr>
                                         <td> {infoOrder.nameCustomer} </td>
                                         <td> <NumberFormat value = {infoOrder.phoneNumber} displayType={'text'} format=" 0## ### ####" />  </td>
-                                        <td> 
-                                            <NumberFormat value={infoOrder.totalAmount} displayType={'text'} thousandSeparator={true} /> VNĐ </td>
                                     </tr>
                                 </tbody>
                             </table>
