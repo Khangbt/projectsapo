@@ -61,7 +61,7 @@ class AddCustomer extends Component {
                             title: 'Tạo mới khách hàng thành công'
                         })
 
-                    this.showModal()
+                    this.showModal(this.state.nameCustomer, this.state.phoneNumber)
                 }
             }).catch(err => {
                 this.setState({ checkPhone: true })
@@ -76,9 +76,14 @@ class AddCustomer extends Component {
             event.target.value = event.target.value.slice(0, event.target.maxLength)
     }
 
-    showModal = () => {
-        this.props.showModal();
+    showModal = (name, phone) => {
+            this.props.showModal(name, phone);
+        
         this.setState({ checkForm: false })
+    }
+
+    closeAddGuest = () => {
+        this.props.closeAddGuest(true);
     }
 
     handleChange = (event) => {
@@ -180,10 +185,10 @@ class AddCustomer extends Component {
                     </form>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={this.showModal}>
-                        Close
+                    <Button variant="secondary" onClick={this.closeAddGuest}>
+                        Hủy
               </Button>
-                    <Button variant="primary" onClick={this.customerAdd}> Save </Button>
+                    <Button variant="primary" onClick={this.customerAdd}> Lưu </Button>
                 </Modal.Footer>
             </Modal>
         )
