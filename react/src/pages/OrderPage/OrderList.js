@@ -113,12 +113,9 @@ class OrderList extends Component {
                   <tbody>{elementListOrder}</tbody>
                 </table>
               </div>
-            </div>
-          </div>
-        </div>
-        <div className="d-flex justify-content-left">
+               <div className="d-flex justify-content-left">
           <Pagination
-            hideDisabled
+            
             activePage={this.state.activePage}
             itemsCountPerPage={this.state.itemsCountPerPage}
             totalItemsCount={this.state.totalItemsCount}
@@ -127,6 +124,10 @@ class OrderList extends Component {
             onChange={this.handlePageChange}
           />
         </div>
+            </div>
+          </div>
+        </div>
+       
       </div>
     );
   }

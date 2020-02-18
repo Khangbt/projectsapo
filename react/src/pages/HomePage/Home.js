@@ -19,6 +19,7 @@ class Sale extends Component {
       showModalOrder: false,  
       citys: "",
       listGuest: [],
+      currentGuest : null,
       currentGuestName: "",
       currentGuestPhone : null,
       pays: Payment,
@@ -237,6 +238,7 @@ class Sale extends Component {
 
   choseGuest(value) {
     this.setState({
+      currentGuest : value,
       checkClickCustomer: true,
       currentGuestName: value.nameCustomer,
       currentGuestPhone : value.phoneNumber,
@@ -451,21 +453,12 @@ class Sale extends Component {
             </div>
 
             <div className="row text-center group-btn btnThanhToan">
-<<<<<<< HEAD
               <button className="button-cancel" onClick={this.removeOrder}>
                 Hủy đơn
-=======
-              {/* <button className="button-cancel" onClick={this.removeOrder}>
-                Cancel
->>>>>>> 49ef51a9277a4353f1aeccacc1cb2cc11faee911
               </button>
-              &nbsp; */}
+              &nbsp;
               <button className="button-confirm" onClick={this.showModalOrder}>
-<<<<<<< HEAD
                 Xác nhận
-=======
-                Đặt hàng
->>>>>>> 49ef51a9277a4353f1aeccacc1cb2cc11faee911
               </button>
             </div>
           </div>

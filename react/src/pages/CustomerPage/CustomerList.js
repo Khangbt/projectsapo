@@ -157,11 +157,7 @@ class CustomerList extends Component {
           {this.state.a&&
            <div className="d-flex justify-content-left">
             <Pagination
-             hideDisabled
-             prevPageText='prev'
-             nextPageText='next'
-             firstPageText='first'
-             lastPageText='last'
+            
              activePage={this.state.activePage}
              itemsCountPerPage={this.state.itemsCountPerPage}
              totalItemsCount={this.state.totalItemsCount}

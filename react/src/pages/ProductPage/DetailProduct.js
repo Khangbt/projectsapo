@@ -109,20 +109,14 @@ class DetailProduct extends Component {
                         <div className="col-xs-6">
                             <form onSubmit={this.onHandleSubmit}>
                                 <div className="form-group">
-<<<<<<< HEAD
                                     <div className = "item-input">
                                         <label>Tên sản phẩm : </label>
-=======
-                                    <div>
-                                        <label>Tên sản phẩm :  <span className = "require-field" > * </span> </label>
->>>>>>> 49ef51a9277a4353f1aeccacc1cb2cc11faee911
                                         <input type="text" className="form-control" name="nameProduct" defaultValue={nameProduct} onChange={this.onChange} maxLength="45" />
                                         {nameProduct === '' && <span>* tên sản phẩm không được để trống</span>}
                                         {nameProduct.length < 2 && nameProduct !== '' && <span>* tên sản phẩm tối thiểu 2 ký tự</span>}
                                         {nameProduct.length > 44 && <span>* tên sản phẩm tối đa 45 ký tự</span>}
                                         {checkName && <span>* tên sản phẩm đã tồn tại</span>}
                                     </div>
-<<<<<<< HEAD
                                     <div className = "item-input">
                                         <label>Mã sản phẩm : </label>
                                         <input type="text" className="form-control" name="productCode" defaultValue={productCode} onChange={this.onChange} readOnly />
@@ -148,36 +142,6 @@ class DetailProduct extends Component {
                                         {isNaN(price) && <span>* giá bán không được để trống</span>}
                                    </div>
                                    
-=======
-                                    <label>Mã sản phẩm :  <span className = "require-field" > * </span></label>
-                                    <input type="text" className="form-control" name="productCode" defaultValue={productCode} onChange={this.onChange} readOnly />
-                                   <div>
-                                   <label>Số lượng tồn :  <span className = "require-field" > * </span> </label>
-                                   <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">Số lượng tồn từ 0 đến 999
-                                        </Tooltip>}>
-                                        <input type="number" className="form-control" name="inventoryNumber" defaultValue={inventoryNumber} onKeyUp={this.onChange}
-                                         maxLength="3" onInput={this.maxLengthCheck} />
-                                </OverlayTrigger>
-                                    {  (inventoryNumber < 0 || inventoryNumber > 999) && <span>* số lượng tồn từ 0 đến 999</span>}
-                                    {isNaN(inventoryNumber) && <span>* số lượng tồn không được để trống</span>}
-                                   </div>
-                                   <div>
-                                   <label>Giá bán :  <span className = "require-field" > * </span> </label>
-                                   <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">Giá bán tối thiểu là 1.000 đồng
-                                        </Tooltip>}>
-                                        
-                                        {/* <input type="number" className="form-control" name="price" 
-                                        defaultValue={price} onChange={this.onChange}
-                                        maxLength="9" onInput={this.maxLengthCheck} /> */}
-                                        <NumberFormat className ="form-control"  maxLength="11" onInput={this.maxLengthCheck} value={price}  thousandSeparator={true} onValueChange={(values) => {const { value} = values;
-                                                       this.setState({price: value})
-                                                                                    }} />
-                                        
-                                </OverlayTrigger>
-                                    {  (price < 1000 || price > 999999999) && <span>* giá bán tối thiểu là 1.000 đồng</span>}
-                                    {isNaN(price) && <span>* giá bán không được để trống</span>}
-                                   </div> 
->>>>>>> 49ef51a9277a4353f1aeccacc1cb2cc11faee911
                                 </div>
                                 
                                 <button type="submit" className="btn btn-primary"> Lưu</button>

@@ -61,7 +61,7 @@ class AddCustomer extends Component {
                             title: 'Tạo mới khách hàng thành công'
                         })
 
-                    this.showModal(this.state.nameCustomer, this.state.phoneNumber)
+                    this.showModal(res.data.nameCustomer, res.data.phoneNumber, res.data.idCustomer)
                 }
             }).catch(err => {
                 this.setState({ checkPhone: true })
@@ -76,8 +76,8 @@ class AddCustomer extends Component {
             event.target.value = event.target.value.slice(0, event.target.maxLength)
     }
 
-    showModal = (name, phone) => {
-            this.props.showModal(name, phone);
+    showModal = (name, phone, id) => {
+            this.props.showModal(name, phone, id);
         
         this.setState({ checkForm: false })
     }

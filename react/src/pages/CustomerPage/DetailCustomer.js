@@ -163,24 +163,14 @@ class DetailCustomer extends Component {
                         <div className="col-xs-6">
                             <form onSubmit={this.onHandleSubmit}>
                                 <div className="form-group">
-<<<<<<< HEAD
                                     <div className = "item-input">
                                         <label>Tên khách hàng : <span className = "require-field" > * </span></label>
-=======
-                                    <div>
-                                        <label>Tên khách hàng :  <span className = "require-field" > * </span> </label>
->>>>>>> 49ef51a9277a4353f1aeccacc1cb2cc11faee911
                                         <input type="text" className="form-control" name="nameCustomer" defaultValue={nameCustomer} onChange={this.onChange} maxLength="45" />
                                         {nameCustomer === '' && <span>* tên khách hàng không được để trống</span>}
                                         {nameCustomer.length > 44 && <span>* tên khách hàng tối đa 45 ký tự</span>}
                                     </div>
-<<<<<<< HEAD
                                     <div className = "item-input">
                                         <label>Số điện thoại : <span className = "require-field" > * </span></label>
-=======
-                                    <div >
-                                        <label>Số điện thoại :  <span className = "require-field" > * </span> </label>
->>>>>>> 49ef51a9277a4353f1aeccacc1cb2cc11faee911
                                         <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">Số điện thoại bao gồm 10 chữ số bắt đầu
                                         Viettel: 09, 03 MobiFone: 09, 07 VinaPhone: 09, 08 Vietnamobile và Gmobile: 09, 05
                                         </Tooltip>}>
@@ -191,13 +181,8 @@ class DetailCustomer extends Component {
                                         {checkPhone && <span>* số điện thoại đã tồn tại</span>}
                                         {/((09|03|07|08|05)+([0-9]{8})\b)/g.test(this.state.phoneNumber) === false && <span>* Số điện thoại của bạn không đúng định dạng!</span>}
                                     </div>
-<<<<<<< HEAD
                                     <div className = "item-input">
                                         <label>Email : <span className = "require-field" > * </span>  </label>
-=======
-                                    <div>
-                                        <label>Email :  <span className = "require-field" > * </span></label>
->>>>>>> 49ef51a9277a4353f1aeccacc1cb2cc11faee911
                                         <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">địa chỉ email phải bắt đầu bằng 1 ký tự, địa chỉ email
                                         là tập hợp của các ký tự a-z 0-9, có thể có các ký tự như dấu chấm, dấu gạch dưới,
                                         độ dài của email là từ 1 đến 32 + tên miền của email. VD : example@gmail.com
