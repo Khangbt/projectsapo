@@ -16,9 +16,15 @@ public class Update {
             for (SalesboarDto dto: dtos){
                 if(entity.getIdproduct()==dto.getIdProduct()){
                     int dem=entity.getInventoryNumber()-dto.getAmount();
+
                     if(dem<0){
                         return null;
                     }else {
+//                        try {
+//                            Thread.sleep(10000);
+//                        } catch (InterruptedException e) {
+//                            e.printStackTrace();
+//                        }
                         entity.setInventoryNumber(dem);
                     }
                 }

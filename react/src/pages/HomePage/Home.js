@@ -5,6 +5,7 @@ import axios from 'axios';
 import Payment from '../../Data/PaymentMethod.json'
 import AddCustomer from './AddCustomer';
 import Swal from 'sweetalert2';
+import NumberFormat from 'react-number-format';
 
 
 class Sale extends Component {
@@ -18,7 +19,8 @@ class Sale extends Component {
       showModalOrder: false,  
       citys: "",
       listGuest: [],
-      currentGuest: null,
+      currentGuestName: "",
+      currentGuestPhone : null,
       pays: Payment,
       checkClickCustomer: false,
       textSearchGuest: "",
@@ -104,20 +106,21 @@ class Sale extends Component {
   }
 
 
-  changePay = (event) => {
-    if (event.target.value < this.state.totalPay)
+  changePay = () => {
+    console.log("giá ", typeof(this.state.pay))
+    if (this.state.pay < this.state.totalPay)
       this.setState({
         showMess: true
       })
     else {
+      console.log("unPay",Math.abs(this.state.totalPay - this.state.pay) )
       this.setState({
-        pay: event.target.value,
-        unPay: Math.abs(this.state.totalPay - event.target.value),
+        unPay: Math.abs(this.state.totalPay - this.state.pay),
         showMess: false
       })
     }
-    console.log(typeof (this.state.pay))
-    if (event.target.value === "")
+    console.log("aaa giá",this.state.pay)
+    if (this.state.pay === "")
       this.setState({
         unPay: 0
       })
@@ -157,14 +160,36 @@ class Sale extends Component {
     if (val !== "")
       this.fetchURLSearchGuest(val)
     else this.setState({
-      listGuest: []
+      listGuest: [],
+      checkClickCustomer : false
     })
   }
 
-  showModal = () => {
+  showModal = (name , phone) => {
+    console.log("cus", name)
+    console.log("custgomer", phone)
+    console.log("abc", this.state.currentGuest)
     this.setState({
+      // currentGuest : newCustomer,
       showModalAddGuest: !this.state.showModalAddGuest
     })
+    if(typeof(name) === "string"){
+      this.setState({
+        currentGuestName : name,
+        currentGuestPhone : phone,
+        checkClickCustomer : true
+      })
+    }
+  }
+
+  closeAddGuest = (bool) => {
+    if(bool){
+      this.setState({
+        showModalAddGuest : false,
+        checkClickCustomer : false
+
+      })
+    }
   }
 
   showMessThanhToan = () => {
@@ -213,7 +238,8 @@ class Sale extends Component {
   choseGuest(value) {
     this.setState({
       checkClickCustomer: true,
-      currentGuest: value,
+      currentGuestName: value.nameCustomer,
+      currentGuestPhone : value.phoneNumber,
       listGuest: []
     })
   }
@@ -314,6 +340,11 @@ class Sale extends Component {
     })
   }
 
+  maxLengthCheck = (event) => {
+    if (event.target.value.length > event.target.maxLength)
+        event.target.value = event.target.value.slice(0, event.target.maxLength)
+}
+
   render() {
 
 
@@ -336,7 +367,7 @@ class Sale extends Component {
           <button type="submit" className="btn btn-default" onClick={() => this.decreasequantity(value.idProduct, key)}>-</button></td>
         <td>{value.price === null ? 0 : value.price.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}</td>
         <td>{costPrice === null ? 0 : costPrice.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}</td>
-        <td style={{ "color": "red", cursor: 'pointer' }} onClick={() => this.deleteProductOrder(value.idProduct, key)}>
+        <td style={{ cursor: 'pointer' }} onClick={() => this.deleteProductOrder(value.idProduct, key)}>
           <i className="fas fa-trash-alt" ></i>
         </td>
 
@@ -370,7 +401,7 @@ class Sale extends Component {
                 />
                 <div className="input-group-prepend add-customer">
                   <button className="" onClick={this.showModal}>
-                    <i class="fa fa-user-plus"></i>
+                    <i className="fa fa-user-plus" ></i>
                   </button>
                 </div>
               </div>
@@ -388,7 +419,7 @@ class Sale extends Component {
                 className="d-flex justify-content-between chooseGuest"
               >
                 <div>
-                  <i className="fas fa-user"></i> <span><b>{this.state.currentGuest.nameCustomer} </b>:0{this.state.currentGuest.phoneNumber}</span>
+                  <i className="fas fa-user"></i> <span><b>{this.state.currentGuestName} </b>:0{parseInt(this.state.currentGuestPhone)}</span>
                 </div>
                 <div>
                   <button
@@ -420,12 +451,21 @@ class Sale extends Component {
             </div>
 
             <div className="row text-center group-btn btnThanhToan">
+<<<<<<< HEAD
               <button className="button-cancel" onClick={this.removeOrder}>
                 Hủy đơn
+=======
+              {/* <button className="button-cancel" onClick={this.removeOrder}>
+                Cancel
+>>>>>>> 49ef51a9277a4353f1aeccacc1cb2cc11faee911
               </button>
-              &nbsp;
+              &nbsp; */}
               <button className="button-confirm" onClick={this.showModalOrder}>
+<<<<<<< HEAD
                 Xác nhận
+=======
+                Đặt hàng
+>>>>>>> 49ef51a9277a4353f1aeccacc1cb2cc11faee911
               </button>
             </div>
           </div>
@@ -460,7 +500,7 @@ class Sale extends Component {
         </div>
 
 
-        <AddCustomer showModalAddGuest={this.state.showModalAddGuest} showModal={this.showModal} />
+        <AddCustomer showModalAddGuest={this.state.showModalAddGuest} showModal={this.showModal} closeAddGuest = {this.closeAddGuest}/>
 
         <Modal show={this.state.showModalOrder}>
           <Modal.Header>
@@ -472,10 +512,13 @@ class Sale extends Component {
               <br />
               <br />
               Tiền khách trả:{this.state.showMess && <i style={{ "color": "red" }}>thanh toán thiếu tiền</i>}
-              <input className="form-control" placeholder="" type="number" onChange={this.changePay} />
+              {/* <input className="form-control" placeholder="" type="number" onChange={this.changePay} /> */}
+              <NumberFormat className ="form-control"  maxLength="17" onInput={this.maxLengthCheck} onKeyUp={this.changePay} thousandSeparator={true} onValueChange={(values) => {const { value} = values;
+                                                       this.setState({pay: value})
+                                                                                    }} />
               <br />
               Tiền khách thừa:
-              <input className="form-control" placeholder="" disabled value={this.state.unPay} type="number" />
+              <NumberFormat className ="form-control"  thousandSeparator={true} disabled value={this.state.unPay} />
               <br />
               phương thức thanh toán:
               <select value={this.state.paymentID} onChange={this.changePaymentMethod} className="form-control">{listPay}</select>
@@ -483,7 +526,7 @@ class Sale extends Component {
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={this.showModalOrder}>
-              Close
+              Hủy
             </Button>
             <Button variant="primary" onClick={this.thanhToan}>Thanh toán</Button>
           </Modal.Footer>

@@ -4,10 +4,13 @@ import com.example.sapoproject.entity.ProductEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.PostUpdate;
 import java.util.List;
 
 @Repository
@@ -22,5 +25,9 @@ public interface ProductRepository extends JpaRepository<ProductEntity,Integer> 
     Integer checkProductCode(String productCode);
     @Query(value = "select count(product.idproduct) from product where product.name_product=?1",nativeQuery = true)
     Integer chechProductName(String productName);
+
+    @Modifying
+    @Query(value = "update product set inventory_number = ?1 , version = (?3+1) where version = ?3 and idproduct=?2" , nativeQuery = true)
+    int updateInventoryProduct( int inventoryNumber, int idproduct, int version);
 
 }

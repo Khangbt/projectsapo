@@ -14,6 +14,18 @@ public class ProductEntity {
     private Long price;
     private String productCode;
 
+    private Integer version;
+
+    @Version
+    @Column(name = "version")
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
+    }
+
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "idproduct", nullable = false)
@@ -111,6 +123,7 @@ public class ProductEntity {
                 ", dateCreated=" + dateCreated +
                 ", price=" + price +
                 ", productCode='" + productCode + '\'' +
+                ", version=" + version +
                 '}';
     }
 }

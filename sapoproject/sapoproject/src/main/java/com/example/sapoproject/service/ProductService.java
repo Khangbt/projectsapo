@@ -57,5 +57,10 @@ public class ProductService implements ProductServiceIpm {
         return (!(productRepository.chechProductName(String.valueOf(name))==0)) ;
     }
 
+    @Override
+    public int updateInventoryProduct(int inventory, int id, int version) {
+        int update = productRepository.updateInventoryProduct(inventory,id, version);
 
+        return update;
+    }
 }

@@ -12,6 +12,7 @@ import com.example.sapoproject.entity.OrderbyEntity;
 import com.example.sapoproject.entity.ProductEntity;
 import com.example.sapoproject.entity.SalesboardEntity;
 import com.example.sapoproject.logic.LogicPage;
+import com.example.sapoproject.service.SaveOrder;
 import com.example.sapoproject.service.ipm.OrderServiceIpm;
 import com.example.sapoproject.service.ipm.ProductServiceIpm;
 import com.example.sapoproject.service.ipm.SalesboardServiceImp;
@@ -21,6 +22,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.Null;
@@ -33,6 +35,9 @@ import java.util.*;
 public class OrderApi {
     @Autowired
     private OrderServiceIpm orderServiceIpm;
+
+    @Autowired
+    private SaveOrder saveOrder;
 
     @Autowired
     private SalesboardServiceImp salesboardServiceImp;
@@ -131,8 +136,9 @@ public class OrderApi {
         return new ResponseEntity<>(dtos, HttpStatus.OK);
     }
     //thêm 1 đơn hàng
+
     @RequestMapping(value = "/setorder" ,method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> getOrderSp(@RequestBody Map<String,Object> map){
+    public ResponseEntity<?> getOrderSp(@RequestBody Map<String,Object> map) throws Exception {
 //        try {
             List<Integer> list=new ArrayList<>();
             Convent<SetOrderDto> convent=new Convent<>();
@@ -161,13 +167,19 @@ public class OrderApi {
             OrderbyEntity orderbyEntity= (OrderbyEntity) DtotoEntity.getDTOTest(OrderbyEntity.class,setOrderDto);
             Date date=new Date();
             orderbyEntity.setDateSale(new Timestamp(date.getTime()));
-            OrderbyEntity orderbyEntity1=orderServiceIpm.saveGetObject(orderbyEntity);
-            List<SalesboardEntity> salesboardEntities= (List<SalesboardEntity>) DtotoEntity.getList(salesboarDtos,SalesboardEntity.class);
-            for (SalesboardEntity salesboardEntity: salesboardEntities){
-                salesboardEntity.setIdorder(orderbyEntity1.getIdorder());
-            }
-            salesboardServiceImp.saveList(salesboardEntities);
-            productServiceIpm.saveList(productEntities);
+
+            saveOrder.saveOrde(orderbyEntity,salesboarDtos, productEntities);
+
+//            //OrderbyEntity orderbyEntity1=orderServiceIpm.saveGetObject(orderbyEntity);
+//            List<SalesboardEntity> salesboardEntities= (List<SalesboardEntity>) DtotoEntity.getList(salesboarDtos,SalesboardEntity.class);
+//            for (SalesboardEntity salesboardEntity: salesboardEntities){
+//                salesboardEntity.setIdorder(orderbyEntity1.getIdorder());
+//            }
+//            salesboardServiceImp.saveList(salesboardEntities);
+//            for(ProductEntity productEntity : productEntities){
+//              productServiceIpm.updateInventoryProduct(productEntity.getInventoryNumber(), productEntity.getIdproduct(), productEntity.getVersion());
+//            }
+            //productServiceIpm.saveList(productEntities);
             return new ResponseEntity<>(orderbyEntity,HttpStatus.OK);
         }
 //        catch (Exception e){
