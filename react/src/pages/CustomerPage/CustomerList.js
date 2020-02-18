@@ -56,17 +56,12 @@ class CustomerList extends Component {
       if(this.state.textSearch==="")
         this.fetchURL(0)
       else this.fetchURLSearch(this.state.textSearch)
-    console.log("pre"+prevState.textSearch)
-      console.log(this.state.textSearch)
-
     }
     if (prevState.itemsCountPerPage!== this.state.itemsCountPerPage) {
-      console.log("a")
         this.fetchURL(0)
     }
     
     }
-    
 
   componentDidMount(){
     document.title = "Danh sách khách hàng";
@@ -81,7 +76,6 @@ class CustomerList extends Component {
   }
 
   handlePageChange(pageNumber) {
-    console.log(`active page is ${pageNumber}`);
     this.setState({activePage: pageNumber});
     this.fetchURL(pageNumber)
     

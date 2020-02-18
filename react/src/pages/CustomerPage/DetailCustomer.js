@@ -155,21 +155,22 @@ class DetailCustomer extends Component {
         }
         return (
             <div className="col-md-8 offset-md-2" style={{ marginBottom: '5px', marginTop: '20px' }}>
-                <h3 className="page-title" style={{ marginBottom: '20px' }}>Chi tiết khách hàng</h3>
+                <h3 className="page-title" style={{ marginBottom: '20px' }}>Cập nhật khách hàng</h3>
+                <Link to="/customer"><a> Quay lại</a></Link>
                 <div className="portlet box green-meadow">
-                    <div className="title-product"><h5>Cập nhật khách hàng</h5></div>
+                    
                     <div className="portlet-body">
                         <div className="col-xs-6">
                             <form onSubmit={this.onHandleSubmit}>
                                 <div className="form-group">
-                                    <div>
-                                        <label>Tên khách hàng : </label>
+                                    <div className = "item-input">
+                                        <label>Tên khách hàng : <span className = "require-field" > * </span></label>
                                         <input type="text" className="form-control" name="nameCustomer" defaultValue={nameCustomer} onChange={this.onChange} maxLength="45" />
                                         {nameCustomer === '' && <span>* tên khách hàng không được để trống</span>}
                                         {nameCustomer.length > 44 && <span>* tên khách hàng tối đa 45 ký tự</span>}
                                     </div>
-                                    <div >
-                                        <label>Số điện thoại : </label>
+                                    <div className = "item-input">
+                                        <label>Số điện thoại : <span className = "require-field" > * </span></label>
                                         <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">Số điện thoại bao gồm 10 chữ số bắt đầu
                                         Viettel: 09, 03 MobiFone: 09, 07 VinaPhone: 09, 08 Vietnamobile và Gmobile: 09, 05
                                         </Tooltip>}>
@@ -180,8 +181,8 @@ class DetailCustomer extends Component {
                                         {checkPhone && <span>* số điện thoại đã tồn tại</span>}
                                         {/((09|03|07|08|05)+([0-9]{8})\b)/g.test(this.state.phoneNumber) === false && <span>* Số điện thoại của bạn không đúng định dạng!</span>}
                                     </div>
-                                    <div>
-                                        <label>Email : </label>
+                                    <div className = "item-input">
+                                        <label>Email : <span className = "require-field" > * </span>  </label>
                                         <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">địa chỉ email phải bắt đầu bằng 1 ký tự, địa chỉ email
                                         là tập hợp của các ký tự a-z 0-9, có thể có các ký tự như dấu chấm, dấu gạch dưới,
                                         độ dài của email là từ 1 đến 32 + tên miền của email. VD : example@gmail.com
@@ -190,19 +191,19 @@ class DetailCustomer extends Component {
                                         </OverlayTrigger>
                                         {!/[A-Z0-9._%+-]{1,32}@[A-Z0-9-]+.+.[A-Z]{2,4}/igm.test(email) && <span>* email không đúng định dạng</span>}
                                     </div>
-                                    <div>
+                                    <div className = "item-input">
                                         <label>Địa chỉ : </label>
                                         <input type="text" className="form-control" name="address" defaultValue={address} onChange={this.onChange} />
                                     </div>
-                                    <div className="form-group">
-                                        <label>Tỉnh/Thành phố : </label><br />
+                                    <div className = "item-input">
+                                        <label>Tỉnh/Thành phố : </label>
                                         <select className="form-control"
                                             value={selectProvince[0]} onChange={this.handleChange} >
                                             <option value={0}>Chọn tỉnh thành phố</option>
                                             {province}
                                         </select>
                                     </div>
-                                    <div className="form-group">
+                                    <div className = "item-input">
                                         <label>Quận/Huyện : </label>
                                         <select className="form-control" value={selectDistrict[0]} onChange={this.handleChangeDistrict}  >
                                             <option value={0}>Chọn quận huyện</option>
@@ -211,8 +212,8 @@ class DetailCustomer extends Component {
                                     </div>
 
                                 </div>
-                                <Link to="/customer"><button type="submit" className="btn btn-danger"> Quay lại</button></Link>&nbsp;
-                        <button type="submit" className="btn btn-primary">Lưu</button>
+                                
+                                <button type="submit" className="btn btn-primary">Lưu</button>
                             </form>
 
                         </div>

@@ -421,11 +421,11 @@ class Sale extends Component {
 
             <div className="row text-center group-btn btnThanhToan">
               <button className="button-cancel" onClick={this.removeOrder}>
-                Cancel
+                Hủy đơn
               </button>
               &nbsp;
               <button className="button-confirm" onClick={this.showModalOrder}>
-                Order
+                Xác nhận
               </button>
             </div>
           </div>

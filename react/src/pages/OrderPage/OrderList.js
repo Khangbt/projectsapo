@@ -66,12 +66,17 @@ class OrderList extends Component {
     })
     .map((value, key) => {
       return <tr key = {key}>
+        <td >{value.idOrder} </td>
         <td ><Link to ={"/order/id="+value.idOrder} style ={{color : 'black',cursor: 'pointer'}}>{value.nameCustomer}</Link></td>
         <td> <NumberFormat value = {value.phoneNumber} displayType={'text'} format=" 0## ### ####" /></td>
         <td> <NumberFormat value={value.totalAmount} displayType={'text'} thousandSeparator={true} /> VNĐ</td>
         <td> <NumberFormat value={value.amountPaid} displayType={'text'} thousandSeparator={true} /> VNĐ</td>
         <td> <NumberFormat value={value.unpaidAmount} displayType={'text'} thousandSeparator={true} /> VNĐ</td>
-        <td>{moment(value.dateSale).format("MMMM Do YYYY, h:mm:ss a")}</td>
+        <td>
+          {moment(value.dateSale).format("LT")}
+          &nbsp;
+          {moment(value.dateSale).format("L")}
+        </td>
       </tr>
     })
     return (
@@ -82,23 +87,21 @@ class OrderList extends Component {
         <h3 className="page-title" style={{ marginBottom: "20px" }}>
           Quản lý đơn hàng
         </h3>
-        <input
-          type="text"
-          className="search-order"
-          placeholder="Tìm kiếm đơn hàng theo tên KH hoặc số điện thoại"
-          name="textSearch"
-          onChange={this.onChange}
-        />
         <div className="portlet box green-meadow">
           <div className="title-product ">
             <h5>Danh sách đơn hàng</h5>
           </div>
+          <div className="col-md-3 col-sm-3 col-xs-3" style = {{display: 'inline-block', float: "right"}}>
+              <i className="fas fa-search" aria-hidden="true"></i>
+              <input type="text" className="form-control search-order" placeholder="Tìm kiếm đơn hàng theo tên KH hoặc số điện thoại" name="textSearch" onChange={this.onChange} />
+            </div>
           <div className="portlet-body">
             <div className="table-responsive">
               <div id="news-grid" className="grid-view">
                 <table className="table table-bordered table-hover">
                   <thead>
                     <tr>
+                      <th>Mã đơn</th>
                       <th>Tên khách hàng</th>
                       <th>SĐT khách hàng</th>
                       <th>Tổng tiền hàng</th>

@@ -4,7 +4,6 @@ import axios from 'axios'
 import Swal from 'sweetalert2'
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 
-
 class DetailProduct extends Component {
     constructor(props) {
         super(props);
@@ -102,13 +101,14 @@ class DetailProduct extends Component {
         return (
             <div className="col-md-8 offset-md-2" style={{ marginBottom: '5px', marginTop: '20px' }}>
                 <h3 className="page-title" style={{ marginBottom: '20px' }}>Cập nhật sản phẩm</h3>
+                <Link to="/product"><a > Quay lại</a></Link>
                 <div className="portlet box green-meadow">
                     <div className="title-product"><h5>{nameProduct}</h5></div>
                     <div className="portlet-body">
                         <div className="col-xs-6">
                             <form onSubmit={this.onHandleSubmit}>
                                 <div className="form-group">
-                                    <div>
+                                    <div className = "item-input">
                                         <label>Tên sản phẩm : </label>
                                         <input type="text" className="form-control" name="nameProduct" defaultValue={nameProduct} onChange={this.onChange} maxLength="45" />
                                         {nameProduct === '' && <span>* tên sản phẩm không được để trống</span>}
@@ -116,32 +116,34 @@ class DetailProduct extends Component {
                                         {nameProduct.length > 44 && <span>* tên sản phẩm tối đa 45 ký tự</span>}
                                         {checkName && <span>* tên sản phẩm đã tồn tại</span>}
                                     </div>
-                                    <label>Mã sản phẩm : </label>
-                                    <input type="text" className="form-control" name="productCode" defaultValue={productCode} onChange={this.onChange} readOnly />
-                                   <div>
-                                   <label>Số lượng tồn : </label>
-                                   <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">Số lượng tồn từ 0 đến 999
-                                        </Tooltip>}>
-                                        <input type="number" className="form-control" name="inventoryNumber" defaultValue={inventoryNumber} onChange={this.onChange}
-                                         maxLength="3" onInput={this.maxLengthCheck} />
-                                </OverlayTrigger>
-                                    {  (inventoryNumber < 0 || inventoryNumber > 999) && <span>* số lượng tồn từ 0 đến 999</span>}
-                                    {isNaN(inventoryNumber) && <span>* số lượng tồn không được để trống</span>}
+                                    <div className = "item-input">
+                                        <label>Mã sản phẩm : </label>
+                                        <input type="text" className="form-control" name="productCode" defaultValue={productCode} onChange={this.onChange} readOnly />
+                                    </div>
+                                   <div className = "item-input">
+                                        <label>Số lượng tồn : </label>
+                                        <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">Số lượng tồn từ 0 đến 999
+                                                </Tooltip>}>
+                                                <input type="number" className="form-control" name="inventoryNumber" defaultValue={inventoryNumber} onChange={this.onChange}
+                                                maxLength="3" onInput={this.maxLengthCheck} />
+                                        </OverlayTrigger>
+                                        {  (inventoryNumber < 0 || inventoryNumber > 999) && <span>* số lượng tồn từ 0 đến 999</span>}
+                                        {isNaN(inventoryNumber) && <span>* số lượng tồn không được để trống</span>}
                                    </div>
-                                   <div>
-                                   <label>Giá bán : </label>
-                                   <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">Giá bán tối thiểu là 1.000 đồng
-                                        </Tooltip>}>
-                                        <input type="number" className="form-control" name="price" defaultValue={price} onChange={this.onChange}
-                                         maxLength="9" onInput={this.maxLengthCheck} />
-                                </OverlayTrigger>
-                                    {  (price < 1000 || price > 999999999) && <span>* giá bán tối thiểu là 1.000 đồng</span>}
-                                    {isNaN(price) && <span>* giá bán không được để trống</span>}
+                                   <div className = "item-input">
+                                        <label>Giá bán : </label>
+                                        <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">Giá bán tối thiểu là 1.000 đồng
+                                            </Tooltip>}>
+                                            <input type="number" className="form-control" name="price" defaultValue={price} onChange={this.onChange}
+                                            maxLength="9" onInput={this.maxLengthCheck} />
+                                        </OverlayTrigger>
+                                        {  (price < 1000 || price > 999999999) && <span>* giá bán tối thiểu là 1.000 đồng</span>}
+                                        {isNaN(price) && <span>* giá bán không được để trống</span>}
                                    </div>
                                    
                                 </div>
-                                <Link to="/product"><button type="submit" className="btn btn-danger"> Quay lại</button></Link>&nbsp;
-                        <button type="submit" className="btn btn-primary"> Lưu</button>
+                                
+                                <button type="submit" className="btn btn-primary"> Lưu</button>
                             </form>
 
                         </div>
