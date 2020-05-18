@@ -9,7 +9,7 @@ public class PaymentEntity {
     private String namePayment;
 
     @Id
-    @Column(name = "id", nullable = false)
+    @Column(name = "idpayment", nullable = false)
     public int getIdpayment() {
         return idpayment;
     }

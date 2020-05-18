@@ -19,9 +19,9 @@ public interface CustomerRepository extends JpaRepository<CustomerEntity,Integer
     Page<CustomerEntity> getSdt(Pageable pageable,int sdt);
     @Query("select e from  CustomerEntity as e")
     Page<CustomerEntity> getAllCustoomer(Pageable pageable);
-    @Query(value = "select e.id,e.city,e.name from pos.customer  as e",nativeQuery = true)
+    @Query(value = "select e.idcustomer,e.city,e.name_customer from pos.customer  as e",nativeQuery = true)
     List<Map<String,Object>> getAll123();
-    @Query(value = "select count(customer.id) from customer where customer.phone_number =?1",nativeQuery = true)
+    @Query(value = "select count(customer.idcustomer) from customer where customer.phone_number =?1",nativeQuery = true)
     Integer getPhoneNumber(Integer sdt);
 
 

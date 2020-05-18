@@ -110,10 +110,6 @@ class AddCustomer extends Component {
         let district = District.filter(item => item.provinceId === selectProvince).map((value, key) => {
             return <option key={key} value={value.districtId}>{value.districtType} {value.label}</option>
         })
-
-        console.log("huyện", district)
-
-        console.log("sdt", typeof (phoneNumber))
         return (
             <Modal show={this.props.showModalAddGuest}>
                 <Modal.Header>

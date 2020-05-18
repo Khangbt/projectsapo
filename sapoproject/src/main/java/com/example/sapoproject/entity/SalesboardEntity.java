@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "sales_board", schema = "pos")
+@Table(name = "salesboard", schema = "pos")
 @IdClass(SalesboardEntityPK.class)
 public class SalesboardEntity {
     private int idorder;
@@ -14,7 +14,7 @@ public class SalesboardEntity {
     private BigDecimal price;
 
     @Id
-    @Column(name = "order_id", nullable = false)
+    @Column(name = "idorder", nullable = false)
     public int getIdorder() {
         return idorder;
     }
@@ -24,7 +24,7 @@ public class SalesboardEntity {
     }
 
     @Id
-    @Column(name = "product_id", nullable = false)
+    @Column(name = "idproduct", nullable = false)
     public int getIdproduct() {
         return idproduct;
     }

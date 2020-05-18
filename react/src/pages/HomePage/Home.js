@@ -61,7 +61,7 @@ class Sale extends Component {
         showMess: true
       })
     } else {
-      console.log(typeof (this.state.pay))
+     
       var order = {
         "idCustomer": this.state.currentGuest.idCustomer,
         "totalAmount": this.state.totalPay,
@@ -70,7 +70,7 @@ class Sale extends Component {
         "idPaymentMethods": parseInt(this.state.paymentID),
         "salesboarDtos": this.state.listOrder
       }
-      console.log(order)
+     
       axios({
         method: 'post',
         url: 'http://localhost:8291/setorder',
@@ -108,19 +108,19 @@ class Sale extends Component {
 
 
   changePay = () => {
-    console.log("giá ", typeof(this.state.pay))
+  
     if (this.state.pay < this.state.totalPay)
       this.setState({
         showMess: true
       })
     else {
-      console.log("unPay",Math.abs(this.state.totalPay - this.state.pay) )
+  
       this.setState({
         unPay: Math.abs(this.state.totalPay - this.state.pay),
         showMess: false
       })
     }
-    console.log("aaa giá",this.state.pay)
+ 
     if (this.state.pay === "")
       this.setState({
         unPay: 0
@@ -131,8 +131,7 @@ class Sale extends Component {
     var total = 0
     for (var i = 0; i < this.state.listOrder.length; i++) {
       total = total + this.state.listOrder[i].amount * this.state.listOrder[i].price
-      console.log(total)
-      console.log(this.state.listOrder[i])
+     
     }
     this.setState({
       totalPay: total
@@ -157,7 +156,7 @@ class Sale extends Component {
 
   searchGuest = (event) => {
     let val = event.target.value
-    console.log("val", val)
+   
     if (val !== "")
       this.fetchURLSearchGuest(val)
     else this.setState({
@@ -167,9 +166,7 @@ class Sale extends Component {
   }
 
   showModal = (name , phone) => {
-    console.log("cus", name)
-    console.log("custgomer", phone)
-    console.log("abc", this.state.currentGuest)
+  
     this.setState({
       // currentGuest : newCustomer,
       showModalAddGuest: !this.state.showModalAddGuest
@@ -254,8 +251,7 @@ class Sale extends Component {
 
   addOrder = (productById) => {
     var listOrder = this.state.listOrder.filter((order) => order.idProduct === productById.idProduct)
-    console.log(listOrder)
-    console.log(productById.inventoryNumber)
+   
     if (productById.inventoryNumber === 0||productById.inventoryNumber===null) {
        Swal.mixin({
             toast: true,
@@ -296,7 +292,7 @@ class Sale extends Component {
   increasequantity = (orderById, key) => {
 
     var order = this.state.listOrder.filter((order) => order.idProduct === orderById.idProduct)[0]
-    console.log(order)
+   
     var listOrder = this.state.listOrder
     if (listOrder[key].amount < orderById.inventoryNumber) {
       listOrder[key].amount = order.amount + 1
@@ -350,7 +346,7 @@ class Sale extends Component {
   render() {
 
 
-    console.log("listorder", this.state.listOrder)
+   
     let listproductsearch = this.state.listproduct.map((value, key) => {
       return <tr title="add to order" onClick={() => this.addOrder(value, value.id)} style={{ cursor: 'pointer' }} >
         <td width="30%">{value.nameProduct}</td>
@@ -378,7 +374,7 @@ class Sale extends Component {
 
     let guests = this.state.listGuest.map((value, key) => {
       return (
-        <li className="list-group-item" onClick={() => this.choseGuest(value)}>{value.nameCustomer} ({value.phoneNumber})</li>
+        <li className="list-group-item" onClick={() => this.choseGuest(value)}>{value.nameCustomer} (0{value.phoneNumber})</li>
       )
     })
 

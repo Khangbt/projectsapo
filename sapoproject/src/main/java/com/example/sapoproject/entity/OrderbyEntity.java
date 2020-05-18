@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "orders", schema = "pos")
+@Table(name = "orderby", schema = "pos")
 public class OrderbyEntity {
     private int idorder;
     private Integer idcustomer;
@@ -56,7 +56,7 @@ public class OrderbyEntity {
     }
 
     @Basic
-    @Column(name = "paid_amount", nullable = true, precision = 0)
+    @Column(name = "amount_paid", nullable = true, precision = 0)
     public Long getAmountPaid() {
         return amountPaid;
     }
@@ -76,7 +76,7 @@ public class OrderbyEntity {
     }
 
     @Basic
-    @Column(name = "payment_method_id", nullable = true)
+    @Column(name = "payment_methods_id", nullable = true)
     public Integer getIdPaymentMethods() {
         return idPaymentMethods;
     }

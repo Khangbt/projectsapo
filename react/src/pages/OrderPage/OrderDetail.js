@@ -30,13 +30,13 @@ class OrderDetail extends Component {
             });
         });
 
-        fetch(`http://localhost:8291/ordername/${id}`)
+        fetch(`http://localhost:8291/ordernames/${id}`)
         .then(response => {
             return response.json();
         })
         .then(result => { 
             this.setState({
-                    productOrder: result
+                    productOrder: result.content
             });
         });
     }
@@ -45,9 +45,10 @@ class OrderDetail extends Component {
         const elmProductOrder = productOrder.map((itemproduct, key) => {
             return (
               <tr key={key}>
-                <td> {itemproduct.productCode} </td>
-                <td> <a> {itemproduct.nameProduct}  </a> </td>
+                <td> {itemproduct.productcode} </td>
+                <td> <a> {itemproduct.nameproduct}  </a> </td>
                 <td> {itemproduct.amount} </td>
+                <td>{itemproduct.price}</td>
                 <td> <NumberFormat value={itemproduct.price} displayType={'text'} thousandSeparator={true} />đ </td>
                 <td style = {{textAlign:"right"}}> <NumberFormat value={itemproduct.price * itemproduct.amount}  displayType={'text'} thousandSeparator={true} />đ </td>
               </tr>

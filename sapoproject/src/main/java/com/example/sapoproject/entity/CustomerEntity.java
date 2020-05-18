@@ -15,7 +15,7 @@ public class CustomerEntity {
     private String district;
 
     @Id
-    @Column(name = "id", nullable = false)
+    @Column(name = "idcustomer", nullable = false)
     public int getIdcustomer() {
         return idcustomer;
     }
@@ -25,7 +25,7 @@ public class CustomerEntity {
     }
 
     @Basic
-    @Column(name = "customer_name", nullable = true, length = 45)
+    @Column(name = "name_customer", nullable = true, length = 45)
     public String getNameCustomer() {
         return nameCustomer;
     }

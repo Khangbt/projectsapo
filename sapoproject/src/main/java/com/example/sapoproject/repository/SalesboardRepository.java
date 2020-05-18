@@ -14,12 +14,12 @@ import java.util.Map;
 public interface SalesboardRepository extends CrudRepository<SalesboardEntity,Integer> {
 
 
-    @Query(value = "SELECT sales_board.product_name as nameProduct, sales_board.quantity as amount,product.product_code as productCode,sales_board.price" +
-            " FROM pos.product,pos.sales_board " +
-            " where  sales_board.product_id=product.id and sales_board.order_id=?1 ",nativeQuery = true)
+    @Query(value = "SELECT product.name_product as nameproduct , salesboard.amount,product.product_code as productcode" +
+            " FROM pos.product,pos.salesboard " +
+            " where  salesboard.idproduct=product.idproduct and salesboard.idorder=?1 ",nativeQuery = true)
     List<Map<String,Object>> getNameproduuct(int id);
-    @Query(value = "SELECT product.id as idProduct, product.name as nameProduct , sales_board.quantity as amount,product.product_code as productCode ," +
-            " product.price as price FROM pos.product,pos.sales_board " +
-            " where  sales_board.product_id=product.id and sales_board.order_id=?1 ",nativeQuery = true)
+    @Query(value = "SELECT product.idproduct as idProduct, product.name_product as nameProduct , salesboard.amount as amount,product.product_code as productCode ," +
+            " product.price as price FROM pos.product,pos.salesboard " +
+            " where  salesboard.idproduct=product.idproduct and salesboard.idorder=?1 ",nativeQuery = true)
     Page<Map<String,Object>> getNameCustomer(Pageable pageable, int id);
 }

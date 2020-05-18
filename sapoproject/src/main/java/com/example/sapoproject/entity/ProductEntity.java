@@ -20,7 +20,7 @@ public class ProductEntity {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(name = "idproduct", nullable = false)
     public int getIdproduct() {
         return idproduct;
     }
@@ -30,7 +30,7 @@ public class ProductEntity {
     }
 
     @Basic
-    @Column(name = "name", nullable = true, length = 45)
+    @Column(name = "name_product", nullable = true, length = 45)
     public String getNameProduct() {
         return nameProduct;
     }

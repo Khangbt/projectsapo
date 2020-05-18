@@ -8,11 +8,10 @@ import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.*;
 
 public class Convent<T> {
-    public Object checkType(Map<String, ?> map, Class aClass){
+    private Object checkType(Map<String, ?> map, Class aClass){
         Map<String,String> list=new HashMap<>();
         Field[] fields = aClass.getDeclaredFields();
         Set<String> set = map.keySet();
@@ -47,7 +46,7 @@ public class Convent<T> {
         }
         return list;
     }
-    public Object mapToDto( Map<String, Object> map,Class o1) {
+    private Object mapToDto( Map<String, Object> map,Class o1) {
         Object list= checkType(map,o1);
         if(list.getClass().isAssignableFrom(HashMap.class)){
             System.out.println("vao day11");
@@ -69,7 +68,7 @@ public class Convent<T> {
                                 System.out.println(field.getName());
                             }
                             if((field.getType().isAssignableFrom(BigDecimal.class))){
-                                field.set(o,BigDecimal.valueOf(Long.valueOf( map.get(s).toString())));
+                                field.set(o,BigDecimal.valueOf(Long.parseLong( map.get(s).toString())));
                             }
                             field.set(o,map.get(s));
                         } catch (Exception e) {
@@ -92,7 +91,8 @@ public class Convent<T> {
         if(t1.getClass().isAssignableFrom(HashMap.class)){
             return t1;
         }
-        T t=(T) t1;
+        T t;
+        t = (T) t1;
 
         Map<String,String> map=new HashMap<>();
         ValidatorFactory validatorFactory= Validation.buildDefaultValidatorFactory();
@@ -115,15 +115,14 @@ public class Convent<T> {
             System.out.println("vaoo day");
             return list;
         }
-        Object oDto=list;
         Object oEntity=null;
-        Field[] fieldDto = oDto.getClass().getDeclaredFields();
+        Field[] fieldDto = list.getClass().getDeclaredFields();
         Field[] fieldEntity = oE.getDeclaredFields();
         try {
             oEntity=oE.getDeclaredConstructor().newInstance();
             for (Field field : fieldDto) {
                 field.setAccessible(true);
-                Object value = field.get(oDto);
+                Object value = field.get(list);
                 if (!((value == null) || value.equals(0) || value.equals(""))) {
                     for (Field field1 : fieldEntity){
 
@@ -141,7 +140,7 @@ public class Convent<T> {
 
         return oEntity;
     }
-    public  boolean isCollection(Class<?> rawPropertyType) {
+    private boolean isCollection(Class<?> rawPropertyType) {
         return Collection.class.isAssignableFrom(rawPropertyType) ||
                 Map.class.isAssignableFrom(rawPropertyType) ||
                 rawPropertyType.isArray()||rawPropertyType.getName().startsWith("[L");
