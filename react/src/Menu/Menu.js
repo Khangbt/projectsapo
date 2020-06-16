@@ -14,6 +14,7 @@ class Menu extends Component{
         <Link to="/order" className="list-group-item list-group-item-action bg-light"><i className="fas fa-clipboard"></i><span>Quản lý đơn hàng</span></Link>
         <Link to="/product" className="list-group-item list-group-item-action bg-light"><i className="fas fa-box-open"></i><span>Quản lý sản phẩm</span></Link>
         <Link to="/customer" className="list-group-item list-group-item-action bg-light"><i className="fas fa-user"></i><span>Quản lý khách hàng</span></Link>
+        <Link to="/chart" className="list-group-item list-group-item-action bg-light"><i className="fas fa-user"></i><span>Biểu Đồ</span></Link>
       </div>
     </div>
         )

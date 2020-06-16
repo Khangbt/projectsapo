@@ -122,4 +122,13 @@ public class ProductApi {
         Iterable<ProductEntity> entities = productServiceIpm.getListId(list);
         return new ResponseEntity<>(entities, HttpStatus.OK);
     }
+    @RequestMapping(value ="/topproduct",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getTopProduct(@RequestParam(required = false, defaultValue = "0") @Null String page,
+                                           @RequestParam(required = false, defaultValue = "5") @Null Integer size){
+
+
+
+        return null;
+
+    }
 }

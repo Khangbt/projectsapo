@@ -5,6 +5,7 @@ import CustomerList from './pages/CustomerPage/CustomerList';
 import OrderList from './pages/OrderPage/OrderList';
 import Sale from './pages/Sale/Sale';
 import AddProduct from './pages/ProductPage/AddProduct';
+import ChartExample from './pages/Test/ChartExample';
 // import DetailCustomer from './pages/CustomerPage/DetailCustomer';
 // import DetailProduct from './pages/ProductPage/DetailProduct';
 
@@ -49,6 +50,11 @@ const routes = [
         path: '/sale',
         exact: false,
         main: () => <Sale />
+    },
+    {
+      path: '/chart',
+      exact : true,
+      main:() => <ChartExample/>
     }
 
 ];
