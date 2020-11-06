@@ -3,7 +3,7 @@ package com.example.sapoproject.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "payment_method", schema = "pos", catalog = "")
+@Table(name = "payment")
 public class PaymentEntity {
     private int idpayment;
     private String namePayment;

@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "customer", schema = "pos", catalog = "")
+@Table(name = "customer")
 public class CustomerEntity {
     private int idcustomer;
     private String nameCustomer;
@@ -16,6 +16,7 @@ public class CustomerEntity {
 
     @Id
     @Column(name = "idcustomer", nullable = false)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     public int getIdcustomer() {
         return idcustomer;
     }

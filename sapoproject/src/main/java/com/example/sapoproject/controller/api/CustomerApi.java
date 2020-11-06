@@ -26,8 +26,21 @@ import java.util.Optional;
 @RestController
 @CrossOrigin({"*"})
 public class CustomerApi {
-    @Autowired
-    private CustomerServiceIpm customerServiceIpm;
+//    @Autowired
+    private final CustomerServiceIpm customerServiceIpm;
+//    @Autowired
+//    public CustomerServiceIpm getCustomerServiceIpm(){
+//        return customerServiceIpm;
+//    }
+//    @Autowired
+//    public void setCustomerServiceIpm(CustomerServiceIpm customerServiceIpm){
+//        this.customerServiceIpm=customerServiceIpm;
+//    }
+
+    public CustomerApi(CustomerServiceIpm customerServiceIpm) {
+        this.customerServiceIpm = customerServiceIpm;
+    }
+
     Convent<CustomerDto> convent=new Convent<>();
     //lấy full danh sách orders
     @RequestMapping(value = "/customers", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)

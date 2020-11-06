@@ -13,18 +13,18 @@ import java.util.Optional;
 @Repository
 public interface OrderRepository extends JpaRepository<OrderbyEntity,Integer> {
     Optional<OrderbyEntity> getByIdorder(int id);
-    @Query(value = "SELECT orderby.*,payment.name_payment,customer.phone_number,customer.name_customer " +
-            "from customer,orderby,payment where customer.idcustomer=orderby.idcustomer and " +
-            "payment.idpayment=orderby.id_payment_methods order by orderby.idorder ASC ",nativeQuery = true)
+    @Query(value = "SELECT orderby.*,orderby.id as idorder,payment.name,customer.phone_number,customer.name_customer " +
+            " from customer,orderby,payment where customer.idcustomer=orderby.customer_id and " +
+            " payment.idpayment=orderby.payment_methods_id order by orderby.id ASC ",nativeQuery = true)
     Page<Map<String,Object>> getAll(Pageable pageable);
-    @Query(value = "select max(idorder) from orderby",nativeQuery = true)
+    @Query(value = "select max(id) from orderby",nativeQuery = true)
     int getMaxOrder();
-    @Query(value = "SELECT orderby.*,payment.name_payment,customer.phone_number,customer.name_customer " +
-            "from customer,orderby,payment where customer.idcustomer=orderby.idcustomer and " +
-            "payment.idpayment=orderby.id_payment_methods and customer.name_customer like %?1%",nativeQuery = true)
+    @Query(value = "select orderby.*,payment.name,customer.phone_number,customer.name_customer  " +
+            "from customer,orderby,payment where customer.idcustomer=orderby.customer_id and  " +
+            "payment.idpayment=orderby.payment_methods_id and customer.name_customer like %?1%",nativeQuery = true)
     Page<Map<String,Object>> getByCutomerName(Pageable pageable,String name);
-    @Query(value = "SELECT orderby.*,payment.name_payment,customer.phone_number,customer.name_customer " +
-            "from customer,orderby,payment where customer.idcustomer=orderby.idcustomer and " +
-            "payment.idpayment=orderby.id_payment_methods and orderby.idorder=?1",nativeQuery = true)
+    @Query(value = "SELECT orderby.*,payment.name,customer.phone_number,customer.name_customer " +
+            "from customer,orderby,payment where customer.idcustomer=orderby.customer_id and  " +
+            "payment.idpayment=orderby.payment_methods_id and orderby.id=?1 ",nativeQuery = true)
     Optional<Map<String,Object>> getIdOrder(int id);
 }

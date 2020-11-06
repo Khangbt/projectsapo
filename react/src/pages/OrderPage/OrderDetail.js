@@ -46,7 +46,7 @@ class OrderDetail extends Component {
             return (
               <tr key={key}>
                 <td> {itemproduct.productcode} </td>
-                <td> <a> {itemproduct.nameproduct}  </a> </td>
+                <td> <a> {itemproduct.nameProduct}  </a> </td>
                 <td> {itemproduct.amount} </td>
                 <td>{itemproduct.price}</td>
                 <td> <NumberFormat value={itemproduct.price} displayType={'text'} thousandSeparator={true} />đ </td>

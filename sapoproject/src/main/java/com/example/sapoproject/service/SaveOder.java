@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Component
-@Transactional
+
 public class SaveOder {
     @Autowired
     private OrderServiceIpm orderServiceIpm;
@@ -24,6 +24,7 @@ public class SaveOder {
     private SalesboardServiceImp salesboardServiceImp;
     @Autowired
     private ProductServiceIpm productServiceIpm;
+    @Transactional(rollbackFor = Exception.class)
     public void saveOrde(OrderbyEntity orderbyEntity,List<SalesboarDto> salesboarDtos,List<ProductEntity> productEntities) throws Exception {
         OrderbyEntity orderbyEntity1=orderServiceIpm.saveGetObject(orderbyEntity);
 
@@ -33,5 +34,6 @@ public class SaveOder {
         }
         salesboardServiceImp.saveList(salesboardEntities);
         productServiceIpm.saveList(productEntities);
+        throw new Exception();
     }
 }

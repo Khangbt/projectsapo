@@ -1,16 +1,15 @@
 package com.example.sapoproject.dto;
 
-import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.sql.Timestamp;
-import java.util.List;
 
 public class GetOrderDto {
     private int idOrder;
     private Integer idCustomer;
     private Timestamp dateSale;
-    private BigDecimal totalAmount;
-    private BigDecimal amountPaid;
-    private BigDecimal unpaidAmount;
+    private BigInteger totalAmount;
+    private BigInteger amountPaid;
+    private BigInteger unpaidAmount;
     private String namePayment;
     private Integer phoneNumber;
     private String nameCustomer;
@@ -39,27 +38,27 @@ public class GetOrderDto {
         this.dateSale = dateSale;
     }
 
-    public BigDecimal getTotalAmount() {
+    public BigInteger getTotalAmount() {
         return totalAmount;
     }
 
-    public void setTotalAmount(BigDecimal totalAmount) {
+    public void setTotalAmount(BigInteger totalAmount) {
         this.totalAmount = totalAmount;
     }
 
-    public BigDecimal getAmountPaid() {
+    public BigInteger getAmountPaid() {
         return amountPaid;
     }
 
-    public void setAmountPaid(BigDecimal amountPaid) {
+    public void setAmountPaid(BigInteger amountPaid) {
         this.amountPaid = amountPaid;
     }
 
-    public BigDecimal getUnpaidAmount() {
+    public BigInteger getUnpaidAmount() {
         return unpaidAmount;
     }
 
-    public void setUnpaidAmount(BigDecimal unpaidAmount) {
+    public void setUnpaidAmount(BigInteger unpaidAmount) {
         this.unpaidAmount = unpaidAmount;
     }
 

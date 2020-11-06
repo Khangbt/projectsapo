@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "orderby", schema = "pos")
+@Table(name = "orderby")
 public class OrderbyEntity {
     private int idorder;
     private Integer idcustomer;

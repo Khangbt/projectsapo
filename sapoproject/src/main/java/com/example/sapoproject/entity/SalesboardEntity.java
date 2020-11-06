@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "salesboard", schema = "pos")
+@Table(name = "salesboard")
 @IdClass(SalesboardEntityPK.class)
 public class SalesboardEntity {
     private int idorder;

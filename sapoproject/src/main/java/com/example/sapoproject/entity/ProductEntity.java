@@ -8,7 +8,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "product", schema = "pos")
+@Table(name = "product")
 public class ProductEntity {
     private int idproduct;
     private String nameProduct;

@@ -18,8 +18,8 @@ public interface SalesboardRepository extends CrudRepository<SalesboardEntity,In
             " FROM pos.product,pos.salesboard " +
             " where  salesboard.idproduct=product.idproduct and salesboard.idorder=?1 ",nativeQuery = true)
     List<Map<String,Object>> getNameproduuct(int id);
-    @Query(value = "SELECT product.idproduct as idProduct, product.name_product as nameProduct , salesboard.amount as amount,product.product_code as productCode ," +
-            " product.price as price FROM pos.product,pos.salesboard " +
-            " where  salesboard.idproduct=product.idproduct and salesboard.idorder=?1 ",nativeQuery = true)
+    @Query(value = "SELECT product.idproduct as idProduct, product.name_product as nameProduct , salesboard.quantity as amount,product.product_code as productCode ," +
+            " product.price as price FROM product,salesboard  " +
+            " where  salesboard.product_id=product.idproduct and salesboard.order_id=?1 ",nativeQuery = true)
     Page<Map<String,Object>> getNameCustomer(Pageable pageable, int id);
 }
